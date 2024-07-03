@@ -1,0 +1,52 @@
+@import "../../index.scss";
+
+aside {
+    width: 18%;
+    background-color: $background-color-components;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    overflow-y: auto;
+    .aside__title {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #000;
+        border-bottom: solid 1px #0000004f;
+
+    }
+
+    a {
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s;
+        color: #000;
+        width: 100%;
+    }
+    
+    ul {
+
+        li {
+            list-style: none;
+            padding: 30px;
+            
+            cursor: pointer;
+            transition: all 0.3s;
+
+            width: 100%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            &:hover {
+                background-color: #e1e1e1;
+            }
+        }
+    }
+
+    .reactIcon {
+        color: #000;
+        margin-right: 10px;
+        font-size: 2rem;
+    }
+}

@@ -1,0 +1,50 @@
+@import "../../index.scss";
+
+.form-message-post {
+  .wrapper-form {
+    display: flex;
+  }
+  .user-form-text {
+    width: 100%;
+  }
+
+  .user-avatar {
+    margin-right: 10px;
+  }
+
+  h1 {
+    color: #000;
+    margin: 0;
+    margin-bottom: 20px;
+  }
+  textarea {
+    width: 100%;
+    resize: none;
+    max-height: 200px;
+    font-size: 1.5rem;
+    padding: 10px;
+  }
+
+  .bottom-submit-message {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    button {
+      padding: 10px 20px;
+      font-size: 15px;
+    }
+  }
+
+  input[type="file"] {
+    display: none;
+  }
+
+  .custom-file-upload {
+    display: inline-block;
+    font-size: 22px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+  }
+}
