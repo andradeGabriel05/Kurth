@@ -12,14 +12,15 @@
     .user__details {
         display: flex;
         flex-direction: column;
+
+        .routes__profile {
+            display: flex;
+        }
     }
     .post__details {
         display: flex;
         justify-content: flex-start;
         height: fit-content;
-    }
-
-    span {
         margin-right: 10px;
     }
 

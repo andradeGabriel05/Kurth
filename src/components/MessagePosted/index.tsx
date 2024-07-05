@@ -1,30 +1,39 @@
-import { MessageDTO } from "../../models/message";
 import "./style.scss";
+
+import { Link } from "react-router-dom";
+import { MessageDTO } from "../../models/message";
 import { FaHeart, FaComment, FaShareSquare } from "react-icons/fa";
 
 type Props = {
-    message: MessageDTO;
-}
+  message: MessageDTO;
+};
 
 export default function MessagePosted({ message }: Props) {
   return (
     <div className="form__message__posted">
       <div className="user__image">
-        <a href="">
+        <Link to={`/profile/${message.username}`}>
           <img src={message.avatar} alt={message.author} />
-        </a>
+        </Link>
       </div>
       <div className="user__details">
-        <div className="post__details">
-          <span>{message.author}</span>
-          <span>{message.username}</span>
-          <span>{message.createdAt}</span>
+        <div className="routes__profile">
+          <div className="post__details">
+            <Link to={`/profile/${message.username}`} className="route__element">
+              <span>{message.author}</span>
+            </Link>
+          </div>
+          <div className="post__details">
+            <Link to={`/profile/${message.username}`} className="route__element">
+              <span>{message.username}</span>
+            </Link>
+          </div>
+          <div className="post__details">
+            <span>{message.createdAt}</span>
+          </div>
         </div>
-
         <div className="message">
-          <span>
-            {message.content}
-          </span>
+          <span>{message.content}</span>
         </div>
         <div className="reactions__message">
           <div className="reaction__comment reaction__icon">

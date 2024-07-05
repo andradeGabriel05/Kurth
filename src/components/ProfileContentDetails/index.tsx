@@ -1,14 +1,18 @@
 import { UserDTO } from "../../models/user";
 
-export default function ProfileContentDetails({ user }: { user: UserDTO }) {
+type Props = {
+  user: UserDTO;
+};
+
+export default function ProfileContentDetails({ user }: Props) {
   return (
     <div className="profile-content-details">
       <span>
-        {user.followers}{" "}
+        {user.followers}
         <span className="profile-content-details-text">Followers</span>
       </span>
       <span>
-        {user.following}{" "}
+        {user.following}
         <span className="profile-content-details-text">Following</span>
       </span>
     </div>

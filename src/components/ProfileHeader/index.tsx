@@ -1,6 +1,10 @@
 import { UserDTO } from "../../models/user";
 
-export default function ProfileHeader({ user }: { user: UserDTO }) {
+type Props = {
+  user: UserDTO;
+};
+
+export default function ProfileHeader({ user }: Props) {
   return (
     <div className="profile-header">
       <div className="profile-image">

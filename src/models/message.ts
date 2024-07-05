@@ -1,5 +1,3 @@
-import { UserDTO } from "./user";
-
 export type MessageDTO = {
     id: number;
     author: string;
@@ -7,5 +5,5 @@ export type MessageDTO = {
     username: string;
     content: string;
     createdAt: string;
-    user: UserDTO[];
+    id_user: number;
 }
