@@ -1,0 +1,25 @@
+.container-search {
+  margin: 0 auto;
+  border-right: 1px solid #f9f9f9f9;
+  border-left: 1px solid #f9f9f9f9;
+  width: 40%;
+
+  .wrapper-search {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    a {
+      
+    }
+
+    .user-icon {
+      margin: 20px;
+      .icon {
+        display: flex;
+        flex-direction: row !important;
+      }
+    }
+  }
+}

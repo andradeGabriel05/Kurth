@@ -4,6 +4,7 @@ export type MessageDTO = {
     avatar: string;
     username: string;
     content: string;
+    image: string,
     createdAt: string;
     id_user: number;
 }

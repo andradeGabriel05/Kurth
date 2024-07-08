@@ -1,0 +1,36 @@
+@import "../../../index.scss";
+
+.wrapper-message-user {
+  background-color: $background-color-components;
+  color: #242424;
+  margin: 0 auto;
+  width: 40%;
+
+  header {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding-right: 0;
+    padding-left: 0;
+    border-top: none !important;
+    border: solid 2px #2F3336;
+
+    a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 17px;
+      background-color: #242424;
+      color: #fff;
+      transition: all 0.3s;
+
+      &:hover {
+        background-color: #434343;
+        transition: all 0.3s;
+        cursor: pointer;
+      }
+    }
+  }
+}

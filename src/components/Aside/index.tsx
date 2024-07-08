@@ -10,9 +10,12 @@ import {
   FaBell,
   FaUser,
 } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
+import NavigationLink from "../NavigationLink";
 
 export default function Aside() {
+  const location = useLocation();
+
   return (
     <>
       <aside>
@@ -24,33 +27,63 @@ export default function Aside() {
         <div className="aside__nav">
           <ul>
             <li>
-              <FaHome className="reactIcon" />
-              <Link to="/home"> Home</Link>
+              <NavigationLink link="home">
+                <FaHome className="reactIcon" />
+                Home
+              </NavigationLink>
             </li>
             <li>
-              <FaSearch className="reactIcon" />
-              <a href=""> Search</a>
+              <NavigationLink link="search">
+                <FaSearch className="reactIcon" />
+                Search
+              </NavigationLink>
             </li>
             <li>
-              <FaCompass className="reactIcon" />
-              <a href=""> Explore</a>
+              <NavigationLink link="">
+                <FaCompass className="reactIcon" />
+                Explore
+              </NavigationLink>
             </li>
             <li>
-              <FaEnvelope className="reactIcon" />
-              <a href=""> Messages</a>
+              <NavLink
+                to={"/notfound" + location.search}
+                className={({ isActive }) =>
+                  isActive ? "nav-active" : "nav-not-active"
+                }
+              >
+                <FaEnvelope className="reactIcon" /> Messages
+              </NavLink>
             </li>
             <li>
-              <FaBell className="reactIcon" />
-              <a href=""> Notifications</a>
+              <NavLink
+                to={"/notfound" + location.search}
+                className={({ isActive }) =>
+                  isActive ? "nav-active" : "nav-not-active"
+                }
+              >
+                <FaBell className="reactIcon" /> Notifications
+              </NavLink>
             </li>
             <li>
-              <FaUser className="reactIcon" />
-              <Link to="/profile"> Profile</Link>
+              <NavLink
+                to={"/notfound" + location.search}
+                className={({ isActive }) =>
+                  isActive ? "nav-active" : "nav-not-active"
+                }
+              >
+                <FaUser className="reactIcon" /> Profile
+              </NavLink>
             </li>
 
             <li>
-              <FaEllipsis className="reactIcon" />
-              <a href=""> More</a>
+              <NavLink
+                to={"/notfound" + location.search}
+                className={({ isActive }) =>
+                  isActive ? "nav-active" : "nav-not-active"
+                }
+              >
+                <FaEllipsis className="reactIcon" /> More
+              </NavLink>
             </li>
           </ul>
         </div>

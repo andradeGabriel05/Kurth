@@ -6,13 +6,10 @@ import "./style.scss";
 export default function MessagePost() {
   return (
     <>
-      <section className="form-message-post">
-        <label htmlFor="messageText">
-          <h1>Post Message</h1>
-        </label>
+      <section className="form-message-post p18">
         <div className="wrapper-form">
           <div className="user-avatar">
-            <img src="https://thispersondoesnotexist.com/" alt="" />
+            <img src="https://thispersondoesnotexist.com/" alt="" className="icon"/>
           </div>
           <div className="user-form-text">
             <form action="" method="post">
