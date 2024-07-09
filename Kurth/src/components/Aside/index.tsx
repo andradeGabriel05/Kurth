@@ -19,11 +19,13 @@ export default function Aside() {
   return (
     <>
       <aside>
+        
         <div className="aside__title">
           <Link to="/">
             <h1>Kurth</h1>
           </Link>
         </div>
+
         <div className="aside__nav">
           <ul>
             <li>
@@ -39,7 +41,7 @@ export default function Aside() {
               </NavigationLink>
             </li>
             <li>
-              <NavigationLink link="">
+              <NavigationLink link="notfound">
                 <FaCompass className="reactIcon" />
                 Explore
               </NavigationLink>
