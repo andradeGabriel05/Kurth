@@ -17,9 +17,11 @@ export default function Home() {
         <MessagePost />
 
         {messageConst.findAll().map((message) => (
-          <Link to={"/username/" + message.id}>
-            <MessagePosted key={message.id} message={message} />
-          </Link>
+          <div className="message-posted">
+            <Link to={"/username/" + message.id}>
+              <MessagePosted key={message.id} message={message} />
+            </Link>
+          </div>
         ))}
       </div>
     </>

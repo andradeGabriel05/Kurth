@@ -1,5 +1,13 @@
 @import "../../../index.scss";
 
+.message-posted {
+  transition: all 0.3s;
+
+  &:hover {
+    transition: all 0.3s;
+    background-color: #d5d5d5c8;
+  }
+}
 .wrapper-message-user {
   background-color: $background-color-components;
   color: #242424;
@@ -14,7 +22,7 @@
     padding-right: 0;
     padding-left: 0;
     border-top: none !important;
-    border: solid 2px #2F3336;
+    border: solid 2px #2f3336;
 
     a {
       display: flex;

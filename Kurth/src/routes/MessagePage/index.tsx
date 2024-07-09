@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import * as MessageConst from "../../constants/message";
 import MessagePosted from "../../components/MessagePosted";
 import "./style.scss";
+import MessagePost from "../../components/MessagePost";
 
 export default function MessagePage() {
   const params = useParams();
@@ -16,38 +17,29 @@ export default function MessagePage() {
         <MessagePosted message={messageParam} />
       </div>
 
-      <div className="reply-message-page">
-        <div className="comments-message-page">
-          <form action="" method="post">
-            <textarea
-              name="messageText"
-              id="messageText"
-              placeholder="Write anything"
-            ></textarea>
-            <button type="submit">Submit</button>
-          </form>
-        </div>
+      <div className="post-message">
+        <MessagePost />
+      </div>
 
-        {/* For the future */}
+      {/* For the future */}
 
-        <div className="comments-list-message-page">
-          {/* Render comments */}
-          {/* Example comment */}
-          <div className="comment-item">
-            <div className="comment-avatar">
-              <img
-                src="https://thispersondoesnotexist.com/"
-                alt=""
-                className="icon"
-              />
-            </div>
-            <div className="comment-text">
-              <p>Example comment</p>
-            </div>
-            <div className="comment-action">
-              <button>Like</button>
-              <button>Reply</button>
-            </div>
+      <div className="comments-list-message-page">
+        {/* Render comments */}
+        {/* Example comment */}
+        <div className="comment-item">
+          <div className="comment-avatar">
+            <img
+              src="https://thispersondoesnotexist.com/"
+              alt=""
+              className="icon"
+            />
+          </div>
+          <div className="comment-text">
+            <p>Example comment</p>
+          </div>
+          <div className="comment-action">
+            <button>Like</button>
+            <button>Reply</button>
           </div>
         </div>
       </div>
