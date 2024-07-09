@@ -4,10 +4,11 @@
   display: flex;
   flex-direction: column;
   padding-bottom: 20px;
-  border-bottom: solid 1px #2F3336;
+  border-bottom: solid 1px #2f3336;
 
   .user-wrapper {
     display: flex;
+
 
     .user__image {
       margin-right: 10px;
@@ -33,46 +34,11 @@
 
   .message {
     margin: 10px 0;
-
   }
 
-  .reactions__message {
-    display: flex;
-    margin-top: 10px;
-    justify-content: space-between;
-  }
-
-  .reaction__icon {
-    font-size: 1.5rem;
-    transition: 0.3s all;
-  }
-
-  .reaction__like {
-    &:hover {
-      cursor: pointer;
-      color: #ff0000;
-      transition: 0.3s all;
-    }
-  }
-
-  .username, .messagedate {
+  .username,
+  .messagedate {
     color: #616161;
-  }
-
-  .reaction__comment {
-    &:hover {
-      cursor: pointer;
-      color: #1f9b00;
-      transition: 0.3s all;
-    }
-  }
-
-  .reaction__share {
-    &:hover {
-      cursor: pointer;
-      color: #0018d0;
-      transition: 0.3s all;
-    }
   }
 
   .image-posted img {

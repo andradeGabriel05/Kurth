@@ -1,6 +1,6 @@
 import "./style.scss";
 
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { MessageDTO } from "../../models/message";
 import Reaction from "../Reaction";
 
@@ -19,7 +19,6 @@ export default function MessagePosted({ message }: Props) {
     messageImage = "";
   }
   return (
-    <Link to={"/" + message.username + "/" + message.id}>
       <div className="form__message__posted p18">
         <div className="user-wrapper">
           <div className="user__image">
@@ -58,6 +57,5 @@ export default function MessagePosted({ message }: Props) {
           </div>
         </div>
       </div>
-    </Link>
   );
 }

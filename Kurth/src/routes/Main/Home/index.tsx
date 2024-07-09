@@ -9,13 +9,17 @@ export default function Home() {
     <>
       <div className="wrapper-message-user">
         <header>
-          <Link to="/home" className="wrapper-message-user-home">Home</Link>
+          <Link to="/home" className="wrapper-message-user-home">
+            Home
+          </Link>
           <Link to="/following">Following</Link>
         </header>
         <MessagePost />
 
         {messageConst.findAll().map((message) => (
-          <MessagePosted key={message.id} message={message} />
+          <Link to={"/username/" + message.id}>
+            <MessagePosted key={message.id} message={message} />
+          </Link>
         ))}
       </div>
     </>

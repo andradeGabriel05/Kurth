@@ -1,3 +1,5 @@
+import "./style.scss";
+
 import { FaShareSquare } from "react-icons/fa";
 import { FaComment, FaHeart } from "react-icons/fa6";
 

@@ -6,6 +6,7 @@ import Main from "./routes/Main/index.tsx";
 import NotFound from "./routes/NotFound/index.tsx";
 import Search from "./routes/Main/Search/index.tsx";
 import MessagePage from "./routes/MessagePage/index.tsx";
+// import * as User from "./constants" 
 
 export default function App() {
   return (
