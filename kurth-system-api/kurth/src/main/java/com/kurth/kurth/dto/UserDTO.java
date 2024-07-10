@@ -1,5 +1,6 @@
 package com.kurth.kurth.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.kurth.kurth.entities.User;
 
 import java.time.Instant;
@@ -11,6 +12,8 @@ public class UserDTO {
     private String name;
     private String username;
     private String email;
+
+
     private Instant createdAt;
     private String password;
     private String bio;

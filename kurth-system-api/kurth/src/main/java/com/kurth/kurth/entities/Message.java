@@ -1,10 +1,10 @@
 package com.kurth.kurth.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "tb_message")
@@ -17,7 +17,9 @@ public class Message {
     @Column(columnDefinition = "TEXT")
     private String message;
 
-    private LocalDate postedAt;
+    @JsonProperty("posted_at")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "UTC")
+    private Instant postedAt;
 
     private String image;
 
@@ -27,13 +29,16 @@ public class Message {
 
     public Message() {}
 
+    public Message(Long id, String message, Instant postedAt, String image, User user) {
+        this.id = id;
+        this.message = message;
+        this.postedAt = postedAt;
+        this.image = image;
+        this.user = user;
+    }
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getMessage() {
@@ -52,11 +57,11 @@ public class Message {
         this.user = user;
     }
 
-    public LocalDate getPostedAt() {
+    public Instant getPostedAt() {
         return postedAt;
     }
 
-    public void setPostedAt(LocalDate postedAt) {
+    public void setPostedAt(Instant postedAt) {
         this.postedAt = postedAt;
     }
 

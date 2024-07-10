@@ -24,6 +24,7 @@ public class MessageController {
     @PostMapping
     public ResponseEntity<MessageDTO> insert(@RequestBody MessageDTO messageDTO) {
         messageDTO = messageService.messageInsert(messageDTO);
+
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(messageDTO.getId()).toUri();
         return ResponseEntity.created(uri).body(messageDTO);
     }

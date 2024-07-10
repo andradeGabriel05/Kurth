@@ -1,5 +1,7 @@
 package com.kurth.kurth.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.kurth.kurth.entities.Message;
 
 import java.time.Instant;
@@ -11,13 +13,15 @@ public class MessageDTO {
 
     private String message;
 
-    private LocalDate postedAt;
+    @JsonProperty("posted_at")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "UTC")
+    private Instant postedAt;
 
     private String image;
 
     private UserDTO user;
 
-    public MessageDTO(Long id, String message, LocalDate postedAt, String image, UserDTO user) {
+    public MessageDTO(Long id, String message, Instant postedAt, String image, UserDTO user) {
         this.id = id;
         this.message = message;
         this.postedAt = postedAt;
@@ -41,7 +45,7 @@ public class MessageDTO {
         return message;
     }
 
-    public LocalDate getPostedAt() {
+    public Instant getPostedAt() {
         return postedAt;
     }
 
