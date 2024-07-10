@@ -1,9 +1,9 @@
 package com.kurth.kurth.dto;
 
-import com.kurth.kurth.entities.User;
-import jakarta.persistence.*;
+import com.kurth.kurth.entities.Message;
 
 import java.time.Instant;
+import java.time.LocalDate;
 
 public class MessageDTO {
 
@@ -11,18 +11,26 @@ public class MessageDTO {
 
     private String message;
 
-    private Instant postedAt;
+    private LocalDate postedAt;
 
     private String image;
 
-    private User user;
+    private UserDTO user;
 
-    public MessageDTO(Long id, String message, Instant postedAt, String image, User user) {
+    public MessageDTO(Long id, String message, LocalDate postedAt, String image, UserDTO user) {
         this.id = id;
         this.message = message;
         this.postedAt = postedAt;
         this.image = image;
         this.user = user;
+    }
+
+    public MessageDTO(Message message) {
+        this.id = message.getId();
+        this.message = message.getMessage();
+        this.postedAt = message.getPostedAt();
+        this.image = message.getImage();
+        this.user = new UserDTO(message.getUser());
     }
 
     public Long getId() {
@@ -33,7 +41,7 @@ public class MessageDTO {
         return message;
     }
 
-    public Instant getPostedAt() {
+    public LocalDate getPostedAt() {
         return postedAt;
     }
 
@@ -41,7 +49,7 @@ public class MessageDTO {
         return image;
     }
 
-    public User getUser() {
+    public UserDTO getUser() {
         return user;
     }
 }

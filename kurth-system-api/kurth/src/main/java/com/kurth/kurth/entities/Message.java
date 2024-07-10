@@ -3,6 +3,7 @@ package com.kurth.kurth.entities;
 import jakarta.persistence.*;
 
 import java.time.Instant;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -16,7 +17,7 @@ public class Message {
     @Column(columnDefinition = "TEXT")
     private String message;
 
-    private Instant postedAt;
+    private LocalDate postedAt;
 
     private String image;
 
@@ -26,11 +27,6 @@ public class Message {
 
     public Message() {}
 
-    public Message(Long id, String message, User user) {
-        this.id = id;
-        this.message = message;
-        this.user = user;
-    }
 
     public Long getId() {
         return id;
@@ -56,11 +52,11 @@ public class Message {
         this.user = user;
     }
 
-    public Instant getPostedAt() {
+    public LocalDate getPostedAt() {
         return postedAt;
     }
 
-    public void setPostedAt(Instant postedAt) {
+    public void setPostedAt(LocalDate postedAt) {
         this.postedAt = postedAt;
     }
 

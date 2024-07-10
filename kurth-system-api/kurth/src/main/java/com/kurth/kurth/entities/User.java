@@ -19,7 +19,6 @@ public class User {
     private String username;
     @Column(unique = true)
     private String email;
-    @Column(name = "createdAt")
     private Instant createdAt;
     private String password;
     private String bio;
