@@ -1,10 +1,10 @@
+import { UserDTO } from "./user";
+
 export type MessageDTO = {
     id: number;
-    author: string;
-    avatar: string;
-    username: string;
-    content: string;
-    image: string,
-    createdAt: string;
-    id_user: number;
+    message: string;
+    posted_at: string;
+    image: string;
+    user: UserDTO;
+
 }

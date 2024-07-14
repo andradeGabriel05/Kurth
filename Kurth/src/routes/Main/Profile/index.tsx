@@ -4,18 +4,32 @@ import ProfileContentDetails from "../../../components/ProfileContentDetails";
 import ProfileHeader from "../../../components/ProfileHeader";
 import { useParams } from "react-router-dom";
 import * as userConst from "../../../constants/user";
+import { UserDTO } from "../../../models/user";
+import { useEffect, useState } from "react";
 // import { user } from "../../constants/";
 
 export default function Profile() {
   const params = useParams();
-  const username = userConst.findByUsername(params.username as string);
+
+  const [user, setUser] = useState<UserDTO>();
+  useEffect(() => {
+    userConst
+      .findById(Number(params.userid))
+      .then((response) => {
+        console.log(response.data);
+        setUser(response.data);
+      })
+      .catch((error) => {
+        console.error("Error:", error.response.data);
+      });
+  }, [params.messageId]);
 
   return (
     <div className="profile-container">
-      {username && <ProfileHeader user={username} />}
+      {user && <ProfileHeader user={user} />}
       <div className="profile-content">
-        {username && <ProfileContentDetails user={username} />}
-        <ProfileContentActions />
+        {user && <ProfileContentDetails user={user} />}
+        {user && <ProfileContentActions />}
       </div>
     </div>
   );

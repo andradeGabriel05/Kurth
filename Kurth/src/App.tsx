@@ -21,7 +21,7 @@ export default function App() {
               <Route path="search" element={<Search />} />
               <Route path={`/:username/posts/:messageId`} element={<MessagePage />} />
 
-              <Route path="profile/:username" element={<Profile />} />
+              <Route path="profile/:userid" element={<Profile />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>

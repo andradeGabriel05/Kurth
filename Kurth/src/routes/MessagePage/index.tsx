@@ -1,20 +1,34 @@
-import { useParams } from "react-router-dom";
-import * as MessageConst from "../../constants/message";
+import { useNavigate, useParams } from "react-router-dom";
+import * as MessageService from "../../constants/message";
 import MessagePosted from "../../components/MessagePosted";
 import "./style.scss";
 import MessagePost from "../../components/MessagePost";
+import { useEffect, useState } from "react";
+import { MessageDTO } from "../../models/message";
 
 export default function MessagePage() {
   const params = useParams();
 
-  const messageId = parseInt(params.messageId as string);
+  const navigate = useNavigate();
 
-  const messageParam = MessageConst.findById(messageId);
+  const [message, setMessage] = useState<MessageDTO>();
+  useEffect(() => {
+    MessageService
+      .findById(Number(params.messageId))
+      .then((response) => {
+        console.log(response.data);
+        setMessage(response.data);
+      })
+      .catch((error) => {
+        console.error("Error:", error.response.data);
+        navigate(`/`);
+      });
+  }, []);
 
   return (
     <div className="wrapper-message">
       <div className="reaction-message-page">
-        <MessagePosted message={messageParam} />
+        {message && <MessagePosted message={message} />}
       </div>
 
       <div className="post-message">
@@ -24,7 +38,6 @@ export default function MessagePage() {
       {/* For the future */}
 
       <div className="comments-list-message-page">
-        {/* Render comments */}
         {/* Example comment */}
         <div className="comment-item">
           <div className="comment-avatar">
