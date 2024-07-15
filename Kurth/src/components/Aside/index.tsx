@@ -68,12 +68,12 @@ export default function Aside() {
             </li>
             <li>
               <NavLink
-                to={"/notfound" + location.search}
+                to={"/account" + location.search}
                 className={({ isActive }) =>
                   isActive ? "nav-active" : "nav-not-active"
                 }
               >
-                <FaUser className="reactIcon" /> Profile
+                <FaUser className="reactIcon" /> Login
               </NavLink>
             </li>
 

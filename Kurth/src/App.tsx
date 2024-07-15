@@ -5,7 +5,8 @@ import Home from "./routes/Main/Home/index.tsx";
 import Main from "./routes/Main/index.tsx";
 import NotFound from "./routes/NotFound/index.tsx";
 import Search from "./routes/Main/Search/index.tsx";
-import MessagePage from "./routes/MessagePage/index.tsx";
+import MessagePage from "./routes/Main/MessagePage/index.tsx";
+import Account from "./routes/User/Account/index.tsx";
 
 // import * as User from "./constants" 
 
@@ -19,11 +20,14 @@ export default function App() {
               <Route index element={<Home />} />
               <Route path="home" element={<Home />} />
               <Route path="search" element={<Search />} />
-              <Route path={`/:username/posts/:messageId`} element={<MessagePage />} />
+              <Route path={`/posts/:messageId`} element={<MessagePage />} />
 
               <Route path="profile/:userid" element={<Profile />} />
             </Route>
+            <Route path="account" element={<Account />} />
+
             <Route path="*" element={<NotFound />} />
+
           </Routes>
         </BrowserRouter>
       </div>
