@@ -14,7 +14,7 @@ export default function Profile() {
   const [user, setUser] = useState<UserDTO>();
   useEffect(() => {
     userConst
-      .findById(Number(params.userid))
+      .findByUsername(params.username as string)
       .then((response) => {
         console.log(response.data);
         setUser(response.data);
@@ -22,7 +22,7 @@ export default function Profile() {
       .catch((error) => {
         console.error("Error:", error.response.data);
       });
-  }, [params.messageId]);
+  }, []);
 
   return (
     <div className="profile-container">

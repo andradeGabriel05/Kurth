@@ -45,12 +45,12 @@ public class UserService {
         return new UserDTO(user);
     }
 
-//    @Transactional(readOnly = true)
-//    public UserDTO findByUsername(String username) {
-//        User user = userRepository.findByUsername(username).get();
-//
-//        return new UserDTO(user);
-//    }
+    @Transactional(readOnly = true)
+    public UserDTO findByUsername(String username) {
+        User user = userRepository.findByUsername(username).get();
+
+        return new UserDTO(user);
+    }
 
     @Transactional(readOnly = true)
     public Page<UserDTO> findAll(Pageable pageable) {

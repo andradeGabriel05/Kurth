@@ -20,9 +20,9 @@ export default function App() {
               <Route index element={<Home />} />
               <Route path="home" element={<Home />} />
               <Route path="search" element={<Search />} />
-              <Route path={`/posts/:messageId`} element={<MessagePage />} />
+              <Route path={`:username/posts/:messageId`} element={<MessagePage />} />
 
-              <Route path="profile/:userid" element={<Profile />} />
+              <Route path=":username" element={<Profile />} />
             </Route>
             <Route path="account" element={<Account />} />
 

@@ -28,7 +28,7 @@ export default function Home() {
 
       {message.map((message) => (
         <div className="message-posted">
-          <Link to={`/posts/${message.id}`}>
+          <Link to={`${message.user.username}/posts/${message.id}`}>
             <MessagePosted key={message.id} message={message} />
           </Link>
         </div>

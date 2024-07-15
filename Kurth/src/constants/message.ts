@@ -9,6 +9,3 @@ export function findById(id: number) {
   return axios.get(`${BASE_URL}/message/${id}`);
 }
 
-export function findByUsername(username: string) {
-  return axios.get(`${BASE_URL}/message/${username}`);
-}

@@ -34,10 +34,10 @@ public class UserController {
         return userService.findById(id);
     }
 
-//    @GetMapping(value = "/{username}")
-//    public UserDTO findByUsername(@PathVariable String username) {
-//        return userService.findByUsername(username);
-//    }
+    @GetMapping(value = "/username/{username}")
+    public UserDTO findByUsername(@PathVariable String username) {
+        return userService.findByUsername(username);
+    }
 
     @GetMapping
     public ResponseEntity<Page<UserDTO>> findAll(Pageable pageable) {
