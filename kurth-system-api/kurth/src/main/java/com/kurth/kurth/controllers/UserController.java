@@ -2,7 +2,9 @@ package com.kurth.kurth.controllers;
 
 
 import com.kurth.kurth.dto.UserDTO;
+import com.kurth.kurth.entities.User;
 import com.kurth.kurth.services.UserService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -41,6 +43,18 @@ public class UserController {
     public ResponseEntity<Page<UserDTO>> findAll(Pageable pageable) {
         Page<UserDTO> userDTO = userService.findAll(pageable);
         return ResponseEntity.ok(userDTO);
+    }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<UserDTO> update(@PathVariable Long id,@RequestBody UserDTO userDTO) {
+        userDTO = userService.update(id, userDTO);
+        return ResponseEntity.ok(userDTO);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        userService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 
 

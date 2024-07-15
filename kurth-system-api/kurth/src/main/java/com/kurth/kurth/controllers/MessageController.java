@@ -20,15 +20,7 @@ public class MessageController {
     @Autowired
     private MessageService messageService;
 
-    @PostMapping
-    public ResponseEntity<MessageDTO> insert(@RequestBody MessageDTO messageDTO) {
-        messageDTO = messageService.newMessage(messageDTO);
 
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(messageDTO.getId()).toUri();
-        return ResponseEntity.created(uri).body(messageDTO);
-    }
-
-    @CrossOrigin(origins = "http://localhost:5173")
     @GetMapping(value = "/{id}")
     public MessageDTO findById(@PathVariable Long id) {
         return messageService.findById(id);
@@ -39,4 +31,27 @@ public class MessageController {
         Page<MessageDTO> messageDTO = messageService.findAll(pageable);
         return ResponseEntity.ok(messageDTO);
     }
+
+    @PostMapping
+    public ResponseEntity<MessageDTO> insert(@RequestBody MessageDTO messageDTO) {
+        messageDTO = messageService.newMessage(messageDTO);
+
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(messageDTO.getId()).toUri();
+        return ResponseEntity.created(uri).body(messageDTO);
+    }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<MessageDTO> update(@PathVariable Long id, @RequestBody MessageDTO messageDTO) {
+        messageDTO = messageService.update(id, messageDTO);
+        return ResponseEntity.ok(messageDTO);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        messageService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
+
+
 }
