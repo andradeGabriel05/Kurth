@@ -23,8 +23,16 @@ export default function Account() {
           <h1>Create account</h1>
           <form>
             <div className="form-group">
-              <label htmlFor="username">Username</label>
-              <input type="text" id="username" />
+              <div className="name-oder">
+                <div className="name">
+                  <label htmlFor="name">Name</label>
+                  <input type="text" id="name" />
+                </div>
+                <div className="username">
+                  <label htmlFor="username">Username</label>
+                  <input type="text" id="username" />
+                </div>
+              </div>
             </div>
             <div className="form-group">
               <label htmlFor="email">Email</label>

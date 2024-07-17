@@ -2,6 +2,8 @@ package com.kurth.kurth.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.kurth.kurth.entities.User;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 import java.time.Instant;
 
@@ -9,10 +11,16 @@ public class UserDTO {
 
     private Long id;
 
+//    @NotBlank
+//    @Size(min = 3, max = 15)
     private String name;
-    private String username;
-    private String email;
 
+//    @NotBlank
+//    @Size(min = 3, max = 15)
+    private String username;
+
+//    @NotBlank
+    private String email;
 
     private Instant createdAt;
     private String password;

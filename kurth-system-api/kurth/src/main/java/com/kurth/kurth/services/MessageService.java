@@ -1,6 +1,7 @@
 package com.kurth.kurth.services;
 
 import com.kurth.kurth.dto.MessageDTO;
+import com.kurth.kurth.dto.UserDTO;
 import com.kurth.kurth.entities.Message;
 import com.kurth.kurth.entities.User;
 import com.kurth.kurth.repositories.MessageRepository;
@@ -13,6 +14,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 public class MessageService {
@@ -35,6 +38,12 @@ public class MessageService {
         message = messageRepository.save(message);
         return new MessageDTO(message);
 
+    }
+
+    @Transactional(readOnly = true)
+    public List<MessageDTO> findAllUserMessages(String username) {
+        List<Message> messages = messageRepository.findAllUserMessages(username);
+        return messages.stream().map(x -> new MessageDTO(x)).toList();
     }
 
     @Transactional(readOnly = true)

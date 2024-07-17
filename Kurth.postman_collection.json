@@ -46,13 +46,34 @@
 			"response": []
 		},
 		{
+			"name": "Messages by User",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/message/user_messages/@aliceinwonderland",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"message",
+						"user_messages",
+						"@aliceinwonderland"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "New message",
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"message\": \"Uma mensagem nova novanovanova\",\r\n    \"posted_at\": \"2022-12-21T15:00:00Z\",\r\n    \"image\": null,\r\n    \"user\": {\r\n        \"id\": 5\r\n    }\r\n}\r\n",
+					"raw": "{\r\n    \"message\": \"Uma mensagem nova novanovanova\",\r\n    \"postedAt\": \"2022-12-21T15:00:00Z\",\r\n    \"image\": \"\",\r\n    \"user\": {\r\n        \"id\": 7\r\n    }\r\n}\r\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -142,12 +163,12 @@
 			"response": []
 		},
 		{
-			"name": "User by id",
+			"name": "Users by username",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/user/1",
+					"raw": "http://localhost:8080/user/username/@thispersondoesnotexist",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -155,7 +176,28 @@
 					"port": "8080",
 					"path": [
 						"user",
-						"1"
+						"username",
+						"@thispersondoesnotexist"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/user/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"4"
 					]
 				}
 			},
@@ -204,7 +246,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/user/1",
+					"raw": "http://localhost:8080/user/4",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -212,7 +254,7 @@
 					"port": "8080",
 					"path": [
 						"user",
-						"1"
+						"4"
 					]
 				}
 			},
@@ -224,7 +266,7 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/user/6",
+					"raw": "http://localhost:8080/user/4",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -232,7 +274,7 @@
 					"port": "8080",
 					"path": [
 						"user",
-						"6"
+						"4"
 					]
 				}
 			},

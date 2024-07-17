@@ -23,8 +23,6 @@ public class User {
     @Column(unique = true)
     private String email;
 
-    @JsonProperty("created_at")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "UTC")
     private Instant createdAt;
     private String password;
     private String bio;

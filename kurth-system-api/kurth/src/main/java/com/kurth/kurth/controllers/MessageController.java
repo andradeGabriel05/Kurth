@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/message")
@@ -30,6 +31,12 @@ public class MessageController {
     public ResponseEntity<Page<MessageDTO>> findAll(Pageable pageable) {
         Page<MessageDTO> messageDTO = messageService.findAll(pageable);
         return ResponseEntity.ok(messageDTO);
+    }
+
+
+    @GetMapping(value = "/user_messages/{username}")
+    public List<MessageDTO> findAllUserMessages(@PathVariable String username) {
+        return messageService.findAllUserMessages(username);
     }
 
     @PostMapping

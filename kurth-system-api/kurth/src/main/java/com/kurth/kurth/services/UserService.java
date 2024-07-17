@@ -58,11 +58,11 @@ public class UserService {
         return user.map(x -> new UserDTO(x));
     }
 
+
+
     @Transactional
     public UserDTO update(Long id, UserDTO userDTO) {
-        if(!messageRepository.existsById(id)) {
-            throw new EntityNotFoundException("Id user not found");
-        }
+
 
         User user = userRepository.findById(id).get();
 

@@ -12,6 +12,14 @@
     margin-bottom: 1rem;
   }
 
+  .profile-message-posted {
+    margin: 10px 0;
+    &:hover {
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+    }
+  }
+
   .profile-image {
     width: 150px;
     height: 150px;
@@ -68,22 +76,22 @@
     margin-bottom: 1rem;
   }
 
-.profile-content-actions {
+  .profile-content-actions {
     display: flex;
     justify-content: space-between;
     margin-top: 1rem;
 
     form {
-        display: flex;
+      display: flex;
 
-        button {
-            border: none;
-            padding: 10px 15px;
-            border-radius: 10px;
-            margin-right: 10px;
-            font-size: .9rem;
-            cursor: pointer;
-        }
+      button {
+        border: none;
+        padding: 10px 15px;
+        border-radius: 10px;
+        margin-right: 10px;
+        font-size: 0.9rem;
+        cursor: pointer;
+      }
     }
-}
+  }
 }

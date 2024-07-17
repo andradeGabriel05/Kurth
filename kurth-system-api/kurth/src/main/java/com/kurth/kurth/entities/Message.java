@@ -17,15 +17,13 @@ public class Message {
     @Column(columnDefinition = "TEXT")
     private String message;
 
-    @JsonProperty("posted_at")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "UTC")
     private Instant postedAt;
 
     private String image;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-        private User user;
+    private User user;
 
     public Message() {}
 
