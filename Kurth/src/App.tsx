@@ -8,29 +8,28 @@ import Search from "./routes/Main/Search/index.tsx";
 import MessagePage from "./routes/Main/MessagePage/index.tsx";
 import Account from "./routes/User/Account/index.tsx";
 
-// import * as User from "./constants" 
+// import * as User from "./constants"
 
 export default function App() {
   return (
-    <>
-      <div className="container">
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Main />}>
-              <Route index element={<Home />} />
-              <Route path="home" element={<Home />} />
-              <Route path="search" element={<Search />} />
-              <Route path={`:username/posts/:messageId`} element={<MessagePage />} />
+    <div className="container">
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Main />}>
+            <Route index element={<Home />} />
+            <Route path="home" element={<Home />} />
+            <Route path="search" element={<Search />} />
+            <Route
+              path={`:username/posts/:messageId`}
+              element={<MessagePage />}
+            />
 
-              <Route path=":username" element={<Profile />} />
-            </Route>
-            <Route path="account" element={<Account />} />
-
-            <Route path="*" element={<NotFound />} />
-
-          </Routes>
-        </BrowserRouter>
-      </div>
-    </>
+            <Route path="profile/:username" element={<Profile />} />
+          </Route>
+          <Route path="account" element={<Account />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </BrowserRouter>
+    </div>
   );
 }

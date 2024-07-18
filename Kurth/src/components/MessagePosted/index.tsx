@@ -15,7 +15,7 @@ export default function MessagePosted({ message }: Props) {
     <div className="form__message__posted p18">
       <div className="user-wrapper">
         <div className="user__image">
-          <Link to={`/${message.user.username}`}>
+          <Link to={`/profile/${message.user.username}`}>
             <img src={message.user.avatar} alt={message.user.name} className="icon" />
           </Link>
         </div>
@@ -23,7 +23,7 @@ export default function MessagePosted({ message }: Props) {
           <div className="routes__profile">
             <div className="post__details">
               <Link
-                to={`/${message.user.username}`}
+                to={`/profile/${message.user.username}`}
                 className="route__element"
               >
                 <span>{message.user.name}</span>
@@ -31,14 +31,14 @@ export default function MessagePosted({ message }: Props) {
             </div>
             <div className="post__details">
               <Link
-                to={`/${message.user.username}`}
+                to={`/profile/${message.user.username}`}
                 className="route__element"
               >
                 <span className="username">{message.user.username}</span>
               </Link>
             </div>
             <div className="post__details">
-              <span className="messagedate">{message.posted_at}</span>
+              <span className="messagedate">{message.postedAt}</span>
             </div>
           </div>
           <div className="message">

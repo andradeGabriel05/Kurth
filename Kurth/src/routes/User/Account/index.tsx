@@ -15,8 +15,10 @@ export default function Account() {
             <h1>Kurth</h1>
           </Link>
         </div>
-        <p>For the future!!!!!!!!!!!!!!</p>
-        <p>Page not working!!!!!!!!!!!!</p>
+        <div className="delete">
+          <p>For the future!!!!!!!!!!!!!!</p>
+          <p>Page not working!!!!!!!!!!!!</p>
+        </div>
       </div>
       <div className="right-side">
         <div className="right-side-content">
