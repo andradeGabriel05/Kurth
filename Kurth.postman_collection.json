@@ -12,7 +12,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/message",
+					"raw": "http://localhost:8080/message?page=0&size=6&sort=id,desc",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -20,6 +20,20 @@
 					"port": "8080",
 					"path": [
 						"message"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "6"
+						},
+						{
+							"key": "sort",
+							"value": "id,desc"
+						}
 					]
 				}
 			},
@@ -73,7 +87,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"message\": \"Uma mensagem nova novanovanova\",\r\n    \"postedAt\": \"2022-12-21T15:00:00Z\",\r\n    \"image\": \"\",\r\n    \"user\": {\r\n        \"id\": 3\r\n    }\r\n}\r\n",
+					"raw": "{\r\n    \"message\": \"Uma mensagem nova novanovanova\",\r\n    \"postedAt\": \"2022-12-21T15:00:00Z\",\r\n    \"image\": \"\",\r\n    \"user\": {\r\n        \"id\": 10\r\n    }\r\n}\r\n",
 					"options": {
 						"raw": {
 							"language": "json"
