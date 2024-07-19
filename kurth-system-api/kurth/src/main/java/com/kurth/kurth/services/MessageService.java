@@ -6,8 +6,11 @@ import com.kurth.kurth.entities.Message;
 import com.kurth.kurth.entities.User;
 import com.kurth.kurth.repositories.MessageRepository;
 import com.kurth.kurth.repositories.UserRepository;
+import com.kurth.kurth.services.exceptions.DatabaseException;
+import com.kurth.kurth.services.exceptions.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -26,19 +29,7 @@ public class MessageService {
     @Autowired
     private UserRepository userRepository;
 
-    @Transactional
-    public MessageDTO newMessage(MessageDTO messageDTO) {
-        Message message = new Message();
 
-        copyDtoToEntity(messageDTO, message);
-
-        User user = userRepository.getReferenceById(messageDTO.getUser().getId());
-
-        message.setUser(user);
-        message = messageRepository.save(message);
-        return new MessageDTO(message);
-
-    }
 
     @Transactional(readOnly = true)
     public List<MessageDTO> findAllUserMessages(String username) {
@@ -48,10 +39,9 @@ public class MessageService {
 
     @Transactional(readOnly = true)
     public MessageDTO findById(Long id) {
-        if(!messageRepository.existsById(id)) {
-            throw new EntityNotFoundException("Id user not found");
-        }
-        Message message = messageRepository.findById(id).get();
+
+        Message message = messageRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Resource not found"));
+
         return new MessageDTO(message);
     }
 
@@ -62,11 +52,28 @@ public class MessageService {
     }
 
     @Transactional
+    public MessageDTO newMessage(MessageDTO messageDTO) {
+
+        try {
+            Message message = new Message();
+
+            copyDtoToEntity(messageDTO, message);
+
+            User user = userRepository.getReferenceById(messageDTO.getUser().getId());
+
+            message.setUser(user);
+            message = messageRepository.save(message);
+            return new MessageDTO(message);
+        } catch (DataIntegrityViolationException e) {
+                throw new DatabaseException("[Service] Integrity violation: User may not exist");
+            }
+    }
+
+    @Transactional
     public MessageDTO update(Long id, MessageDTO messageDTO) {
         if(!messageRepository.existsById(id)) {
-            throw new EntityNotFoundException("Id message not found");
+            throw new ResourceNotFoundException("Id message not found");
         }
-
         Message message = messageRepository.getReferenceById(id);
 
         copyDtoToEntity(messageDTO, message);
@@ -78,11 +85,16 @@ public class MessageService {
     @Transactional
     public ResponseEntity<Void> delete(Long id) {
         if(!messageRepository.existsById(id)) {
-            throw new EntityNotFoundException("Id message not found");
+            throw new ResourceNotFoundException("Id message not found");
         }
+        try {
 
         messageRepository.deleteById(id);
         return ResponseEntity.noContent().build();
+        } catch (EntityNotFoundException e) {
+            throw new ResourceNotFoundException("Resource not found");
+        }
+
     }
 
     private void copyDtoToEntity(MessageDTO messageDTO, Message message) {

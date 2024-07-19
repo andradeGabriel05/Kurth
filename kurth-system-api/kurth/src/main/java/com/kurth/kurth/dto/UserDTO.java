@@ -11,15 +11,15 @@ public class UserDTO {
 
     private Long id;
 
-//    @NotBlank
-//    @Size(min = 3, max = 15)
+    @NotBlank
+    @Size(min = 3, max = 15)
     private String name;
 
-//    @NotBlank
-//    @Size(min = 3, max = 15)
+    @NotBlank
+    @Size(min = 3, max = 18)
     private String username;
 
-//    @NotBlank
+    @NotBlank
     private String email;
 
     private Instant createdAt;

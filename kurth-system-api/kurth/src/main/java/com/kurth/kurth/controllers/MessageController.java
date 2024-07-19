@@ -4,6 +4,7 @@ import com.kurth.kurth.dto.MessageDTO;
 import com.kurth.kurth.dto.UserDTO;
 import com.kurth.kurth.services.MessageService;
 import com.kurth.kurth.services.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -40,7 +41,7 @@ public class MessageController {
     }
 
     @PostMapping
-    public ResponseEntity<MessageDTO> insert(@RequestBody MessageDTO messageDTO) {
+    public ResponseEntity<MessageDTO> insert(@Valid @RequestBody MessageDTO messageDTO) {
         messageDTO = messageService.newMessage(messageDTO);
 
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(messageDTO.getId()).toUri();

@@ -24,7 +24,7 @@ export default function Home() {
         </Link>
         <Link to="/following">Following</Link>
       </header>
-      <MessagePost />
+      <MessagePost message="Write anything"/>
 
       {message.map((message) => (
         <div className="message-posted">

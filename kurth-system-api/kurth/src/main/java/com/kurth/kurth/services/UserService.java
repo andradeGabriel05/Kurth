@@ -6,6 +6,7 @@ import com.kurth.kurth.entities.Message;
 import com.kurth.kurth.entities.User;
 import com.kurth.kurth.repositories.MessageRepository;
 import com.kurth.kurth.repositories.UserRepository;
+import com.kurth.kurth.services.exceptions.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -26,20 +27,10 @@ public class UserService {
     @Autowired
     private MessageRepository messageRepository;
 
-    public UserDTO newUser(UserDTO userDTO) {
-        User user = new User();
-
-        copyDtoToEntity(userDTO, user);
-
-        user = userRepository.save(user);
-        return new UserDTO(user);
-
-    }
-
     @Transactional(readOnly = true)
     public UserDTO findById(Long id) {
         if(!userRepository.existsById(id)) {
-            throw new EntityNotFoundException("Id user not found");
+            throw new ResourceNotFoundException("Id user not found");
         }
         User user = userRepository.findById(id).get();
         return new UserDTO(user);
@@ -59,11 +50,23 @@ public class UserService {
     }
 
 
+    @Transactional
+    public UserDTO newUser(UserDTO userDTO) {
+        User user = new User();
+
+        copyDtoToEntity(userDTO, user);
+
+        user = userRepository.save(user);
+        return new UserDTO(user);
+
+    }
+
 
     @Transactional
     public UserDTO update(Long id, UserDTO userDTO) {
-
-
+        if(!userRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Id user not found");
+        }
         User user = userRepository.findById(id).get();
 
         copyDtoToEntity(userDTO, user);
@@ -75,7 +78,7 @@ public class UserService {
     @Transactional (propagation = Propagation.SUPPORTS)
     public ResponseEntity<Void> delete(Long id) {
         if(!userRepository.existsById(id)) {
-            throw new EntityNotFoundException("Id user not found");
+            throw new ResourceNotFoundException("Id user not found");
         }
 
         userRepository.deleteById(id);

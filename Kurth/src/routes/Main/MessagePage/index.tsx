@@ -33,7 +33,7 @@ export default function MessagePage() {
       </div>
 
       <div className="post-message">
-        <MessagePost />
+        <MessagePost message="Post your reply" />
       </div>
 
       {/* For the future */}

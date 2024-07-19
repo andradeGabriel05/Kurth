@@ -2,8 +2,11 @@ import { FaImage } from "react-icons/fa6";
 import "./style.scss";
 // import { user } from "../../constants/user";
 
+type Props = {
+  message: string;
+}
 
-export default function MessagePost() {
+export default function MessagePost({message}: Props) {
   return (
     <>
       <section className="form-message-post p18">
@@ -16,7 +19,7 @@ export default function MessagePost() {
               <textarea
                 name="messageText"
                 id="messageText"
-                placeholder="Write anything"
+                placeholder={`${message}`}
               ></textarea>
               <div className="bottom-submit-message">
                 <div className="add-media">

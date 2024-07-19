@@ -3,6 +3,8 @@ package com.kurth.kurth.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.kurth.kurth.entities.Message;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -11,6 +13,8 @@ public class MessageDTO {
 
     private Long id;
 
+    @Size(max = 280, message = "The message must have a maximum of 280 characters.")
+    @NotBlank(message = "Message cannot be null.")
     private String message;
 
     private Instant postedAt;
