@@ -2,7 +2,7 @@ import axios from "axios";
 import { BASE_URL } from "../utils/system";
 
 export function findAll() {
-  return axios.get(`${BASE_URL}/message?size=12`);
+  return axios.get(`${BASE_URL}/message?page=0&size=12&sort=id,desc`);
 }
 
 export function findById(id: number) {

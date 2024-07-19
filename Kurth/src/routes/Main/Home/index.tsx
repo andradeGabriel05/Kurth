@@ -15,7 +15,6 @@ export default function Home() {
       setMessage(response.data.content);
     });
   }, []);
-
   return (
     <div className="wrapper-message-user">
       <header>

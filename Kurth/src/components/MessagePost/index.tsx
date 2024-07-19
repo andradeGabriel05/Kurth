@@ -1,25 +1,64 @@
 import { FaImage } from "react-icons/fa6";
 import "./style.scss";
-// import { user } from "../../constants/user";
+import axios from "axios";
+import { BASE_URL } from "../../utils/system";
+import { useState } from "react";
 
 type Props = {
   message: string;
-}
+};
 
-export default function MessagePost({message}: Props) {
+export default function MessagePost({ message }: Props) {
+  const [messageForm, setMessageForm] = useState();
+
+  // must improve this in the future
+  const currentDate = new Date().toISOString(); // actual date to iso 8601 format 
+
+  function handleSubmit(event: any) {
+    event.preventDefault();
+    axios
+      .post(`${BASE_URL}/message`, {
+        message: messageForm,
+        postedAt: currentDate,
+        image: "",
+        user: {
+          id: 1,
+        },
+      })
+      .then((response) => {
+        console.log("Message posted:", response.data);
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }
+
+  function handleInput(event: any) {
+    const value = event.target.value;
+    setMessageForm(value);
+    console.log("Message posted:", value);
+  }
+
   return (
     <>
       <section className="form-message-post p18">
         <div className="wrapper-form">
           <div className="user-avatar">
-            <img src="https://thispersondoesnotexist.com/" alt="" className="icon"/>
+            <img
+              src="https://thispersondoesnotexist.com/"
+              alt=""
+              className="icon"
+            />
           </div>
           <div className="user-form-text">
-            <form action="" method="post">
+            <form method="post" onSubmit={handleSubmit}>
               <textarea
                 name="messageText"
                 id="messageText"
                 placeholder={`${message}`}
+                onChange={handleInput}
+                value={messageForm}
               ></textarea>
               <div className="bottom-submit-message">
                 <div className="add-media">
