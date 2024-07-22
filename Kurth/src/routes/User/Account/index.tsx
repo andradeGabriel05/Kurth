@@ -1,5 +1,31 @@
 import { Link } from "react-router-dom";
 import "./style.scss";
+import axios from "axios";
+import { BASE_URL, currentDate } from "../../../utils/system";
+
+function handleSubmit(event: any) {
+  event.preventDefault();
+  axios
+    .post(`${BASE_URL}/user`, {
+      name: "John Doe",
+      username: "@JhonDoee",
+      email: "john.doe@example.com",
+      createdAt: currentDate,
+      password: "password123",
+      bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel velit at justo tincidunt posuere eu in nunc. Sed gravida, nunc a ullamcorper viverra, metus erat consectetur libero, in consectetur neque risus vel velit.",
+      avatar: "https://thispersondoesnotexist.com/",
+      followers: 0,
+      following: 0,
+      posts: 0,
+    })
+    .then((response) => {
+      console.log("User created:", response.data);
+      window.location.reload();
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+}
 
 export default function Account() {
   return (
@@ -23,7 +49,8 @@ export default function Account() {
       <div className="right-side">
         <div className="right-side-content">
           <h1>Create account</h1>
-          <form>
+
+          <form onSubmit={handleSubmit}>
             <div className="form-group">
               <div className="name-oder">
                 <div className="name">

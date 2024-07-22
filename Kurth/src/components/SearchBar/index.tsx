@@ -1,11 +1,32 @@
+import { useState } from "react";
 import "./style.scss";
 
-export default function SearchBar() {
+type Props = {
+  onSearch: Function;
+};
+
+export default function SearchBar({ onSearch }: Props) {
+  const [text, setText] = useState("");
+
+  function handleSubmit(event: any) {
+    event.preventDefault();
+    onSearch(text);
+  }
+
+  function handleChange(event: any) {
+    setText(event.target.value);
+  }
+
   return (
-      <div className="wrapper-explore-form">
-        <form action="" method="post">
-          <input type="search" placeholder="Search" />
-        </form>
-      </div>
+    <div className="wrapper-explore-form">
+      <form onSubmit={handleSubmit}>
+        <input
+          value={text}
+          type="search"
+          placeholder="Search"
+          onChange={handleChange}
+        />
+      </form>
+    </div>
   );
 }

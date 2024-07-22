@@ -1,4 +1,5 @@
 import { FaEnvelope } from "react-icons/fa6";
+import "./style.scss";
 
 export default function ProfileContentActions() {
   return (

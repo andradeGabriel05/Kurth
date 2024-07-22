@@ -1,7 +1,7 @@
 import { FaImage } from "react-icons/fa6";
 import "./style.scss";
 import axios from "axios";
-import { BASE_URL } from "../../utils/system";
+import { BASE_URL, currentDate } from "../../utils/system";
 import { useState } from "react";
 
 type Props = {
@@ -12,7 +12,6 @@ export default function MessagePost({ message }: Props) {
   const [messageForm, setMessageForm] = useState();
 
   // must improve this in the future
-  const currentDate = new Date().toISOString(); // actual date to iso 8601 format 
 
   function handleSubmit(event: any) {
     event.preventDefault();
