@@ -21,13 +21,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping
-    public ResponseEntity<UserDTO> insert(@RequestBody UserDTO userDTO) {
-        userDTO = userService.newUser(userDTO);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(userDTO.getId()).toUri();
-        return ResponseEntity.created(uri).body(userDTO);
-
-    }
 
     @GetMapping(value = "/{id}")
     public UserDTO findById(@PathVariable Long id) {
@@ -41,9 +34,19 @@ public class UserController {
 
 
     @GetMapping
-    public ResponseEntity<Page<UserDTO>> findAll(Pageable pageable) {
-        Page<UserDTO> userDTO = userService.findAll(pageable);
+    public ResponseEntity<Page<UserDTO>> findAll(
+            @RequestParam(name = "name", defaultValue = "")
+            String name, Pageable pageable) {
+
+        Page<UserDTO> userDTO = userService.findAll(name, pageable);
         return ResponseEntity.ok(userDTO);
+    }
+
+    @PostMapping
+    public ResponseEntity<UserDTO> insert(@RequestBody UserDTO userDTO) {
+        userDTO = userService.newUser(userDTO);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(userDTO.getId()).toUri();
+        return ResponseEntity.created(uri).body(userDTO);
     }
 
     @PutMapping(value = "/{id}")

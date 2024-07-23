@@ -6,9 +6,11 @@ import com.kurth.kurth.entities.Message;
 import com.kurth.kurth.entities.User;
 import com.kurth.kurth.repositories.MessageRepository;
 import com.kurth.kurth.repositories.UserRepository;
+import com.kurth.kurth.services.exceptions.DatabaseException;
 import com.kurth.kurth.services.exceptions.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -24,8 +26,6 @@ import java.util.List;
 public class UserService {
     @Autowired
     private UserRepository userRepository;
-    @Autowired
-    private MessageRepository messageRepository;
 
     @Transactional(readOnly = true)
     public UserDTO findById(Long id) {
@@ -44,20 +44,25 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public Page<UserDTO> findAll(Pageable pageable) {
-        Page<User> user = userRepository.findAll(pageable);
+    public Page<UserDTO> findAll(String name, Pageable pageable) {
+        Page<User> user = userRepository.searchByName(name, pageable);
         return user.map(x -> new UserDTO(x));
     }
 
 
     @Transactional
     public UserDTO newUser(UserDTO userDTO) {
+        try {
+
         User user = new User();
 
         copyDtoToEntity(userDTO, user);
 
         user = userRepository.save(user);
         return new UserDTO(user);
+        } catch (DataIntegrityViolationException e) {
+            throw new DatabaseException("[Service] Integrity violation. Username or email address already exists");
+        }
 
     }
 
