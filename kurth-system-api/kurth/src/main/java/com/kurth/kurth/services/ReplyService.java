@@ -29,4 +29,10 @@ public class ReplyService {
         return replies.map(rep -> new ReplyDTO(rep));
     }
 
+    @Transactional(readOnly = true)
+    public Page<ReplyDTO> findAllByMessageId(Long id, Pageable pageable) {
+        Page<Reply> replies = replyRepository.findAllByMessageId(id, pageable);
+        return replies.map(rep -> new ReplyDTO(rep));
+    }
+
 }

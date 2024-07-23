@@ -23,6 +23,6 @@ INSERT INTO tb_message (message, posted_at, image, user_id) VALUES ('Neque porro
 
 INSERT INTO tb_reply (text, message_id, user_id) VALUES ('Concordo completamente com o que foi dito!', 1, 1);
 
-INSERT INTO tb_reply (text, message_id, user_id) VALUES ('Muito interessante, obrigado por compartilhar!', 1, 1);
+INSERT INTO tb_reply (text, message_id, user_id) VALUES ('Muito interessante, obrigado por compartilhar!', 2, 2);
 
-INSERT INTO tb_reply (text, message_id, user_id) VALUES ('Essa é uma ótima notícia!', 1, 1);
+INSERT INTO tb_reply (text, message_id, user_id) VALUES ('Essa é uma ótima notícia!', 3, 3);

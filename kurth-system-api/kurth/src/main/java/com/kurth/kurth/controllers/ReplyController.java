@@ -30,4 +30,10 @@ public class ReplyController {
         return ResponseEntity.ok(replyDTO);
     }
 
+    @GetMapping("/message/{id}")
+    public ResponseEntity<Page<ReplyDTO>> findAllByMessageId(@PathVariable Long id, Pageable pageable) {
+        Page<ReplyDTO> replyDTO = replyService.findAllByMessageId(id, pageable);
+        return ResponseEntity.ok(replyDTO);
+    }
+
 }

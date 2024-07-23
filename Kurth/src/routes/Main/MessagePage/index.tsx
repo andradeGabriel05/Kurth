@@ -1,10 +1,12 @@
 import { useNavigate, useParams } from "react-router-dom";
 import * as MessageService from "../../../constants/message";
+import * as ReplyService from "../../../constants/reply";
 import MessagePosted from "../../../components/MessagePosted";
 import "./style.scss";
 import MessagePost from "../../../components/MessagePost";
 import { useEffect, useState } from "react";
 import { MessageDTO } from "../../../models/message";
+import { ReplyDTO } from "../../../models/reply";
 
 export default function MessagePage() {
   const params = useParams();
@@ -12,9 +14,9 @@ export default function MessagePage() {
   const navigate = useNavigate();
 
   const [message, setMessage] = useState<MessageDTO>();
+
   useEffect(() => {
-    MessageService
-      .findById(Number(params.messageId))
+    MessageService.findById(Number(params.messageId))
       .then((response) => {
         console.log(response.data);
         setMessage(response.data);
@@ -26,8 +28,7 @@ export default function MessagePage() {
   }, []);
 
   return (
-
-<div className="wrapper-message">
+    <div className="wrapper-message">
       <div className="reaction-message-page">
         {message && <MessagePosted message={message} />}
       </div>

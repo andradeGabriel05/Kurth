@@ -10,25 +10,22 @@ public class ReplyDTO {
     private Long id;
     private String text;
 
-    private MessageDTO message;
+    private Long messageId;
+    private Long userId;
 
-
-    private UserDTO user;
-
-    public ReplyDTO(Long id, String text, MessageDTO message, UserDTO user) {
+    public ReplyDTO(Long id, String text, Long messageId, Long userId) {
         this.id = id;
         this.text = text;
-        this.message = message;
-        this.user = user;
+        this.messageId = messageId;
+        this.userId = userId;
     }
 
     public ReplyDTO(Reply reply) {
         this.id = reply.getId();
         this.text = reply.getText();
-        this.message = new MessageDTO(reply.getMessage());
-        this.user = new UserDTO(reply.getUser());
+        this.messageId = reply.getMessage().getId();
+        this.userId = reply.getUser().getId();
     }
-
 
     public Long getId() {
         return id;
@@ -38,11 +35,11 @@ public class ReplyDTO {
         return text;
     }
 
-    public MessageDTO getMessage() {
-        return message;
+    public Long getMessageId() {
+        return messageId;
     }
 
-    public UserDTO getUser() {
-        return user;
+    public Long getUserId() {
+        return userId;
     }
 }
