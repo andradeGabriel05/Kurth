@@ -18,7 +18,7 @@ export default function Aside() {
     <aside>
       <div className="aside__title">
         <Link to="/">
-          <h1>Kurth</h1>
+          <h1 className="aside__title__h1">Kurth</h1>
         </Link>
       </div>
 

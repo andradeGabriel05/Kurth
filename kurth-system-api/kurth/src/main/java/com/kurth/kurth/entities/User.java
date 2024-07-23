@@ -32,6 +32,9 @@ public class User {
     private Integer following;
     private Integer posts;
 
+    @OneToMany(mappedBy = "user")
+    private List<Reply> replies = new ArrayList<>();
+
     public User() {
     }
 

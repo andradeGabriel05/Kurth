@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "tb_message")
@@ -21,9 +23,13 @@ public class Message {
 
     private String image;
 
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    @OneToMany(mappedBy = "message")
+    private List<Reply> replies = new ArrayList<>();
 
     public Message() {}
 

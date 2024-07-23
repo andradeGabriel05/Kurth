@@ -20,6 +20,13 @@ aside {
     justify-content: center;
     color: #000;
     border-bottom: solid 1px #0000004f;
+
+    a {
+      padding: 10px;
+      &:hover {
+        background-color: #fff !important;
+      }
+    }
   }
 
   a {
@@ -31,6 +38,7 @@ aside {
     padding: 30px;
     font-size: 1.1em;
     transition: all 0.3s;
+
     &:hover {
       background-color: #e1e1e1;
     }

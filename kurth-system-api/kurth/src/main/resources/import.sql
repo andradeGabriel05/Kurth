@@ -19,3 +19,10 @@ INSERT INTO tb_message (message, posted_at, image, user_id) VALUES ('Nemo enim i
 INSERT INTO tb_message (message, posted_at, image, user_id) VALUES ('Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt.', TIMESTAMP WITH TIME ZONE '2023-03-03T15:00:00Z', '', 3);
 
 INSERT INTO tb_message (message, posted_at, image, user_id) VALUES ('Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit. Sed quia non numquam eius modi tempora incidunt. Sed quia non numquam eius modi tempora incidunt.', TIMESTAMP WITH TIME ZONE '2024-03-03T15:00:00Z', 'https://img.lagaceta.com.ar/fotos/notas/2024/03/27/600x400_lula-macron-celebran-lazos-estrategicos-1028985-233606.webp', 1);
+
+
+INSERT INTO tb_reply (text, message_id, user_id) VALUES ('Concordo completamente com o que foi dito!', 1, 1);
+
+INSERT INTO tb_reply (text, message_id, user_id) VALUES ('Muito interessante, obrigado por compartilhar!', 1, 1);
+
+INSERT INTO tb_reply (text, message_id, user_id) VALUES ('Essa é uma ótima notícia!', 1, 1);
