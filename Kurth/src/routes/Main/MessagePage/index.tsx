@@ -15,8 +15,16 @@ export default function MessagePage() {
 
   const [message, setMessage] = useState<MessageDTO>();
 
+  const [reply, setReply] = useState<ReplyDTO>();
+
   useEffect(() => {
-    MessageService.findById(Number(params.messageId))
+    const messageId = Number(params.messageId);
+    if (isNaN(messageId)) {
+      navigate(`/notfound`);
+      return;
+    }
+
+    MessageService.findById(messageId)
       .then((response) => {
         console.log(response.data);
         setMessage(response.data);
@@ -24,6 +32,15 @@ export default function MessagePage() {
       .catch((error) => {
         console.error("Error:", error.response.data);
         navigate(`/`);
+      });
+
+    ReplyService.findByMessageId(0, messageId)
+      .then((response) => {
+        console.log(response.data);
+        setReply(response.data);
+      })
+      .catch((e) => {
+        console.error("Error:", e.response.data);
       });
   }, []);
 
@@ -50,7 +67,10 @@ export default function MessagePage() {
             />
           </div>
           <div className="comment-text">
-            <p>Example comment</p>
+            {reply &&
+              reply.content.map((reply: ReplyDTO) => (
+                <p key={reply.id}>{reply.text}</p>
+              ))}
           </div>
           <div className="comment-action">
             <button>Like</button>

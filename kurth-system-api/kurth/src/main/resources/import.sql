@@ -26,3 +26,23 @@ INSERT INTO tb_reply (text, message_id, user_id) VALUES ('Concordo completamente
 INSERT INTO tb_reply (text, message_id, user_id) VALUES ('Muito interessante, obrigado por compartilhar!', 2, 2);
 
 INSERT INTO tb_reply (text, message_id, user_id) VALUES ('Essa é uma ótima notícia!', 3, 3);
+
+INSERT INTO tb_reply (text, message_id, user_id) VALUES ('Acho que isso vai trazer grandes mudanças.', 1, 2);
+
+INSERT INTO tb_reply (text, message_id, user_id) VALUES ('Pode ser um ponto de partida para novas discussões.', 1, 3);
+
+INSERT INTO tb_reply (text, message_id, user_id) VALUES ('Concordo! É sempre bom ver ações concretas.', 2, 1);
+
+INSERT INTO tb_reply (text, message_id, user_id) VALUES ('O conteúdo é relevante, obrigado pela atualização.', 2, 3);
+
+INSERT INTO tb_reply (text, message_id, user_id) VALUES ('Esses eventos são fundamentais para o futuro.', 3, 1);
+
+INSERT INTO tb_reply (text, message_id, user_id) VALUES ('Realmente, as implicações são grandes.', 3, 2);
+
+INSERT INTO tb_reply (text, message_id, user_id) VALUES ('Muito bem colocado, é essencial discutir esses pontos.', 4, 1);
+
+INSERT INTO tb_reply (text, message_id, user_id) VALUES ('Excelente perspectiva, acredito que isso vai impactar muito.', 4, 2);
+
+INSERT INTO tb_reply (text, message_id, user_id) VALUES ('Acho que essa informação pode mudar a forma como vemos o assunto.', 5, 1);
+
+INSERT INTO tb_reply (text, message_id, user_id) VALUES ('Interessante, vou acompanhar mais sobre isso.', 5, 2);

@@ -1,14 +1,13 @@
 import axios, { AxiosRequestConfig } from "axios";
 import { BASE_URL } from "../utils/system";
 
-export function findPageRequest(page: number, name: string, size = 6, sort = "name") {
+export function findPageRequest(page: number, size = 6, sort = "name") {
     const config: AxiosRequestConfig = {
       method: "GET",
       baseURL: BASE_URL,
       url: "/reply",
       params: {
         page,
-        name,
         size,
         sort
       }
@@ -16,16 +15,14 @@ export function findPageRequest(page: number, name: string, size = 6, sort = "na
     return axios(config);
   }
 
-  export function findByMessageId(page: number, name: string, size = 6, sort = "name", id: number) {
+  export function findByMessageId(page: number, id: number, size = 6) {
     const config: AxiosRequestConfig = {
       method: "GET",
       baseURL: BASE_URL,
-      url: "/reply/message/" + id,
+      url: `/reply/message/${id}`,
       params: {
         page,
-        name,
         size,
-        sort
       }
     }
     return axios(config);
