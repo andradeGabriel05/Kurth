@@ -56,23 +56,23 @@ export default function MessagePage() {
 
       {/* For the future */}
 
-      <div className="comments-list-message-page">
+      <div className="replies-list-message-page">
         {/* Example comment */}
-        <div className="comment-item">
-          <div className="comment-avatar">
+        <div className="reply-item">
+          <div className="reply-avatar">
             <img
               src="https://thispersondoesnotexist.com/"
               alt=""
               className="icon"
             />
           </div>
-          <div className="comment-text">
-            {reply &&
-              reply.content.map((reply: ReplyDTO) => (
+          {reply &&
+            reply.content.map((reply: ReplyDTO) => (
+              <div className="reply-text">
                 <p key={reply.id}>{reply.text}</p>
-              ))}
-          </div>
-          <div className="comment-action">
+              </div>
+            ))}
+          <div className="reply-action">
             <button>Like</button>
             <button>Reply</button>
           </div>

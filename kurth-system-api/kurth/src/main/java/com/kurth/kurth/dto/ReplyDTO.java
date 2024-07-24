@@ -1,10 +1,8 @@
 package com.kurth.kurth.dto;
 
+import com.kurth.kurth.entities.Message;
 import com.kurth.kurth.entities.Reply;
-import jakarta.persistence.ManyToOne;
-
-import java.util.HashSet;
-import java.util.Set;
+import com.kurth.kurth.entities.User;
 
 public class ReplyDTO {
     private Long id;
