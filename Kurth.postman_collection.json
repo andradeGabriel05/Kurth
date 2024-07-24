@@ -331,15 +331,16 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/reply/1",
+							"raw": "http://localhost:8080/messages/1/replies",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
-								"reply",
-								"1"
+								"messages",
+								"1",
+								"replies"
 							]
 						}
 					},
@@ -351,15 +352,28 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/reply/9",
+							"raw": "http://localhost:8080/reply?page=0&size=6&sort=id,desc",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
-								"reply",
-								"9"
+								"reply"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "6"
+								},
+								{
+									"key": "sort",
+									"value": "id,desc"
+								}
 							]
 						}
 					},
@@ -371,7 +385,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/reply/1",
+							"raw": "http://localhost:8080/reply/message/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -379,6 +393,7 @@
 							"port": "8080",
 							"path": [
 								"reply",
+								"message",
 								"1"
 							]
 						}
@@ -392,7 +407,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"text\": \"Jesus\",\r\n    \"message_id\": 1,\r\n    \"user_id\": 1\r\n}",
+							"raw": "{\r\n    \"text\": \"Um textdedep\",\r\n    \"messageId\": 1,\r\n    \"userId\": 2\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
