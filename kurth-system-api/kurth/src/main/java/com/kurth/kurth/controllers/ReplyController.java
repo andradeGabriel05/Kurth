@@ -44,4 +44,16 @@ public class ReplyController {
         return ResponseEntity.created(uri).body(replyDTO);
     }
 
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<ReplyDTO> updateReply(@PathVariable Long id, @RequestBody ReplyDTO replyDTO) {
+        replyDTO = replyService.updateReply(id, replyDTO);
+        return ResponseEntity.ok(replyDTO);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<ReplyDTO> deleteReply(@PathVariable long id) {
+        replyService.deleteReply(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }

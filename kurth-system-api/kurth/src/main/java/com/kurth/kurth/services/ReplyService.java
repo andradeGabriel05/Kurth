@@ -9,10 +9,12 @@ import com.kurth.kurth.repositories.ReplyRepository;
 import com.kurth.kurth.repositories.UserRepository;
 import com.kurth.kurth.services.exceptions.DatabaseException;
 import com.kurth.kurth.services.exceptions.ResourceNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -62,6 +64,41 @@ public class ReplyService {
         reply = replyRepository.save(reply);
 
         return new ReplyDTO(reply);
+    }
+
+    @Transactional
+    public ReplyDTO updateReply(Long id, ReplyDTO replyDTO) {
+        if(!messageRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Id message not found");
+        }
+
+        Reply reply = replyRepository.getReferenceById(id);
+
+        reply.setMessage(replyDTO.getMessage());
+        reply.setImage(replyDTO.getImage());
+        reply.setPostedAt(replyDTO.getPostedAt());
+
+        Message message = messageRepository.findById(replyDTO.getMessageId()).orElseThrow(() -> new DatabaseException("[Service] User not found"));
+        User user = userRepository.getReferenceById(replyDTO.getUser().getId());
+
+        reply.setMessageId(message);
+        reply.setUser(user);
+        reply = replyRepository.save(reply);
+
+        return new ReplyDTO(reply);
+    }
+
+    @Transactional
+    public ResponseEntity<Void> deleteReply(Long id) {
+        if(!messageRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Id message not found");
+        }
+        try {
+            replyRepository.deleteById(id);
+            return ResponseEntity.noContent().build();
+        } catch (EntityNotFoundException e) {
+            throw new ResourceNotFoundException("Resource not found");
+        }
     }
 
 }
