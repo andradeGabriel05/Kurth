@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ReplyRepository extends JpaRepository<Reply, Long> {
     @Query("SELECT obj FROM Reply obj " +
-            "WHERE obj.message.id = :id")
+            "WHERE obj.messageId.id = :id")
     Page<Reply> findAllByMessageId(@Param("id") Long id, Pageable pageable);
 
 }

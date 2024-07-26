@@ -9,6 +9,6 @@ import java.util.List;
 
 @Repository
 public interface MessageRepository extends JpaRepository<Message, Long> {
-    @Query("SELECT m FROM Message m WHERE m.user.username = :username")
+    @Query("SELECT obj FROM Message obj WHERE obj.user.username = :username")
     List<Message> findAllUserMessages(String username);
 }

@@ -50,12 +50,15 @@ public class ReplyService {
 
         Reply reply = new Reply();
 
-        reply.setText(replyDTO.getText());
-        Message message = messageRepository.findById(replyDTO.getMessageId()).orElseThrow(() -> new DatabaseException("[Service] User not found"));
-        User user = userRepository.findById(replyDTO.getUserId()).orElseThrow(() -> new DatabaseException("[Service] Message not found"));;
+        reply.setMessage(replyDTO.getMessage());
+        reply.setImage(replyDTO.getImage());
+        reply.setPostedAt(replyDTO.getPostedAt());
 
-        reply.setMessage(message);
-         reply.setUser(user);
+        Message message = messageRepository.findById(replyDTO.getMessageId()).orElseThrow(() -> new DatabaseException("[Service] User not found"));
+        User user = userRepository.getReferenceById(replyDTO.getUser().getId());
+
+        reply.setMessageId(message);
+        reply.setUser(user);
         reply = replyRepository.save(reply);
 
         return new ReplyDTO(reply);

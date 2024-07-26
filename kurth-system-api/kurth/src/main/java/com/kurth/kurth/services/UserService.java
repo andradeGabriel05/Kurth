@@ -44,14 +44,15 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public Page<UserDTO> findAll(String name, Pageable pageable) {
-        Page<User> user = userRepository.searchByName(name, pageable);
+    public Page<UserDTO> findAll(Pageable pageable) {
+        Page<User> user = userRepository.findAll(pageable);
         return user.map(x -> new UserDTO(x));
     }
 
 
     @Transactional
     public UserDTO newUser(UserDTO userDTO) {
+
         try {
 
         User user = new User();
@@ -72,12 +73,17 @@ public class UserService {
         if(!userRepository.existsById(id)) {
             throw new ResourceNotFoundException("Id user not found");
         }
-        User user = userRepository.findById(id).get();
+        try {
+            User user = userRepository.findById(id).get();
 
-        copyDtoToEntity(userDTO, user);
+            copyDtoToEntity(userDTO, user);
 
-        user = userRepository.save(user);
-        return new UserDTO(user);
+            user = userRepository.save(user);
+            return new UserDTO(user);
+        } catch (DataIntegrityViolationException e) {
+            throw new DatabaseException("[Service] Integrity violation. Username or email address already exists");
+
+        }
     }
 
     @Transactional (propagation = Propagation.SUPPORTS)
@@ -98,12 +104,12 @@ public class UserService {
         user.setEmail(userDTO.getEmail());
         user.setPassword(userDTO.getPassword());
 
-        user.setBio(userDTO.getBio());
+        user.setCreatedAt(userDTO.getCreatedAt());
         user.setFollowers(userDTO.getFollowers());
         user.setFollowing(userDTO.getFollowing());
-        user.setCreatedAt(userDTO.getCreatedAt());
-        user.setAvatar(userDTO.getAvatar());
         user.setPosts(userDTO.getPosts());
+        user.setAvatar(userDTO.getAvatar());
+        user.setBio(userDTO.getBio());
     }
 
 }

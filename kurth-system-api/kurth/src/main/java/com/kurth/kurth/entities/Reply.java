@@ -4,6 +4,8 @@ import com.kurth.kurth.dto.MessageDTO;
 import com.kurth.kurth.dto.UserDTO;
 import jakarta.persistence.*;
 
+import java.time.Instant;
+
 @Entity
 @Table(name = "tb_reply")
 public class Reply {
@@ -12,11 +14,15 @@ public class Reply {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String text;
+    private String message;
+
+    private Instant postedAt;
+
+    private String image;
 
     @ManyToOne
     @JoinColumn(name = "message_id")
-    private Message message;
+    private Message messageId;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -31,20 +37,20 @@ public class Reply {
         this.id = id;
     }
 
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public Message getMessage() {
+    public String getMessage() {
         return message;
     }
 
-    public void setMessage(Message message) {
+    public void setMessage(String message) {
         this.message = message;
+    }
+
+    public Message getMessageId() {
+        return messageId;
+    }
+
+    public void setMessageId(Message message) {
+        this.messageId = message;
     }
 
     public User getUser() {
@@ -53,5 +59,21 @@ public class Reply {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Instant getPostedAt() {
+        return postedAt;
+    }
+
+    public void setPostedAt(Instant postedAt) {
+        this.postedAt = postedAt;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

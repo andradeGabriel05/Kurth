@@ -34,11 +34,9 @@ public class UserController {
 
 
     @GetMapping
-    public ResponseEntity<Page<UserDTO>> findAll(
-            @RequestParam(name = "name", defaultValue = "")
-            String name, Pageable pageable) {
+    public ResponseEntity<Page<UserDTO>> findAll(Pageable pageable) {
 
-        Page<UserDTO> userDTO = userService.findAll(name, pageable);
+        Page<UserDTO> userDTO = userService.findAll(pageable);
         return ResponseEntity.ok(userDTO);
     }
 

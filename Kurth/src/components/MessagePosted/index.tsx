@@ -2,21 +2,27 @@ import "./style.scss";
 
 import { Link } from "react-router-dom";
 import { MessageDTO } from "../../models/message";
+import { ReplyDTO } from "../../models/reply";
 import Reaction from "../Reaction";
 
 type Props = {
-  message: MessageDTO;
+  message: MessageDTO | ReplyDTO;
 };
 
 export default function MessagePosted({ message }: Props) {
-  const showImage = message.image !== "";
+  const showImage = message.image && message.image !== "";
+  console.log(showImage);
 
   return (
     <div className="form__message__posted p18">
       <div className="user-wrapper">
         <div className="user__image">
           <Link to={`/profile/${message.user.username}`}>
-            <img src={message.user.avatar} alt={message.user.name} className="icon" />
+            <img
+              src={message.user.avatar}
+              alt={message.user.name}
+              className="icon"
+            />
           </Link>
         </div>
         <div className="user__details">
@@ -46,10 +52,7 @@ export default function MessagePosted({ message }: Props) {
           </div>
           {showImage && (
             <div className="image-posted">
-              <img
-                src={message.image}
-                alt={`${message.id}`}
-              />
+              <img src={message.image} alt={`${message.id}`} />
             </div>
           )}
 

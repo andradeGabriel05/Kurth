@@ -26,7 +26,7 @@ export default function MessagePost({ message }: Props) {
       })
       .then((response) => {
         console.log("Message posted:", response.data);
-        window.location.reload();
+        window.location.reload(); // <- this
       })
       .catch((error) => {
         console.error("Error:", error);

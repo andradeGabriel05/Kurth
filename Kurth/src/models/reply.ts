@@ -3,7 +3,9 @@ import { UserDTO } from "./user";
 
 export type ReplyDTO = {
     id: number;
-    text: string;
+    message: string;
+    postedAt: string;
     message_id: MessageDTO;
+    image?: string;
     user: UserDTO,
 }

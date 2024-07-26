@@ -90,7 +90,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"message\": \"Uma mensagem nova novanovanova\",\r\n    \"postedAt\": \"2022-12-21T15:00:00Z\",\r\n    \"image\": \"\",\r\n    \"user\": {\r\n        \"id\": 10\r\n    }\r\n}\r\n",
+							"raw": "{\r\n    \"message\": \"Uma mensagem nova novanovanova\",\r\n    \"postedAt\": \"2022-12-21T15:00:00Z\",\r\n    \"image\": \"\",\r\n    \"user\": {\r\n        \"id\": 2\r\n    }\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -250,7 +250,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Nova pessoa\",\r\n    \"username\": \"@novaapessoa\",\r\n    \"email\": \"novaa@gmail.com\",\r\n    \"createdAt\": \"2022-12-21T15:00:00Z\",\r\n    \"password\": \"123456\",\r\n    \"bio\": \"Lorem ipsum dolor sit amet consectetur adipisicing elit\",\r\n    \"avatar\": \"https://thispersondoesnotexist.com/\",\r\n    \"followers\": 12,\r\n    \"following\": 13,\r\n    \"posts\": 49\r\n}",
+							"raw": "{\r\n    \"name\": \"Nova pessoa\",\r\n    \"username\": \"@novaapessoa\",\r\n    \"email\": \"novaa@gmail.com\",\r\n    \"createdAt\": \"2022-12-21T15:00:00Z\",\r\n    \"password\": \"123456\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -286,7 +286,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/user/4",
+							"raw": "http://localhost:8080/user/5",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -294,7 +294,7 @@
 							"port": "8080",
 							"path": [
 								"user",
-								"4"
+								"5"
 							]
 						}
 					},
@@ -352,7 +352,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/reply?page=0&size=6&sort=id,desc",
+							"raw": "http://localhost:8080/reply?page=0&size=6&sort=id,asc",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -372,7 +372,7 @@
 								},
 								{
 									"key": "sort",
-									"value": "id,desc"
+									"value": "id,asc"
 								}
 							]
 						}
@@ -407,7 +407,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"text\": \"Um textdedep\",\r\n    \"messageId\": 1,\r\n    \"userId\": 2\r\n}",
+							"raw": "{\r\n    \"message\": \"Um textdedep\",\r\n    \"messageId\": 1,\r\n    \"postedAt\": \"2022-12-21T15:00:00Z\",\r\n    \"user\": {\r\n        \"id\": 2\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"

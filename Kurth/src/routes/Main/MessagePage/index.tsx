@@ -54,28 +54,14 @@ export default function MessagePage() {
         <MessagePost message="Post your reply" />
       </div>
 
-      {/* For the future */}
-
       <div className="replies-list-message-page">
-        {/* Example comment */}
         <div className="reply-item">
-          <div className="reply-avatar">
-            <img
-              src="https://thispersondoesnotexist.com/"
-              alt=""
-              className="icon"
-            />
-          </div>
           {reply &&
             reply.content.map((reply: ReplyDTO) => (
-              <div className="reply-text">
-                <p key={reply.id}>{reply.text}</p>
+              <div key={reply.id} className="reply-text">
+                <MessagePosted message={reply} />
               </div>
             ))}
-          <div className="reply-action">
-            <button>Like</button>
-            <button>Reply</button>
-          </div>
         </div>
       </div>
     </div>
