@@ -1,33 +1,7 @@
-# Create User
+# Hello, World!
 
-To insert a new user in database, enter url "http://localhost:8080/user" in postman and POST as json:
+You need to run 'kurth-system-api' in your Java IDE to start the back-end system. This project is built with React + Vite with TypeScript and Spring Boot with Java 22. I've been studying both, and I just wanted to practice them.
 
-{
+You can import the 'Kurth.postman_collection.json' and easily make requests with Postman.
 
-    "name": "Nova pessoa",
-    
-    "followers": 12,
-    
-    "following": 13,
-    
-    "posts": 49,
-    
-    "created_at": "2022-07-25 15:00:00+00",
-    
-    "avatar": "https://thispersondoesnotexist.com/",
-    
-    "bio": "Lorem ipsum dolor sit amet consectetur adipisicing elit",
-    
-    "email": "nova@gmail.com",
-    
-    "password": 123456,
-    
-    "username": "@novapessoa"
-    
-}
-
-# H2 Console
-
-http://localhost:8080/h2-console/
-
-JDBC URL -> jdbc:h2:mem:kurth
+A lot more needs to be done, such as: authentication, tracking the number of likes and replies on posts, optimization of the database system, global event handling in React to prevent refresh on post publishing, exceptions, and more...
