@@ -10,5 +10,5 @@ A lot more needs to be done, such as: authentication, tracking the number of lik
 
 If you encounter any bugs or issues, please send me a message at "gabriel.andrade@sptech.school" or open an issue on GitHub.
 
-![Main page](https://prnt.sc/GBIRBrwVmv0c)
+![Main page](https://snipboard.io/YOwR5v.jpg)
 This is how it should look. Don’t mind the images. It was 2am and this is ridiculous. Comical.
