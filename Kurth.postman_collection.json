@@ -15,7 +15,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/message?page=0&size=6&sort=id,desc",
+							"raw": "http://localhost:8080/message?page=0&size=6&sort=id,asc",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -35,7 +35,7 @@
 								},
 								{
 									"key": "sort",
-									"value": "id,desc"
+									"value": "id,asc"
 								}
 							]
 						}
@@ -347,6 +347,26 @@
 					"response": []
 				},
 				{
+					"name": "Delete reply",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/reply/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"reply",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Replies",
 					"request": {
 						"method": "GET",
@@ -442,26 +462,6 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "http://localhost:8080/reply/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"reply",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete reply",
-					"request": {
-						"method": "DELETE",
-						"header": [],
 						"url": {
 							"raw": "http://localhost:8080/reply/1",
 							"protocol": "http",

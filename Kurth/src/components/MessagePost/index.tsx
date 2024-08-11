@@ -3,6 +3,7 @@ import "./style.scss";
 import axios from "axios";
 import { BASE_URL, currentDate } from "../../utils/system";
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 
 type Props = {
   message: string;
@@ -10,6 +11,7 @@ type Props = {
 
 export default function MessagePost({ message }: Props) {
   const [messageForm, setMessageForm] = useState();
+  const params = useParams();
 
   // must improve this in the future
 
@@ -27,6 +29,26 @@ export default function MessagePost({ message }: Props) {
       .then((response) => {
         console.log("Message posted:", response.data);
         window.location.reload(); // <- this
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }
+
+  function handleReply(event: any) {
+    event.preventDefault();
+    axios
+      .post(`${BASE_URL}/reply`, {
+        message: messageForm,
+        messageId: params.messageId,
+        postedAt: currentDate,
+        user: {
+          id: 1,
+        },
+      })
+      .then((response) => {
+        console.log("Reply posted:", response.data);
+        window.location.reload(); // <- this too
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -51,7 +73,12 @@ export default function MessagePost({ message }: Props) {
             />
           </div>
           <div className="user-form-text">
-            <form method="post" onSubmit={handleSubmit}>
+            <form
+              method="post"
+              onSubmit={
+                message !== "Post your reply" ? handleSubmit : handleReply
+              }
+            >
               <textarea
                 name="messageText"
                 id="messageText"

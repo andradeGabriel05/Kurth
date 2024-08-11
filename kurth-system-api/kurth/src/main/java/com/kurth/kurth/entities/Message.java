@@ -28,9 +28,6 @@ public class Message {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "message")
-    private List<Reply> replies = new ArrayList<>();
-
     public Message() {}
 
     public Message(Long id, String message, Instant postedAt, String image, User user) {

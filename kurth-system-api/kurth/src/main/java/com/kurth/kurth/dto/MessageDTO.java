@@ -23,15 +23,12 @@ public class MessageDTO {
 
     private UserDTO user;
 
-    private ReplyDTO reply;
-
-    public MessageDTO(Long id, String message, Instant postedAt, String image, UserDTO user, ReplyDTO reply) {
+    public MessageDTO(Long id, String message, Instant postedAt, String image, UserDTO user) {
         this.id = id;
         this.message = message;
         this.postedAt = postedAt;
         this.image = image;
         this.user = user;
-        this.reply = reply;
     }
 
     public MessageDTO(Message message) {
@@ -62,7 +59,4 @@ public class MessageDTO {
         return user;
     }
 
-    public ReplyDTO getReply() {
-        return reply;
-    }
 }
