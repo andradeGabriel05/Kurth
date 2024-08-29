@@ -45,6 +45,9 @@ export default function Profile() {
         {user && <ProfileContentDetails user={user} />}
         {user && <ProfileContentActions />}
       </div>
+      {message && message.length === 0 && (
+        <div className="no-message">No messages found for this user.</div>
+      )}
       {message.map((message) => (
         <div className="message-posted profile-message-posted">
           <Link to={`/${message.user.username}/posts/${message.id}`}>

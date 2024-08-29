@@ -101,5 +101,6 @@ public class MessageService {
         message.setMessage(messageDTO.getMessage());
         message.setPostedAt(messageDTO.getPostedAt());
         message.setImage(messageDTO.getImage());
+        message.setLikeCount(messageDTO.getLikeCount());
     }
 }

@@ -23,6 +23,8 @@ public class Message {
 
     private String image;
 
+    @Column(name = "like_count")
+    private Integer likeCount;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -72,5 +74,14 @@ public class Message {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+
+    public Integer getLikeCount() {
+        return likeCount;
+    }
+
+    public void setLikeCount(Integer likeCount) {
+        this.likeCount = likeCount;
     }
 }
