@@ -50,7 +50,7 @@ export default function MessagePage() {
       <div className="reaction-message-page">
         {messageDTO && <MessagePosted message={messageDTO} />}
       </div>
-      <Reaction message={messageDTO} />
+      {messageDTO && <Reaction message={messageDTO} />}
 
       <div className="post-message">
         <MessagePost message="What do you think about this?" />

@@ -6,7 +6,7 @@ import Main from "./routes/Main/index.tsx";
 import NotFound from "./routes/NotFound/index.tsx";
 import Search from "./routes/Main/Search/index.tsx";
 import MessagePage from "./routes/Main/MessagePage/index.tsx";
-import Account from "./routes/User/Account/index.tsx";
+import Account from "./routes/User/CreateAccount/index.tsx";
 
 // import * as User from "./constants"
 

@@ -20,7 +20,7 @@ function handleSubmit(event: any) {
     })
     .then((response) => {
       console.log("User created:", response.data);
-      window.location.reload();
+      window.location.reload()
     })
     .catch((error) => {
       console.error("Error:", error);

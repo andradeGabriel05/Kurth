@@ -12,13 +12,15 @@ export default function Search() {
   const [searchUser, setSearchUser] = useState("");
 
   useEffect(() => {
-    User.findPageRequest(0, searchUser).then((response) => {
+    User.findPageRequest(0, searchUser)
+    .then((response) => {
       console.log(response.data.content);
       setUser(response.data.content);
     });
   }, [searchUser]);
 
   function handleSearch(searchText: string) {
+    console.log(searchText);
     return setSearchUser(searchText);
   }
 
