@@ -7,6 +7,7 @@ import MessagePost from "../../../components/MessagePost";
 import { useEffect, useState } from "react";
 import { MessageDTO } from "../../../models/message";
 import { ReplyDTO } from "../../../models/reply";
+import Reaction from "../../../components/Reaction";
 
 export default function MessagePage() {
   const params = useParams();
@@ -49,6 +50,7 @@ export default function MessagePage() {
       <div className="reaction-message-page">
         {message && <MessagePosted message={message} />}
       </div>
+      <Reaction />
 
       <div className="post-message">
         <MessagePost message="Post your reply" />

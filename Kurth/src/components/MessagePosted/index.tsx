@@ -55,8 +55,6 @@ export default function MessagePosted({ message }: Props) {
               <img src={message.image} alt={`${message.id}`} />
             </div>
           )}
-
-          <Reaction />
         </div>
       </div>
     </div>

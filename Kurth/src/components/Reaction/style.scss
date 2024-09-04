@@ -1,10 +1,13 @@
 
 .reactions__message {
   display: flex;
-  margin-top: 10px;
-  justify-content: space-between;
+  justify-content: space-evenly;
+  padding: 20px;
+  border-bottom: solid 1px #8181819e;
 
   .reaction__icon {
+    display: flex;
+    align-items: center;
     font-size: 1.5rem;
     transition: 0.3s all;
   }

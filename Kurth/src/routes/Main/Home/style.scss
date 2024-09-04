@@ -3,9 +3,16 @@
 .message-posted {
   transition: all 0.3s;
 
-  &:hover {
+  .form__message__posted {
     transition: all 0.3s;
-    background-color: #d5d5d5c8;
+    border-radius: 1px;
+    margin: 15px;
+    &:hover {
+      background-color: #d3d3d3;
+      transition: all 0.3s;
+      cursor: pointer;
+      border-radius: 5px;
+    }
   }
 }
 .wrapper-message-user {

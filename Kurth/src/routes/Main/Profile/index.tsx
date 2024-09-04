@@ -9,6 +9,7 @@ import { UserDTO } from "../../../models/user";
 import { useEffect, useState } from "react";
 import { MessageDTO } from "../../../models/message";
 import MessagePosted from "../../../components/MessagePosted";
+import Reaction from "../../../components/Reaction";
 // import { user } from "../../constants/";
 
 export default function Profile() {
@@ -53,6 +54,8 @@ export default function Profile() {
           <Link to={`/${message.user.username}/posts/${message.id}`}>
             <MessagePosted key={message.id} message={message} />
           </Link>
+        <Reaction />
+          
         </div>
       ))}
     </div>
