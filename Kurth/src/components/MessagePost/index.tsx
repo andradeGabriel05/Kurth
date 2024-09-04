@@ -22,6 +22,7 @@ export default function MessagePost({ message }: Props) {
         message: messageForm,
         postedAt: currentDate,
         image: "",
+        likeCount: 0,
         user: {
           id: 1,
         },

@@ -14,7 +14,7 @@ export default function MessagePage() {
 
   const navigate = useNavigate();
 
-  const [message, setMessage] = useState<MessageDTO>();
+  const [messageDTO, setMessageDTO] = useState<MessageDTO>();
 
   const [reply, setReply] = useState<ReplyDTO>();
 
@@ -28,7 +28,7 @@ export default function MessagePage() {
     MessageService.findById(messageId)
       .then((response) => {
         console.log(response.data);
-        setMessage(response.data);
+        setMessageDTO(response.data);
       })
       .catch((error) => {
         console.error("Error:", error.response.data);
@@ -48,12 +48,12 @@ export default function MessagePage() {
   return (
     <div className="wrapper-message">
       <div className="reaction-message-page">
-        {message && <MessagePosted message={message} />}
+        {messageDTO && <MessagePosted message={messageDTO} />}
       </div>
-      <Reaction />
+      <Reaction message={messageDTO} />
 
       <div className="post-message">
-        <MessagePost message="Post your reply" />
+        <MessagePost message="What do you think about this?" />
       </div>
 
       <div className="replies-list-message-page">

@@ -76,7 +76,6 @@ public class Message {
         this.image = image;
     }
 
-
     public Integer getLikeCount() {
         return likeCount;
     }

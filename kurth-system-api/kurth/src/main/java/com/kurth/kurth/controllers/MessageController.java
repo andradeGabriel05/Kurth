@@ -60,6 +60,12 @@ public class MessageController {
         return ResponseEntity.noContent().build();
     }
 
+    @PutMapping(value = "/{id}/like-count")
+    public ResponseEntity<MessageDTO> updateLikeCount(@PathVariable Long id) {
+            MessageDTO messageDTO = messageService.updateLikeCount(id);
+            return ResponseEntity.ok(messageDTO);
+    }
+
 
 
 }

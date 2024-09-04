@@ -97,6 +97,18 @@ public class MessageService {
 
     }
 
+    @Transactional
+    public MessageDTO updateLikeCount(Long id) {
+        if(!messageRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Id message not found");
+        }
+
+        messageRepository.updateLikeCount(id);
+
+        Message updatedMessage = messageRepository.getReferenceById(id);
+        return new MessageDTO(updatedMessage);
+    }
+
     private void copyDtoToEntity(MessageDTO messageDTO, Message message) {
         message.setMessage(messageDTO.getMessage());
         message.setPostedAt(messageDTO.getPostedAt());

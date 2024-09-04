@@ -54,7 +54,7 @@ export default function Profile() {
           <Link to={`/${message.user.username}/posts/${message.id}`}>
             <MessagePosted key={message.id} message={message} />
           </Link>
-        <Reaction />
+        <Reaction message={message} />
           
         </div>
       ))}

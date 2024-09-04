@@ -6,6 +6,7 @@ export type ReplyDTO = {
     message: string;
     postedAt: string;
     message_id: MessageDTO;
+    likeCount?: number;
     image?: string;
     user: UserDTO,
 }

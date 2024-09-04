@@ -4,30 +4,45 @@ import "./style.scss";
 import { FaShareSquare } from "react-icons/fa";
 import { FaComment, FaHeart } from "react-icons/fa6";
 import { useNavigate, useParams } from "react-router-dom";
+import { MessageDTO } from "../../models/message";
+import { ReplyDTO } from "../../models/reply";
+import { useEffect, useState } from "react";
 
-export default function Reaction({messageId}) {
+type Props = {
+  message: MessageDTO | ReplyDTO;
+};
+
+export default function Reaction({ message }: Props) {
   const navigate = useNavigate();
+
   function handleLikeSubmit() {
-    axios.put(`http://localhost:8080/message/${messageId}/like-count`, {
+    axios.put(`http://localhost:8080/message/${message.id}/like-count`, {
       //increaseLike
     });
     console.log("Like submitted");
-    
   }
   function handleReplyButton() {
     //navigate to reply page
-    navigate(`/reply/${messageId}`);
+    navigate(`/${message.user.username}/posts/${message.id}`);
 
     console.log("Reply button clicked");
   }
-
+  if (!message) {
+    console.error("Message not found");
+    return false;
+  }
   return (
+    
     <div className="reactions__message">
-      <div className="reaction__comment reaction__icon" onClick={handleReplyButton}>
+      <div
+        className="reaction__comment reaction__icon"
+        onClick={handleReplyButton}
+      >
         <FaComment />
       </div>
-      <div className="reaction__like reaction__icon">
-        <FaHeart />
+      <div className="reaction__like reaction__icon" onClick={handleLikeSubmit}>
+        <FaHeart className="like__count__icon" />
+        <span className="like__count">{message.likeCount}</span>
       </div>
       <div className="reaction__share reaction__icon">
         <FaShareSquare />
