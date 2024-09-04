@@ -3,23 +3,30 @@ import "./style.scss";
 
 import { FaShareSquare } from "react-icons/fa";
 import { FaComment, FaHeart } from "react-icons/fa6";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-export default function Reaction() {
-  const params = useParams();
+export default function Reaction({messageId}) {
+  const navigate = useNavigate();
   function handleLikeSubmit() {
-    axios.put(`http://localhost:8080/message/${params.messageId}/like-count`, {
+    axios.put(`http://localhost:8080/message/${messageId}/like-count`, {
       //increaseLike
     });
     console.log("Like submitted");
+    
+  }
+  function handleReplyButton() {
+    //navigate to reply page
+    navigate(`/reply/${messageId}`);
+
+    console.log("Reply button clicked");
   }
 
   return (
     <div className="reactions__message">
-      <div className="reaction__comment reaction__icon">
+      <div className="reaction__comment reaction__icon" onClick={handleReplyButton}>
         <FaComment />
       </div>
-      <div className="reaction__like reaction__icon" onClick={handleLikeSubmit}>
+      <div className="reaction__like reaction__icon">
         <FaHeart />
       </div>
       <div className="reaction__share reaction__icon">
