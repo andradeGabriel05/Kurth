@@ -1,5 +1,6 @@
 package com.kurth.kurth.dto;
 
+import com.kurth.kurth.entities.LikeCount;
 import com.kurth.kurth.entities.Message;
 import com.kurth.kurth.entities.User;
 import jakarta.persistence.*;
@@ -25,6 +26,13 @@ public class LikeCountDTO {
 
     public LikeCountDTO() {
 
+    }
+
+    public LikeCountDTO(LikeCount likeCount) {
+        this.id = likeCount.getId();
+        this.count = likeCount.getCount();
+        this.message = likeCount.getMessage();
+        this.user = likeCount.getUser();
     }
 
     public int getCount() {

@@ -35,6 +35,9 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Reply> replies = new ArrayList<>();
 
+    @OneToMany(mappedBy = "user")
+    private List<LikeCount> likeCount = new ArrayList<>();
+
     public User() {
     }
 

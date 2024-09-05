@@ -1,9 +1,12 @@
 package com.kurth.kurth.entities;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.SQLInsert;
 
 @Entity
 @Table(name = "tb_like_count")
+@SQLInsert(sql = "INSERT IGNORE INTO tb_like_count(count, user_id, message_id) " +
+        "VALUES (?, ?, ?)" )
 public class LikeCount {
 
     @Id
@@ -12,7 +15,7 @@ public class LikeCount {
 
     private Integer count;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 

@@ -45,3 +45,5 @@ INSERT INTO tb_reply (message, message_id, user_id, posted_at) VALUES ('Excelent
 INSERT INTO tb_reply (message, message_id, user_id, posted_at) VALUES ('Acho que essa informação pode mudar a forma como vemos o assunto.', 5, 1, TIMESTAMP WITH TIME ZONE '2024-07-26T21:00:00Z');
 
 INSERT INTO tb_reply (message, message_id, user_id, posted_at) VALUES ('Interessante, vou acompanhar mais sobre isso.',  5, 2, TIMESTAMP WITH TIME ZONE '2024-07-26T22:00:00Z');
+
+INSERT INTO tb_like_count (count, user_id, message_id) VALUES (1, 1, 3);
