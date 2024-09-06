@@ -35,8 +35,13 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Reply> replies = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user")
-    private List<LikeCount> likeCount = new ArrayList<>();
+//    @OneToMany(mappedBy = "user")
+//    private List<Message> message = new ArrayList<>();
+
+//    @OneToMany(mappedBy = "user")
+//    private List<LikeCount> likeCount;
+
+
 
     public User() {
     }
@@ -55,8 +60,6 @@ public class User {
         this.posts = posts;
     }
 
-    @OneToMany(mappedBy = "user")
-    private List<Message> message = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -142,9 +145,9 @@ public class User {
         this.posts = posts;
     }
 
-    public List<Message> getMessage() {
-        return message;
-    }
+//    public List<Message> getMessage() {
+//        return message;
+//    }
 
 
 }

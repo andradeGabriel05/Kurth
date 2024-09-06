@@ -24,7 +24,7 @@ export default function Search() {
     return setSearchUser(searchText);
   }
 
-  fetch('http://localhost:  /likecount/1')
+  fetch('http://localhost:8080/likecount/1')
     .then(response => {
       if (!response.ok) {
         throw new Error('Network response was not ok ' + response.statusText);

@@ -30,6 +30,9 @@ public class Message {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @ManyToOne
+    private LikeCount likeCountMessage;
+
     public Message() {}
 
     public Message(Long id, String message, Instant postedAt, String image, User user) {
@@ -82,5 +85,9 @@ public class Message {
 
     public void setLikeCount(Integer likeCount) {
         this.likeCount = likeCount;
+    }
+
+    public LikeCount getLikeCountMessage() {
+        return likeCountMessage;
     }
 }

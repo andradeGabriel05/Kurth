@@ -2,17 +2,17 @@ package com.kurth.kurth.entities;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.SQLInsert;
+import org.springframework.lang.Nullable;
 
 @Entity
 @Table(name = "tb_like_count")
-@SQLInsert(sql = "INSERT IGNORE INTO tb_like_count(count, user_id, message_id) " +
-        "VALUES (?, ?, ?)" )
 public class LikeCount {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = true)
     private Integer count;
 
     @ManyToOne
@@ -34,11 +34,11 @@ public class LikeCount {
 
     }
 
-    public int getCount() {
+    public Integer getCount() {
         return count;
     }
 
-    public void setCount(int count) {
+    public void setCount(Integer count) {
         this.count = count;
     }
 
@@ -54,7 +54,7 @@ public class LikeCount {
         return message;
     }
 
-    public void setMessageId(Message message) {
+    public void setMessage(Message message) {
         this.message = message;
     }
 

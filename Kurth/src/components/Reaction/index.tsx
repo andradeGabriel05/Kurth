@@ -7,6 +7,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { MessageDTO } from "../../models/message";
 import { ReplyDTO } from "../../models/reply";
 import { useState } from "react";
+import { BASE_URL } from "../../utils/system";
 
 type Props = {
   message: MessageDTO | ReplyDTO;
@@ -18,15 +19,30 @@ export default function Reaction({ message }: Props) {
   let [likeCount, setLikeCount] = useState<number>(message.likeCount)
 
   async function handleLikeSubmit() {
-    const response = await axios.put(`http://localhost:8080/message/${message.id}/like-count`, {
+    const response = await axios.put(`${BASE_URL}/message/${message.id}/like-count`, {
       //increaseLike
       //null
     });
+
+    await axios.post(`${BASE_URL}/likecount`, {
+      count: 1,
+      user: {
+        id: 1,
+      },
+      message: {
+        id: response.data.id
+      },
+    })
 
     const updatedLikeCount = response.data.likeCount;
     setLikeCount(updatedLikeCount);
     console.log("Like count updated to:", updatedLikeCount);
     console.log("Like submitted");
+
+    console.log(response)
+    console.log(response.data.id)
+    console.log(response.data.user.id)
+
   }
 
   function handleReplyButton() {

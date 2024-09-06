@@ -6,6 +6,7 @@ import com.kurth.kurth.entities.User;
 import jakarta.persistence.*;
 
 import java.time.Instant;
+import java.util.List;
 
 public class LikeCountDTO {
 
@@ -13,11 +14,11 @@ public class LikeCountDTO {
 
     private Integer count;
 
-    private User user;
+    private UserDTO user;
 
-    private Message message;
+    private MessageDTO message;
 
-    public LikeCountDTO(Long id, Integer count, User user, Message message) {
+    public LikeCountDTO(Long id, Integer count, UserDTO user, MessageDTO message) {
         this.id = id;
         this.count = count;
         this.user = user;
@@ -31,19 +32,19 @@ public class LikeCountDTO {
     public LikeCountDTO(LikeCount likeCount) {
         this.id = likeCount.getId();
         this.count = likeCount.getCount();
-        this.message = likeCount.getMessage();
-        this.user = likeCount.getUser();
+        this.message = new MessageDTO(likeCount.getMessage());
+        this.user = new UserDTO(likeCount.getUser());
     }
 
-    public int getCount() {
+    public Integer getCount() {
         return count;
     }
 
-    public User getUser() {
+    public UserDTO getUser() {
         return user;
     }
 
-    public Message getMessage() {
+    public MessageDTO getMessage() {
         return message;
     }
 

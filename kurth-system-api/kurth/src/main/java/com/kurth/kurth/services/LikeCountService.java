@@ -4,9 +4,14 @@ import com.kurth.kurth.dto.LikeCountDTO;
 import com.kurth.kurth.dto.MessageDTO;
 import com.kurth.kurth.entities.LikeCount;
 import com.kurth.kurth.entities.Message;
+import com.kurth.kurth.entities.User;
 import com.kurth.kurth.repositories.LikeCountRepository;
+import com.kurth.kurth.repositories.MessageRepository;
+import com.kurth.kurth.repositories.UserRepository;
+import com.kurth.kurth.services.exceptions.DatabaseException;
 import com.kurth.kurth.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -18,6 +23,11 @@ public class LikeCountService {
     @Autowired
     private LikeCountRepository likeCountRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private MessageRepository messageRepository;
 
     @Transactional(readOnly = true)
     public LikeCountDTO findById(Long id) {
@@ -32,6 +42,27 @@ public class LikeCountService {
     public Page<LikeCountDTO> findAll(Pageable pageable) {
         Page<LikeCount> likeCount = likeCountRepository.findAll(pageable);
         return likeCount.map(x -> new LikeCountDTO(x));
+    }
+
+    @Transactional
+    public LikeCountDTO insertLike(LikeCountDTO likeCountDTO) {
+        try {
+            LikeCount likeCount = new LikeCount();
+
+            likeCount.setId(likeCountDTO.getId());
+            likeCount.setCount(likeCountDTO.getCount());
+
+            User user = userRepository.getReferenceById(likeCountDTO.getUser().getId());
+            Message message = messageRepository.getReferenceById(likeCountDTO.getMessage().getId());
+
+            likeCount.setUser(user);
+            likeCount.setMessage(message);
+
+            likeCount = likeCountRepository.save(likeCount);
+            return new LikeCountDTO(likeCount);
+        } catch (DataIntegrityViolationException e) {
+            throw new DatabaseException("[Service] Integrity violation: User may not exist");
+        }
     }
 
 
