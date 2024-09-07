@@ -12,15 +12,12 @@ public class LikeCountDTO {
 
     private Long id;
 
-    private Integer count;
-
     private UserDTO user;
 
     private MessageDTO message;
 
-    public LikeCountDTO(Long id, Integer count, UserDTO user, MessageDTO message) {
+    public LikeCountDTO(Long id, UserDTO user, MessageDTO message) {
         this.id = id;
-        this.count = count;
         this.user = user;
         this.message = message;
     }
@@ -31,13 +28,8 @@ public class LikeCountDTO {
 
     public LikeCountDTO(LikeCount likeCount) {
         this.id = likeCount.getId();
-        this.count = likeCount.getCount();
         this.message = new MessageDTO(likeCount.getMessage());
         this.user = new UserDTO(likeCount.getUser());
-    }
-
-    public Integer getCount() {
-        return count;
     }
 
     public UserDTO getUser() {

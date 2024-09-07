@@ -47,10 +47,13 @@ public class LikeCountService {
     @Transactional
     public LikeCountDTO insertLike(LikeCountDTO likeCountDTO) {
         try {
-            LikeCount likeCount = new LikeCount();
+            Long userId = likeCountDTO.getUser().getId();
+            Long messageId = likeCountDTO.getMessage().getId();
 
-            likeCount.setId(likeCountDTO.getId());
-            likeCount.setCount(likeCountDTO.getCount());
+            if (likeCountRepository.findByUserIdAndMessageId(userId, messageId).isPresent()) {
+                throw new RuntimeException("Like already exists for this message and user");
+            }
+            LikeCount likeCount = new LikeCount();
 
             User user = userRepository.getReferenceById(likeCountDTO.getUser().getId());
             Message message = messageRepository.getReferenceById(likeCountDTO.getMessage().getId());
@@ -58,11 +61,27 @@ public class LikeCountService {
             likeCount.setUser(user);
             likeCount.setMessage(message);
 
+
             likeCount = likeCountRepository.save(likeCount);
             return new LikeCountDTO(likeCount);
         } catch (DataIntegrityViolationException e) {
             throw new DatabaseException("[Service] Integrity violation: User may not exist");
         }
+    }
+
+    @Transactional
+    public LikeCountDTO updateLike(Long id, LikeCountDTO likeCountDTO) {
+        LikeCount likeCount = likeCountRepository.getReferenceById(id);
+
+
+        User user = userRepository.getReferenceById(likeCountDTO.getUser().getId());
+        Message message = messageRepository.getReferenceById(likeCountDTO.getMessage().getId());
+
+        likeCount.setUser(user);
+        likeCount.setMessage(message);
+
+        likeCount = likeCountRepository.save(likeCount);
+        return new LikeCountDTO(likeCount);
     }
 
 

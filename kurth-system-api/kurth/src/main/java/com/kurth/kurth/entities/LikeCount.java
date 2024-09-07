@@ -12,9 +12,6 @@ public class LikeCount {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = true)
-    private Integer count;
-
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -23,23 +20,14 @@ public class LikeCount {
     @JoinColumn(name = "message_id")
     private Message message;
 
-    public LikeCount(Long id, Integer count, User user, Message message) {
+    public LikeCount(Long id, User user, Message message) {
         this.id = id;
-        this.count = count;
         this.user = user;
         this.message = message;
     }
 
     public LikeCount() {
 
-    }
-
-    public Integer getCount() {
-        return count;
-    }
-
-    public void setCount(Integer count) {
-        this.count = count;
     }
 
     public User getUser() {

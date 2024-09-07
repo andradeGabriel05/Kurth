@@ -6,9 +6,14 @@ import "./style.scss";
 import { useEffect, useState } from "react";
 import { MessageDTO } from "../../../models/message";
 import Reaction from "../../../components/Reaction";
+import { BASE_URL } from "../../../utils/system";
+import axios from "../../../../node_modules/axios/index";
 
 export default function Home() {
   const [message, setMessage] = useState<MessageDTO[]>([]);
+
+  // const updatedLikeCount = response.data.likeCount;
+  // setLikeCount(updatedLikeCount);
 
   useEffect(() => {
     messageConst.findAll().then((response) => {
@@ -32,6 +37,7 @@ export default function Home() {
             <MessagePosted key={message.id} message={message} />
           </Link>
           <Reaction message={message} />
+          
         </div>
       ))}
     </div>

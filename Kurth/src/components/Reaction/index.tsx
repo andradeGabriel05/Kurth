@@ -19,29 +19,26 @@ export default function Reaction({ message }: Props) {
   let [likeCount, setLikeCount] = useState<number>(message.likeCount)
 
   async function handleLikeSubmit() {
-    const response = await axios.put(`${BASE_URL}/message/${message.id}/like-count`, {
-      //increaseLike
-      //null
-    });
 
     await axios.post(`${BASE_URL}/likecount`, {
-      count: 1,
       user: {
         id: 1,
       },
       message: {
-        id: response.data.id
+        id: message.id
       },
+
+
     })
 
-    const updatedLikeCount = response.data.likeCount;
-    setLikeCount(updatedLikeCount);
-    console.log("Like count updated to:", updatedLikeCount);
-    console.log("Like submitted");
+    const response = await axios.put(`${BASE_URL}/message/${message.id}/like-count`)
 
-    console.log(response)
-    console.log(response.data.id)
-    console.log(response.data.user.id)
+    setLikeCount(message.likeCount + 1)
+
+    console.log(response.data);
+    // const query = await axios.get(`${BASE_URL}/likecount/`)
+    // console.log('teste')
+    // console.log(query)
 
   }
 

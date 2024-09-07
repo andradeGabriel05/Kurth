@@ -30,8 +30,6 @@ public class Message {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne
-    private LikeCount likeCountMessage;
 
     public Message() {}
 
@@ -87,7 +85,4 @@ public class Message {
         this.likeCount = likeCount;
     }
 
-    public LikeCount getLikeCountMessage() {
-        return likeCountMessage;
-    }
 }
