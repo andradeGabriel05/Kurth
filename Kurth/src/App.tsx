@@ -7,12 +7,12 @@ import NotFound from "./routes/NotFound/index.tsx";
 import Search from "./routes/Main/Search/index.tsx";
 import MessagePage from "./routes/Main/MessagePage/index.tsx";
 import Account from "./routes/User/CreateAccount/index.tsx";
+import Login from "./routes/User/Login/index.tsx";
 import Explore from "./routes/Main/Explore/index.tsx";
 
 // import * as User from "./constants"
 
 export default function App() {
-
   return (
     <div className="container">
       <BrowserRouter>
@@ -29,7 +29,8 @@ export default function App() {
 
             <Route path="profile/:username" element={<Profile />} />
           </Route>
-          <Route path="account" element={<Account />} />
+          <Route path="singin" element={<Login />} />
+          <Route path="singup" element={<Account />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

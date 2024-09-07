@@ -5,14 +5,16 @@ import { BASE_URL, currentDate } from "../../../utils/system";
 
 function handleSubmit(event: any) {
   event.preventDefault();
+  const name = document.getElementById("name") as HTMLInputElement;
+  
   axios
     .post(`${BASE_URL}/user`, {
-      name: "John Doe",
-      username: "@JhonDoee",
-      email: "john.doe@example.com",
+      name: name.value,
+      username: username.value,
+      email: email.value,
       createdAt: currentDate,
-      password: "password123",
-      bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel velit at justo tincidunt posuere eu in nunc. Sed gravida, nunc a ullamcorper viverra, metus erat consectetur libero, in consectetur neque risus vel velit.",
+      password: password.value,
+      bio: "This is a bio",
       avatar: "https://thispersondoesnotexist.com/",
       followers: 0,
       following: 0,
@@ -20,7 +22,7 @@ function handleSubmit(event: any) {
     })
     .then((response) => {
       console.log("User created:", response.data);
-      window.location.reload()
+      // window.location.reload();
     })
     .catch((error) => {
       console.error("Error:", error);
@@ -48,7 +50,9 @@ export default function Account() {
       </div>
       <div className="right-side">
         <div className="right-side-content">
-          <h1>Create account</h1>
+          <span className="right-side-content-title">
+            <Link to="/">Kurth</Link>
+          </span>
 
           <form onSubmit={handleSubmit}>
             <div className="form-group">
@@ -77,6 +81,11 @@ export default function Account() {
             </div>
             <button type="submit">Create account</button>
           </form>
+          <div className="already-have-account">
+            <span>
+              Already have an account? <Link to="/singin">Log in</Link>
+            </span>
+          </div>
         </div>
       </div>
     </div>

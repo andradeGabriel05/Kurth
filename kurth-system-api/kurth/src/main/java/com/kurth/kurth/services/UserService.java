@@ -96,6 +96,20 @@ public class UserService {
         return ResponseEntity.noContent().build();
     }
 
+    @Transactional
+    public UserDTO login(String username, String password) {
+        System.out.println("PASSOU");
+
+        if (userRepository.findByUsername(username).isPresent()) {
+            User user = userRepository.login(username, password).get();
+            System.out.println("Usuario existe");
+            return new UserDTO(user);
+        }
+        System.out.println("não existe");
+        return null;
+    }
+
+
 
     private void copyDtoToEntity(UserDTO userDTO, User user) {
         user.setName(userDTO.getName());

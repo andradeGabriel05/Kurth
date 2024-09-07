@@ -12,11 +12,10 @@ export default function Search() {
   const [searchUser, setSearchUser] = useState("");
 
   useEffect(() => {
-    User.findPageRequest(0, searchUser)
-      .then((response) => {
-        console.log(response.data.content);
-        setUser(response.data.content);
-      });
+    User.findPageRequest(0, searchUser).then((response) => {
+      console.log(response.data.content);
+      setUser(response.data.content);
+    });
   }, [searchUser]);
 
   function handleSearch(searchText: string) {
@@ -24,20 +23,19 @@ export default function Search() {
     return setSearchUser(searchText);
   }
 
-  fetch('http://localhost:8080/likecount/1')
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok ' + response.statusText);
-      }
-      return response.json(); // ou response.text() se a resposta não for JSON
-    })
-    .then(data => {
-      console.log(data); // Aqui você pode manipular os dados recebidos
-    })
-    .catch(error => {
-      console.error('There was a problem with the fetch operation:', error);
-    });
-
+  // fetch('http://localhost:8080/likecount/1')
+  //   .then(response => {
+  //     if (!response.ok) {
+  //       throw new Error('Network response was not ok ' + response.statusText);
+  //     }
+  //     return response.json(); // ou response.text() se a resposta não for JSON
+  //   })
+  //   .then(data => {
+  //     console.log(data); // Aqui você pode manipular os dados recebidos
+  //   })
+  //   .catch(error => {
+  //     console.error('There was a problem with the fetch operation:', error);
+  //   });
 
   return (
     <div className="container-search">

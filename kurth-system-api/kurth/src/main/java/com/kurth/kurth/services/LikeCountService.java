@@ -51,7 +51,7 @@ public class LikeCountService {
             Long messageId = likeCountDTO.getMessage().getId();
 
             if (likeCountRepository.findByUserIdAndMessageId(userId, messageId).isPresent()) {
-                throw new RuntimeException("Like already exists for this message and user");
+                throw new RuntimeException("Like already exists for this message and user"); // <- could change this to 'delete'
             }
             LikeCount likeCount = new LikeCount();
 
@@ -72,7 +72,6 @@ public class LikeCountService {
     @Transactional
     public LikeCountDTO updateLike(Long id, LikeCountDTO likeCountDTO) {
         LikeCount likeCount = likeCountRepository.getReferenceById(id);
-
 
         User user = userRepository.getReferenceById(likeCountDTO.getUser().getId());
         Message message = messageRepository.getReferenceById(likeCountDTO.getMessage().getId());

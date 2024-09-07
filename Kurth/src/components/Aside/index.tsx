@@ -54,7 +54,7 @@ export default function Aside() {
             </NavigationLink>
           </li>
           <li>
-            <NavigationLink link="account">
+            <NavigationLink link="singup">
               <FaUser className="reactIcon" /> Login
             </NavigationLink>
           </li>
