@@ -7,6 +7,7 @@ import NotFound from "./routes/NotFound/index.tsx";
 import Search from "./routes/Main/Search/index.tsx";
 import MessagePage from "./routes/Main/MessagePage/index.tsx";
 import Account from "./routes/User/CreateAccount/index.tsx";
+import Explore from "./routes/Main/Explore/index.tsx";
 
 // import * as User from "./constants"
 
@@ -20,6 +21,7 @@ export default function App() {
             <Route index element={<Home />} />
             <Route path="home" element={<Home />} />
             <Route path="search" element={<Search />} />
+            <Route path="explore" element={<Explore />} />
             <Route
               path={`:username/posts/:messageId`}
               element={<MessagePage />}

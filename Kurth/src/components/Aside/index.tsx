@@ -37,7 +37,7 @@ export default function Aside() {
             </NavigationLink>
           </li>
           <li>
-            <NavigationLink link="notfound">
+            <NavigationLink link="explore">
               <FaCompass className="reactIcon" />
               Explore
             </NavigationLink>

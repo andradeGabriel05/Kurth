@@ -12,11 +12,11 @@ INSERT INTO tb_message (message, posted_at, image, like_count, user_id) VALUES (
 
 INSERT INTO tb_message (message, posted_at, image, like_count, user_id) VALUES ('Lorem ipsum dolor sit amet quas eius nam obcaecati aspernatur nesciunt? Eaque ad architecto labore magnam illo. Deserunt!', TIMESTAMP WITH TIME ZONE '2022-12-21T15:00:00Z','https://s2-oglobo.glbimg.com/D8uAPz0F2zLxbPWEu_QcGbQdH2c=/0x450:1188x1281/888x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_da025474c0c44edd99332dddb09cabe8/internal_photos/bs/2024/F/k/V7S5DLT5iviyfbpYejYw/lula.jfif',0, 2);
 
-INSERT INTO tb_message (message, posted_at, image, like_count, user_id) VALUES ('Sed unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.', TIMESTAMP WITH TIME ZONE '2023-01-01T15:00:00Z', '',0, 2);
+INSERT INTO tb_message (message, posted_at, like_count, user_id) VALUES ('Sed unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.', TIMESTAMP WITH TIME ZONE '2023-01-01T15:00:00Z',0, 2);
 
-INSERT INTO tb_message (message, posted_at, image, like_count, user_id) VALUES ('Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione.', TIMESTAMP WITH TIME ZONE '2023-02-02T15:00:00Z', '',0, 3);
+INSERT INTO tb_message (message, posted_at, like_count, user_id) VALUES ('Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione.', TIMESTAMP WITH TIME ZONE '2023-02-02T15:00:00Z', 0, 3);
 
-INSERT INTO tb_message (message, posted_at, image, like_count, user_id) VALUES ('Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt.', TIMESTAMP WITH TIME ZONE '2023-03-03T15:00:00Z', '',0, 3);
+INSERT INTO tb_message (message, posted_at, like_count, user_id) VALUES ('Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt.', TIMESTAMP WITH TIME ZONE '2023-03-03T15:00:00Z', 0, 3);
 
 INSERT INTO tb_message (message, posted_at, image, like_count, user_id) VALUES ('Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit. Sed quia non numquam eius modi tempora incidunt. Sed quia non numquam eius modi tempora incidunt.', TIMESTAMP WITH TIME ZONE '2024-03-03T15:00:00Z', 'https://img.lagaceta.com.ar/fotos/notas/2024/03/27/600x400_lula-macron-celebran-lazos-estrategicos-1028985-233606.webp',0, 1);
 

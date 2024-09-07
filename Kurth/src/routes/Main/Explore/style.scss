@@ -1,0 +1,17 @@
+@import "../../../index.scss";
+
+.images-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
+  margin: 0 auto;
+  width: 50%;
+  .image-detail {
+    height: 25vh;
+    img {
+      width: 100%;
+      height: 25vh;
+      border-radius: 8px;
+    }
+  }
+}

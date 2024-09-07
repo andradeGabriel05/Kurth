@@ -40,6 +40,11 @@ public class MessageController {
         return messageService.findAllUserMessages(username);
     }
 
+    @GetMapping(value = "/images-details")
+    public List<MessageDTO> findAllMessagesWithImage() {
+        return messageService.findAllMessagesWithImage();
+    }
+
     @PostMapping
     public ResponseEntity<MessageDTO> insert(@Valid  @RequestBody MessageDTO messageDTO) {
         messageDTO = messageService.newMessage(messageDTO);

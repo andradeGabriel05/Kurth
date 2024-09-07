@@ -38,6 +38,12 @@ public class MessageService {
     }
 
     @Transactional(readOnly = true)
+    public List<MessageDTO> findAllMessagesWithImage() {
+        List<Message> messages = messageRepository.findAllMessagesWithImage();
+        return messages.stream().map(x -> new MessageDTO(x)).toList();
+    }
+
+    @Transactional(readOnly = true)
     public MessageDTO findById(Long id) {
 
         Message message = messageRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Resource not found"));
