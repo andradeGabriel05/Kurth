@@ -10,10 +10,32 @@ import {
   FaBell,
   FaUser,
 } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import NavigationLink from "../NavigationLink";
+import * as User from "../../constants/user";
+import { useEffect, useState } from "react";
+import { UserDTO } from "../../models/user";
 
 export default function Aside() {
+  const user_id = localStorage.getItem("user_id");
+  const [userDTO, setUserDTO] = useState<UserDTO>();
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    User.findById(user_id)
+      .then((response) => {
+        setUserDTO(response.data);
+      })
+      .catch((error) => {
+        console.error("Error:", error.response.data);
+        navigate(`/`);
+      });
+  }, [user_id]);
+  // const handleLogout = () => {
+  //   localStorage.removeItem("user_id");
+  //   navigate(`/`);
+  // };
   return (
     <aside>
       <div className="aside__title">
@@ -54,9 +76,15 @@ export default function Aside() {
             </NavigationLink>
           </li>
           <li>
-            <NavigationLink link="singup">
-              <FaUser className="reactIcon" /> Login
-            </NavigationLink>
+            {user_id && user_id !== "null" ? (
+              <NavigationLink link={`profile/${userDTO?.username}`}>
+                <FaUser className="reactIcon" /> Profile
+              </NavigationLink>
+            ) : (
+              <NavigationLink link="login">
+                <FaUser className="reactIcon" /> Login
+              </NavigationLink>
+            )}
           </li>
 
           <li>

@@ -6,6 +6,7 @@ import com.kurth.kurth.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -59,9 +60,17 @@ public class UserController {
 
 
     @PostMapping(value = "/login")
-    public ResponseEntity<UserDTO> login(String username, String password) {
-        UserDTO userDTO = userService.login(username, password);
-        return ResponseEntity.ok(userDTO);
+    public ResponseEntity<?> login(@RequestBody UserDTO userDTO) {
+        String username = userDTO.getUsername();
+        String password = userDTO.getPassword();
+
+        UserDTO userLogin = userService.login(username, password);
+
+        if (userLogin != null) {
+            return ResponseEntity.ok(userLogin);
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Usuário ou senha inválidos");
+        }
     }
 
 

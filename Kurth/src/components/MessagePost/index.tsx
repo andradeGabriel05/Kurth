@@ -2,8 +2,10 @@ import { FaImage } from "react-icons/fa6";
 import "./style.scss";
 import axios from "axios";
 import { BASE_URL, currentDate } from "../../utils/system";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { UserDTO } from "../../models/user";
+import * as User from "../../constants/user";
 
 type Props = {
   message: string;
@@ -14,26 +16,30 @@ export default function MessagePost({ message }: Props) {
   const params = useParams();
 
   // must improve this in the future
+  const user_id = localStorage.getItem("user_id");
 
   function handleSubmit(event: any) {
     event.preventDefault();
-    axios
-      .post(`${BASE_URL}/message`, {
-        message: messageForm,
-        postedAt: currentDate,
-        image: "",
-        likeCount: 0,
-        user: {
-          id: 1,
-        },
-      })
-      .then((response) => {
-        console.log("Message posted:", response.data);
-        window.location.reload(); // <- this
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+
+    if (user_id !== null) {
+      axios
+        .post(`${BASE_URL}/message`, {
+          message: messageForm,
+          postedAt: currentDate,
+          image: null,
+          likeCount: 0,
+          user: {
+            id: user_id,
+          },
+        })
+        .then((response) => {
+          console.log("Message posted:", response.data);
+          window.location.reload(); // <- this
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    }
   }
 
   function handleReply(event: any) {
@@ -44,7 +50,7 @@ export default function MessagePost({ message }: Props) {
         messageId: params.messageId,
         postedAt: currentDate,
         user: {
-          id: 1,
+          id: user_id,
         },
       })
       .then((response) => {
@@ -62,13 +68,29 @@ export default function MessagePost({ message }: Props) {
     console.log("Message posted:", value);
   }
 
+  const [userDTO, setUserDTO] = useState<UserDTO>();
+
+  useEffect(() => {
+    User.findById(user_id)
+      .then((response) => {
+        setUserDTO(response.data);
+      })
+      .catch((error) => {
+        console.error("Error:", error.response.data);
+      });
+  }, [user_id]);
+
   return (
     <>
       <section className="form-message-post p18">
         <div className="wrapper-form">
           <div className="user-avatar">
             <img
-              src="https://thispersondoesnotexist.com/"
+              src={
+                userDTO?.avatar
+                  ? userDTO.avatar
+                  : "https://cdn-icons-png.freepik.com/512/8742/8742495.png"
+              }
               alt=""
               className="icon"
             />

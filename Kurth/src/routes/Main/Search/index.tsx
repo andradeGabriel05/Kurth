@@ -46,14 +46,14 @@ export default function Search() {
           user.map((user) => (
             <div key={user.id} className="user-icon">
               <Link to={`/profile/${user.username}`}>
-                <img src={user.avatar} alt={user.username} className="icon" />
+                <img src={user.avatar === null ? "https://cdn-icons-png.freepik.com/512/8742/8742495.png" : user.avatar} alt={user.username} className="icon" />
                 <div className="user-section">
                   <div className="user-section-username">
                     <p>{user.name}</p>
                   </div>
 
                   <div className="user-section-username">
-                    <p>{user.username}</p>
+                    <p>@{user.username}</p>
                   </div>
                 </div>
               </Link>

@@ -6,8 +6,10 @@ type Props = {
   children: (string | JSX.Element)[];
 };
 
-export default function NavigationLink({ link, children}: Props) {
+export default function NavigationLink({ link, children }: Props) {
   const location = useLocation();
+
+
   return (
     <li>
       <NavLink

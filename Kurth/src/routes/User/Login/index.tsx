@@ -1,24 +1,26 @@
 import { Link } from "react-router-dom";
 import "./style.scss";
 import axios from "axios";
-import { BASE_URL, currentDate } from "../../../utils/system";
+import { BASE_URL } from "../../../utils/system";
 
-function handleSubmit(event: any) {
+async function handleSubmit(event: any) {
   event.preventDefault(event);
 
   const username = userData.value;
   const password = userPassword.value;
 
-  axios.post(`${BASE_URL}/user/login`, {
+  const response = await axios.post(`${BASE_URL}/user/login`, {
     username: username,
     password: password,
-  }).then((response) => {
-    console.log(response);
-    // Redirect to home page
-    window.location.href = "/";
-  }).catch((error) => {
-    console.error("Error:", error);
   });
+
+  console.log(response);
+
+  
+
+  localStorage.setItem("user_id", JSON.stringify(response.data.id));
+  // Redirect to home page
+  window.location.href = "/";
 }
 export default function Login() {
   return (
@@ -50,17 +52,19 @@ export default function Login() {
                 <input type="text" id="userData" />
               </div>
 
-              <div className="form-group">
-                <div className="userPassword">
-                  <label htmlFor="userPassword">Password</label>
-                  <input type="text" id="userPassword" />
-                </div>
+              <div className="userPassword">
+                <label htmlFor="userPassword">Password</label>
+                <input type="text" id="userPassword" />
               </div>
             </div>
 
-            <button type="submit">
-              Create account
-            </button>
+            <button type="submit">Login</button>
+            <div className="dont-have-account">
+              <span>
+                Don't have an account? <Link to="/signup">Sign up</Link>
+
+              </span>
+            </div>
           </form>
         </div>
       </div>

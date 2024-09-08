@@ -9,11 +9,11 @@ export default function ProfileContentDetails({ user }: Props) {
     <div className="profile-content-details">
       <span>
         {user.followers}
-        <span className="profile-content-details-text">Followers</span>
+        <span className="profile-content-details-text"> Followers</span>
       </span>
-      <span>
+      <span> 
         {user.following}
-        <span className="profile-content-details-text">Following</span>
+        <span className="profile-content-details-text"> Following</span>
       </span>
     </div>
   );

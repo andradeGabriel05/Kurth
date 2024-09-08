@@ -1,14 +1,10 @@
 package com.kurth.kurth.services;
 
-import com.kurth.kurth.dto.MessageDTO;
 import com.kurth.kurth.dto.UserDTO;
-import com.kurth.kurth.entities.Message;
 import com.kurth.kurth.entities.User;
-import com.kurth.kurth.repositories.MessageRepository;
 import com.kurth.kurth.repositories.UserRepository;
 import com.kurth.kurth.services.exceptions.DatabaseException;
 import com.kurth.kurth.services.exceptions.ResourceNotFoundException;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -17,10 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PutMapping;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -32,6 +26,7 @@ public class UserService {
         if(!userRepository.existsById(id)) {
             throw new ResourceNotFoundException("Id user not found");
         }
+
         User user = userRepository.findById(id).get();
         return new UserDTO(user);
     }
@@ -98,15 +93,17 @@ public class UserService {
 
     @Transactional
     public UserDTO login(String username, String password) {
-        System.out.println("PASSOU");
+        Optional<User> userOptional = userRepository.login(username, password);
 
-        if (userRepository.findByUsername(username).isPresent()) {
-            User user = userRepository.login(username, password).get();
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
             System.out.println("Usuario existe");
             return new UserDTO(user);
+        } else {
+            System.out.println("Usuário não existe ou senha inválida");
+            return null;
+//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Usuário ou senha inválidos");
         }
-        System.out.println("não existe");
-        return null;
     }
 
 

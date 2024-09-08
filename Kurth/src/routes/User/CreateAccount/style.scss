@@ -51,7 +51,7 @@
     padding: 30px;
     width: 50%;
     font-weight: 600;
-    height: fit-content;
+    height: auto;
     text-transform: none;
     &-content {
       padding: 20px;
@@ -61,7 +61,10 @@
 
       &-title {
         text-transform: uppercase;
+        display: flex;
+        justify-content: center;
         a {
+          width: fit-content;
           display: flex;
           justify-content: center;
           font-size: 3.4em;

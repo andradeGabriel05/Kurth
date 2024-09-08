@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./style.scss";
 import axios from "axios";
 import { BASE_URL, currentDate } from "../../../utils/system";
@@ -6,7 +6,7 @@ import { BASE_URL, currentDate } from "../../../utils/system";
 function handleSubmit(event: any) {
   event.preventDefault();
   const name = document.getElementById("name") as HTMLInputElement;
-  
+
   axios
     .post(`${BASE_URL}/user`, {
       name: name.value,
@@ -14,15 +14,15 @@ function handleSubmit(event: any) {
       email: email.value,
       createdAt: currentDate,
       password: password.value,
-      bio: "This is a bio",
-      avatar: "https://thispersondoesnotexist.com/",
+      bio: null,
+      avatar: null,
       followers: 0,
       following: 0,
       posts: 0,
     })
     .then((response) => {
       console.log("User created:", response.data);
-      // window.location.reload();
+      window.location.href = "/";
     })
     .catch((error) => {
       console.error("Error:", error);
@@ -83,7 +83,7 @@ export default function Account() {
           </form>
           <div className="already-have-account">
             <span>
-              Already have an account? <Link to="/singin">Log in</Link>
+              Already have an account? <Link to="/login">Log in</Link>
             </span>
           </div>
         </div>

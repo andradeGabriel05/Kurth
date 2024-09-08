@@ -13,6 +13,23 @@ import Explore from "./routes/Main/Explore/index.tsx";
 // import * as User from "./constants"
 
 export default function App() {
+  //tomorrow: improve the use of findById on aside and messagePost... Try to get only here and pass as props? 
+  
+  // const [userDTO, setUserDTO] = useState<UserDTO>();
+
+  // const navigate = useNavigate();
+
+  // useEffect(() => {
+  //   User.findById(user_id)
+  //     .then((response) => {
+  //       setUserDTO(response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error:", error.response.data);
+  //       navigate(`/`);
+  //     });
+  // }, [user_id]);
+
   return (
     <div className="container">
       <BrowserRouter>
@@ -29,8 +46,8 @@ export default function App() {
 
             <Route path="profile/:username" element={<Profile />} />
           </Route>
-          <Route path="singin" element={<Login />} />
-          <Route path="singup" element={<Account />} />
+          <Route path="login" element={<Login />} />
+          <Route path="signup" element={<Account />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

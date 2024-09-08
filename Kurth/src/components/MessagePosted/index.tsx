@@ -11,7 +11,6 @@ type Props = {
 
 export default function MessagePosted({ message }: Props) {
   const showImage = message.image && message.image !== "";
-  console.log(showImage);
 
   return (
     <div className="form__message__posted p18">
@@ -19,7 +18,7 @@ export default function MessagePosted({ message }: Props) {
         <div className="user__image">
           <Link to={`/profile/${message.user.username}`}>
             <img
-              src={message.user.avatar}
+              src={message.user.avatar === null ? "https://cdn-icons-png.freepik.com/512/8742/8742495.png" : message.user.avatar}
               alt={message.user.name}
               className="icon"
             />
@@ -40,7 +39,7 @@ export default function MessagePosted({ message }: Props) {
                 to={`/profile/${message.user.username}`}
                 className="route__element"
               >
-                <span className="username">{message.user.username}</span>
+                <span className="username">@{message.user.username}</span>
               </Link>
             </div>
             <div className="post__details">
