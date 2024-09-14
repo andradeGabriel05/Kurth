@@ -18,6 +18,10 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
     @Query("UPDATE Message obj SET obj.likeCount = obj.likeCount + 1 WHERE obj.id = :id")
     Integer updateLikeCount(@Param("id") Long id);
 
+    @Modifying
+    @Query("UPDATE Message obj SET obj.likeCount = obj.likeCount - 1 WHERE obj.id = :id")
+    Integer removeLike(@Param("id") Long id);
+
     @Query("SELECT obj FROM Message obj WHERE obj.image IS NOT NULL")
     List<Message> findAllMessagesWithImage();
 

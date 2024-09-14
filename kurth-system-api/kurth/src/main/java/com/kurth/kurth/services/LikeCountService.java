@@ -14,8 +14,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Service
 public class LikeCountService {
@@ -50,9 +54,13 @@ public class LikeCountService {
             Long userId = likeCountDTO.getUser().getId();
             Long messageId = likeCountDTO.getMessage().getId();
 
-            if (likeCountRepository.findByUserIdAndMessageId(userId, messageId).isPresent()) {
-                throw new RuntimeException("Like already exists for this message and user"); // <- could change this to 'delete'
+            Optional<LikeCount> existingLike = likeCountRepository.findByUserIdAndMessageId(userId, messageId);
+
+            if (existingLike.isPresent()) {
+                removeLike(existingLike.get().getId());
+                return null;
             }
+
             LikeCount likeCount = new LikeCount();
 
             User user = userRepository.getReferenceById(likeCountDTO.getUser().getId());
@@ -81,6 +89,11 @@ public class LikeCountService {
 
         likeCount = likeCountRepository.save(likeCount);
         return new LikeCountDTO(likeCount);
+    }
+
+    @Transactional (propagation = Propagation.SUPPORTS)
+    public void removeLike(Long id) {
+        likeCountRepository.deleteById(id);
     }
 
 

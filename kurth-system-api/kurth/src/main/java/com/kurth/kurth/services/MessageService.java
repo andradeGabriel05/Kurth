@@ -115,6 +115,18 @@ public class MessageService {
         return new MessageDTO(updatedMessage);
     }
 
+    @Transactional
+    public MessageDTO removeLike(Long id) {
+        if(!messageRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Id message not found");
+        }
+
+        messageRepository.removeLike(id);
+
+        Message updatedMessage = messageRepository.getReferenceById(id);
+        return new MessageDTO(updatedMessage);
+    }
+
     private void copyDtoToEntity(MessageDTO messageDTO, Message message) {
         message.setMessage(messageDTO.getMessage());
         message.setPostedAt(messageDTO.getPostedAt());

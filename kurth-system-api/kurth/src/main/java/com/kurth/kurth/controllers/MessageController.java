@@ -71,6 +71,11 @@ public class MessageController {
             return ResponseEntity.ok(messageDTO);
     }
 
+    @PutMapping(value = "/{id}/like-count-removing")
+    public ResponseEntity<MessageDTO> removeLike(@PathVariable Long id) {
+        MessageDTO messageDTO = messageService.removeLike(id);
+        return ResponseEntity.ok(messageDTO);
+    }
 
 
 

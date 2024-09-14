@@ -39,10 +39,16 @@ public class LikeCountController {
         return ResponseEntity.created(uri).body(likeCountDTO);
     }
 
-    @PutMapping(value = "/{id}")
+    @PutMapping(value = "/update/{id}")
     public ResponseEntity<LikeCountDTO> updateLike(@PathVariable Long id, @RequestBody LikeCountDTO likeCountDTO) {
         likeCountDTO = likeCountService.updateLike(id, likeCountDTO);
         return ResponseEntity.ok(likeCountDTO);
+    }
+
+    @DeleteMapping(value = "/remove/{id}")
+    public ResponseEntity<Void> removeLike(@PathVariable Long id) {
+        likeCountService.removeLike(id);
+        return ResponseEntity.noContent().build();
     }
 
 }
