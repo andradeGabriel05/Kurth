@@ -3,11 +3,11 @@ import "./style.scss";
 import axios from "axios";
 import { BASE_URL, currentDate } from "../../../utils/system";
 
-function handleSubmit(event: any) {
+async function handleSubmit(event: any) {
   event.preventDefault();
   const name = document.getElementById("name") as HTMLInputElement;
 
-  axios
+  const response = axios
     .post(`${BASE_URL}/user`, {
       name: name.value,
       username: username.value,
@@ -23,6 +23,9 @@ function handleSubmit(event: any) {
     .then((response) => {
       console.log("User created:", response.data);
       window.location.href = "/";
+
+      localStorage.setItem("user_id", JSON.stringify(response.data.id));
+      localStorage.setItem("username", JSON.stringify(username.value));
     })
     .catch((error) => {
       console.error("Error:", error);

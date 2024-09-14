@@ -15,31 +15,43 @@ type Props = {
 
 export default function Reaction({ message }: Props) {
   const navigate = useNavigate();
-
-  let [likeCount, setLikeCount] = useState<number>(message.likeCount)
+  const user_id = localStorage.getItem("user_id");
+  let [likeCount, setLikeCount] = useState<number>(message.likeCount);
 
   async function handleLikeSubmit() {
+    if (user_id) {
+      try {
+        await axios.post(`${BASE_URL}/likecount`, {
+          user: {
+            id: localStorage.getItem("user_id"),
+          },
+          message: {
+            id: message.id,
+          },
+        });
 
-    await axios.post(`${BASE_URL}/likecount`, {
-      user: {
-        id: 1,
-      },
-      message: {
-        id: message.id
-      },
+        const response = await axios.put(
+          `${BASE_URL}/message/${message.id}/like-count`
+        );
 
+        setLikeCount(message.likeCount + 1);
 
-    })
+        console.log(response.data);
+      } catch {
+        await axios.delete(`${BASE_URL}/likecount/remove/${message.id}`, {});
 
-    const response = await axios.put(`${BASE_URL}/message/${message.id}/like-count`)
+        const response = await axios.put(
+          `${BASE_URL}/message/${message.id}/like-count-removing`
+        );
 
-    setLikeCount(message.likeCount + 1)
+        setLikeCount(message.likeCount);
 
-    console.log(response.data);
-    // const query = await axios.get(`${BASE_URL}/likecount/`)
-    // console.log('teste')
-    // console.log(query)
+        console.log(response.data);
+      }
+    } else {
+    navigate(`/login`);
 
+    }
   }
 
   function handleReplyButton() {
@@ -53,7 +65,6 @@ export default function Reaction({ message }: Props) {
     return false;
   }
   return (
-
     <div className="reactions__message">
       <div
         className="reaction__comment reaction__icon"

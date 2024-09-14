@@ -16,9 +16,8 @@ async function handleSubmit(event: any) {
 
   console.log(response);
 
-  
-
   localStorage.setItem("user_id", JSON.stringify(response.data.id));
+  localStorage.setItem("username", JSON.stringify(response.data.username));
   // Redirect to home page
   window.location.href = "/";
 }
@@ -54,7 +53,7 @@ export default function Login() {
 
               <div className="userPassword">
                 <label htmlFor="userPassword">Password</label>
-                <input type="text" id="userPassword" />
+                <input type="password" id="userPassword" />
               </div>
             </div>
 
@@ -62,7 +61,6 @@ export default function Login() {
             <div className="dont-have-account">
               <span>
                 Don't have an account? <Link to="/signup">Sign up</Link>
-
               </span>
             </div>
           </form>

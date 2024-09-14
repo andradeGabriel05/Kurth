@@ -3,7 +3,7 @@ import "./style.scss";
 import axios from "axios";
 import { BASE_URL, currentDate } from "../../utils/system";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { UserDTO } from "../../models/user";
 import * as User from "../../constants/user";
 
@@ -17,6 +17,8 @@ export default function MessagePost({ message }: Props) {
 
   // must improve this in the future
   const user_id = localStorage.getItem("user_id");
+  const username = localStorage.getItem("username");
+  const formattedUsername = username ? username.replace(/['"]+/g, "") : "";
 
   function handleSubmit(event: any) {
     event.preventDefault();
@@ -85,15 +87,17 @@ export default function MessagePost({ message }: Props) {
       <section className="form-message-post p18">
         <div className="wrapper-form">
           <div className="user-avatar">
-            <img
-              src={
-                userDTO?.avatar
-                  ? userDTO.avatar
-                  : "https://cdn-icons-png.freepik.com/512/8742/8742495.png"
-              }
-              alt=""
-              className="icon"
-            />
+            <Link to={`/profile/${formattedUsername}`}>
+              <img
+                src={
+                  userDTO?.avatar
+                    ? userDTO.avatar
+                    : "https://cdn-icons-png.freepik.com/512/8742/8742495.png"
+                }
+                alt=""
+                className="icon"
+              />
+            </Link>
           </div>
           <div className="user-form-text">
             <form

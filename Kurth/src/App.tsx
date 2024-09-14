@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 import Profile from "./routes/Main/Profile/index.tsx";
 
 import Home from "./routes/Main/Home/index.tsx";
@@ -9,12 +9,16 @@ import MessagePage from "./routes/Main/MessagePage/index.tsx";
 import Account from "./routes/User/CreateAccount/index.tsx";
 import Login from "./routes/User/Login/index.tsx";
 import Explore from "./routes/Main/Explore/index.tsx";
+import { useEffect, useState } from "react";
+import { UserDTO } from "./models/user.ts";
+import * as User from "./constants/user.ts";
 
 // import * as User from "./constants"
 
 export default function App() {
-  //tomorrow: improve the use of findById on aside and messagePost... Try to get only here and pass as props? 
-  
+  //tomorrow: improve the use of findById on aside and messagePost... Try to get only here and pass as props?
+  // const user_id = localStorage.getItem("user_id");
+
   // const [userDTO, setUserDTO] = useState<UserDTO>();
 
   // const navigate = useNavigate();
