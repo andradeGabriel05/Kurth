@@ -1,0 +1,28 @@
+@import "../../../index.scss";
+
+.container-more {
+  background-color: #fff;
+  color: #000;
+  margin: 0 auto;
+  width: 40%;
+
+  &-box {
+    background-color: #f9f9f9;
+    border: solid 1px #9c9c9c;
+    display: flex;
+    align-items: center;
+    button {
+      background-color: #f9f9f9;
+      color: #000;
+      border: none;
+      cursor: pointer;
+      padding: 20px;
+      width: 100%;
+      transition: all .3s;
+
+      &:hover {
+        background-color: #c3c3c3;
+      }
+    }
+  }
+}

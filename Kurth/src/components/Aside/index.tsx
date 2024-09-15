@@ -88,9 +88,16 @@ export default function Aside() {
           </li>
 
           <li>
-            <NavigationLink link="notfound">
-              <FaEllipsis className="reactIcon" /> More
-            </NavigationLink>
+            {user_id && user_id !== "null" ? (
+              <NavigationLink link="more">
+                <FaEllipsis className="reactIcon" /> More
+              </NavigationLink>
+            ) : (
+              // <NavigationLink link="login">
+              //   <FaEllipsis className="reactIcon" /> More
+              // </NavigationLink>
+              ""
+            )}
           </li>
         </ul>
       </div>

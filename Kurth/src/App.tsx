@@ -12,6 +12,7 @@ import Explore from "./routes/Main/Explore/index.tsx";
 import { useEffect, useState } from "react";
 import { UserDTO } from "./models/user.ts";
 import * as User from "./constants/user.ts";
+import More from "./routes/Main/More/index.tsx";
 
 // import * as User from "./constants"
 
@@ -49,6 +50,7 @@ export default function App() {
             />
 
             <Route path="profile/:username" element={<Profile />} />
+            <Route path="more" element={<More />} />
           </Route>
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<Account />} />
