@@ -79,3 +79,82 @@ aside {
     background-color: $background-color-components;
   }
 }
+
+.user-profile-item {
+  position: relative;
+  color: #000;
+  transition: all 0.3s;
+
+  &:hover {
+    background-color: #e1e1e1;
+  }
+
+  .user-profile-route {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    margin-right: 15px;
+    img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+
+    svg {
+      margin: 0;
+      width: 20px;
+      height: 20px;
+      position: absolute;
+      right: 0;
+      margin-right: 10px;
+    }
+
+    .user-profile-route-info {
+      margin-left: 10px;
+
+      .info-name {
+        font-weight: bold;
+      }
+
+      .info-username {
+        font-size: 12px;
+        color: #505050;
+        font-weight: 500;
+      }
+    }
+  }
+
+  .logout-card {
+    width: 100%;
+    position: absolute;
+    top: -50px; // Move o card de logout acima do li
+    left: 0;
+    background-color: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    button {
+      background-color: #242424;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      display: flex;
+      align-items: center;
+
+      span {
+        width: max-content;
+        padding: 15px;
+      }
+
+      &:hover {
+        background-color: #3e3e3e;
+      }
+      .reactIcon {
+        color: white;
+      }
+    }
+  }
+}

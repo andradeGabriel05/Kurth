@@ -35,15 +35,9 @@ export default function Login() {
             <h1>Kurth</h1>
           </Link>
         </div>
-        <div className="delete">
-          <p>For the future!!!!!!!!!!!!!!</p>
-          <p>Page not working!!!!!!!!!!!!</p>
-        </div>
       </div>
       <div className="right-side">
         <div className="right-side-content">
-          {/* <h1>Login</h1> */}
-
           <form onSubmit={handleSubmit}>
             <div className="form-group">
               <div className="userData">
