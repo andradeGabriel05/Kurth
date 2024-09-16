@@ -28,3 +28,11 @@ export function findPageRequest(page: number, size = 6, sort = "name") {
     return axios(config);
   }
 
+  export function countReplyMessages(id: number) {
+    const config: AxiosRequestConfig = {
+      method: "GET",
+      baseURL: BASE_URL,
+      url: `/reply/message-count/${id}`,
+    }
+    return axios(config);
+  }

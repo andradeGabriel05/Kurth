@@ -36,6 +36,11 @@ public class ReplyService {
     }
 
     @Transactional(readOnly = true)
+    public Integer countReplyMessages(Long id) {
+        return replyRepository.countReplyMessages(id);
+    }
+
+    @Transactional(readOnly = true)
     public Page<ReplyDTO> findAll(Pageable pageable) {
         Page<Reply> replies = replyRepository.findAll(pageable);
         return replies.map(rep -> new ReplyDTO(rep));

@@ -36,6 +36,11 @@ public class ReplyController {
         return ResponseEntity.ok(replyDTO);
     }
 
+    @GetMapping("/message-count/{id}")
+    public Integer countReplyMessages(@PathVariable Long id) {
+        return replyService.countReplyMessages(id);
+    }
+
     @PostMapping
     public ResponseEntity<ReplyDTO> newReply(@RequestBody ReplyDTO replyDTO) {
         replyDTO = replyService.newReply(replyDTO);

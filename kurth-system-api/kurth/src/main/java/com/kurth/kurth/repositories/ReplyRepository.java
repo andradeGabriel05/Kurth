@@ -14,4 +14,9 @@ public interface ReplyRepository extends JpaRepository<Reply, Long> {
             "WHERE obj.messageId.id = :id")
     Page<Reply> findAllByMessageId(@Param("id") Long id, Pageable pageable);
 
+    @Query("SELECT COUNT(obj) FROM Reply obj " +
+            "WHERE obj.messageId.id = :id GROUP BY obj.messageId.id")
+    Integer countReplyMessages(@Param("id") Long id);
+
+
 }

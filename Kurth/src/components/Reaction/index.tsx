@@ -6,8 +6,9 @@ import { FaComment, FaHeart } from "react-icons/fa6";
 import { useNavigate, useParams } from "react-router-dom";
 import { MessageDTO } from "../../models/message";
 import { ReplyDTO } from "../../models/reply";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BASE_URL } from "../../utils/system";
+import * as ReplyService from "../../constants/reply";
 
 type Props = {
   message: MessageDTO | ReplyDTO;
@@ -17,6 +18,36 @@ export default function Reaction({ message }: Props) {
   const navigate = useNavigate();
   const user_id = localStorage.getItem("user_id");
   let [likeCount, setLikeCount] = useState<number>(message.likeCount);
+  const messageId = Number(message.id);
+
+  let [replyCount, setReplyCount] = useState<number>(0);
+
+  useEffect(() => {
+    ReplyService.countReplyMessages(messageId)
+      .then((response) => {
+        console.log(response.data);
+
+        setReplyCount(response.data);
+      })
+      .catch((e) => {
+        console.error("Error:", e.response.data);
+      });
+  }, [messageId]);
+
+  // let [replyCount, setReplyCount] = useState<number>(0);
+
+  // useEffect(() => {
+  //   ReplyService.findByMessageId(0, messageId)
+  //     .then((response) => {
+  //       console.log(response.data);
+  //       console.log(response.data.totalElements);
+
+  //       setReplyCount(response.data.totalElements);
+  //     })
+  //     .catch((e) => {
+  //       console.error("Error:", e.response.data);
+  //     });
+  //   }, [messageId]);
 
   async function handleLikeSubmit() {
     if (user_id) {
@@ -49,8 +80,7 @@ export default function Reaction({ message }: Props) {
         console.log(response.data);
       }
     } else {
-    navigate(`/login`);
-
+      navigate(`/login`);
     }
   }
 
@@ -71,6 +101,7 @@ export default function Reaction({ message }: Props) {
         onClick={handleReplyButton}
       >
         <FaComment />
+        <span className="like__count">{replyCount ? replyCount : 0}</span>
       </div>
       <div className="reaction__like reaction__icon" onClick={handleLikeSubmit}>
         <FaHeart className="like__count__icon" />

@@ -57,6 +57,7 @@ public class MessageService {
         return message.map(x -> new MessageDTO(x));
     }
 
+
     @Transactional
     public MessageDTO newMessage(MessageDTO messageDTO) {
 

@@ -103,7 +103,7 @@ export default function MessagePost({ message }: Props) {
             <form
               method="post"
               onSubmit={
-                message !== "Post your reply" ? handleSubmit : handleReply
+                message !== "Post your reply" ? handleReply : handleSubmit
               }
             >
               <textarea
