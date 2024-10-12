@@ -45,6 +45,7 @@ export default function Aside() {
 
   function handleLogout() {
     localStorage.removeItem("user_id");
+    window.location.reload();
     navigate(`/`);
   }
   return (
@@ -87,7 +88,7 @@ export default function Aside() {
             </NavigationLink>
           </li>
           <li>
-            {user_id && user_id !== "null" ? (
+            {user_id && user_id !== null ? (
               <NavigationLink link={`profile/${userDTO?.username}`}>
                 <FaUser className="reactIcon" /> Profile
               </NavigationLink>

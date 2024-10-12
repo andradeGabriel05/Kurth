@@ -11,16 +11,12 @@
   justify-content: space-between;
   margin-top: 1rem;
 
-  form {
-    display: flex;
-
-    button {
-      border: none;
-      padding: 10px 15px;
-      border-radius: 10px;
-      margin-right: 10px;
-      font-size: 0.9rem;
-      cursor: pointer;
-    }
+  button {
+    border: none;
+    padding: 10px 15px;
+    border-radius: 10px;
+    margin-right: 10px;
+    font-size: 0.9rem;
+    cursor: pointer;
   }
 }

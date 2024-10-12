@@ -13,6 +13,7 @@ import Reaction from "../../../components/Reaction";
 // import { user } from "../../constants/";
 
 export default function Profile() {
+
   const params = useParams();
 
   const [user, setUser] = useState<UserDTO>();

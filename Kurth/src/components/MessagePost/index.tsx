@@ -3,7 +3,7 @@ import "./style.scss";
 import axios from "axios";
 import { BASE_URL, currentDate } from "../../utils/system";
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { UserDTO } from "../../models/user";
 import * as User from "../../constants/user";
 
@@ -14,6 +14,7 @@ type Props = {
 export default function MessagePost({ message }: Props) {
   const [messageForm, setMessageForm] = useState();
   const params = useParams();
+  const navigate = useNavigate();
 
   // must improve this in the future
   const user_id = localStorage.getItem("user_id");
@@ -23,25 +24,24 @@ export default function MessagePost({ message }: Props) {
   function handleSubmit(event: any) {
     event.preventDefault();
 
-    if (user_id !== null) {
-      axios
-        .post(`${BASE_URL}/message`, {
-          message: messageForm,
-          postedAt: currentDate,
-          image: null,
-          likeCount: 0,
-          user: {
-            id: user_id,
-          },
-        })
-        .then((response) => {
-          console.log("Message posted:", response.data);
-          window.location.reload(); // <- this
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-        });
-    }
+    axios
+      .post(`${BASE_URL}/message`, {
+        message: messageForm,
+        postedAt: currentDate,
+        image: null,
+        likeCount: 0,
+        user: {
+          id: user_id,
+        },
+      })
+      .then((response) => {
+        console.log("Message posted:", response.data);
+        window.location.reload(); // <- this
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        navigate("/login");
+      });
   }
 
   function handleReply(event: any) {
@@ -61,6 +61,7 @@ export default function MessagePost({ message }: Props) {
       })
       .catch((error) => {
         console.error("Error:", error);
+        navigate("/login");
       });
   }
 
@@ -87,7 +88,13 @@ export default function MessagePost({ message }: Props) {
       <section className="form-message-post p18">
         <div className="wrapper-form">
           <div className="user-avatar">
-            <Link to={`/profile/${formattedUsername}`}>
+            <Link
+              to={
+                user_id === null
+                  ?  `/login`
+                  : `/profile/${formattedUsername}`
+              }
+            >
               <img
                 src={
                   userDTO?.avatar
@@ -103,7 +110,9 @@ export default function MessagePost({ message }: Props) {
             <form
               method="post"
               onSubmit={
-                message === "What do you think about this?" ? handleReply : handleSubmit
+                message === "What do you think about this?"
+                  ? handleReply
+                  : handleSubmit
               }
             >
               <textarea
