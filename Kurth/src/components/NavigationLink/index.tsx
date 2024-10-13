@@ -9,7 +9,6 @@ type Props = {
 export default function NavigationLink({ link, children }: Props) {
   const location = useLocation();
 
-
   return (
     <li>
       <NavLink
