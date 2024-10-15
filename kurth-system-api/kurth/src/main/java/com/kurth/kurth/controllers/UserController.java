@@ -73,5 +73,30 @@ public class UserController {
         }
     }
 
+    @PutMapping(value = "{id}/update-follower")
+    public ResponseEntity<UserDTO> updateFollower(@PathVariable Long id) {
+        UserDTO userDTO = userService.updateFollower(id);
+        return ResponseEntity.ok(userDTO);
+    }
+
+    @PutMapping(value = "{id}/update-following")
+    public ResponseEntity<UserDTO> updateFollowing(@PathVariable Long id) {
+        UserDTO userDTO = userService.updateFollowing(id);
+        return ResponseEntity.ok(userDTO);
+    }
+
+    @PutMapping(value = "{id}/update-remove-follower")
+    public ResponseEntity<UserDTO> updateRemoveFollower(@PathVariable Long id) {
+        UserDTO userDTO = userService.updateRemoveFollower(id);
+        return ResponseEntity.ok(userDTO);
+    }
+
+    @PutMapping(value = "{id}/update-remove-following")
+    public ResponseEntity<UserDTO> updateRemoveFollowing(@PathVariable Long id) {
+        UserDTO userDTO = userService.updateRemoveFollowing(id);
+        return ResponseEntity.ok(userDTO);
+    }
+
+
 
 }

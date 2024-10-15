@@ -63,8 +63,8 @@ public class LikeCountService {
 
             LikeCount likeCount = new LikeCount();
 
-            User user = userRepository.getReferenceById(likeCountDTO.getUser().getId());
-            Message message = messageRepository.getReferenceById(likeCountDTO.getMessage().getId());
+            User user = userRepository.getReferenceById(userId);
+            Message message = messageRepository.getReferenceById(messageId);
 
             likeCount.setUser(user);
             likeCount.setMessage(message);

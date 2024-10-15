@@ -34,21 +34,7 @@ export default function Reaction({ message }: Props) {
       });
   }, [messageId]);
 
-  // let [replyCount, setReplyCount] = useState<number>(0);
-
-  // useEffect(() => {
-  //   ReplyService.findByMessageId(0, messageId)
-  //     .then((response) => {
-  //       console.log(response.data);
-  //       console.log(response.data.totalElements);
-
-  //       setReplyCount(response.data.totalElements);
-  //     })
-  //     .catch((e) => {
-  //       console.error("Error:", e.response.data);
-  //     });
-  //   }, [messageId]);
-
+  //levar para constants => move this to constants
   async function handleLikeSubmit() {
     if (user_id) {
       try {

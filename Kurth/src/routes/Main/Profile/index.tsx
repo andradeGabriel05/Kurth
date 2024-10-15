@@ -40,12 +40,14 @@ export default function Profile() {
       });
   }, []);
 
+  
+
   return (
     <div className="profile-container">
       {user && <ProfileHeader user={user} />}
       <div className="profile-content">
         {user && <ProfileContentDetails user={user} />}
-        {user && <ProfileContentActions />}
+        {/* {user && <ProfileContentActions user={user}/>} */}
       </div>
       {message && message.length === 0 && (
         <div className="no-message">No messages found for this user.</div>

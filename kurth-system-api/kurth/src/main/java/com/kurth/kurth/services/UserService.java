@@ -106,7 +106,45 @@ public class UserService {
         }
     }
 
+    @Transactional
+    public UserDTO updateFollower(Long id) {
+        if(!userRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Id user not found");
+        }
+        User user = userRepository.findById(id).get();
+        userRepository.updateFollower(id);
+        return new UserDTO(user);
+    }
 
+    @Transactional
+    public UserDTO updateFollowing(Long id) {
+        if(!userRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Id user not found");
+        }
+        User user = userRepository.findById(id).get();
+        userRepository.updateFollowing(id);
+        return new UserDTO(user);
+    }
+
+    @Transactional
+    public UserDTO updateRemoveFollower(Long id) {
+        if(!userRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Id user not found");
+        }
+        User user = userRepository.findById(id).get();
+        userRepository.updateRemoveFollower(id);
+        return new UserDTO(user);
+    }
+
+    @Transactional
+    public UserDTO updateRemoveFollowing(Long id) {
+        if(!userRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Id user not found");
+        }
+        User user = userRepository.findById(id).get();
+        userRepository.updateRemoveFollowing(id);
+        return new UserDTO(user);
+    }
 
     private void copyDtoToEntity(UserDTO userDTO, User user) {
         user.setName(userDTO.getName());
