@@ -33,14 +33,13 @@ export default function Profile() {
       .then((response) => {
         console.log(response.data);
         setMessage(response.data);
-      })        
+      })
 
       .catch((error) => {
         console.error("Error:", error.response.data);
       });
   }, []);
 
-  
 
   return (
     <div className="profile-container">

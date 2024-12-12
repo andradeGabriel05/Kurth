@@ -11,6 +11,8 @@ export default function Search() {
 
   const [searchUser, setSearchUser] = useState("");
 
+  const userLoggedInId = localStorage.getItem("user_id");
+
   useEffect(() => {
     User.findPageRequest(0, searchUser).then((response) => {
       console.log(response.data.content);
@@ -59,7 +61,7 @@ export default function Search() {
               </Link>
 
               <div className="follow-button">
-                <ProfileContentActions />
+                <ProfileContentActions userLoggedInId={userLoggedInId} userId={user.id} />
               </div>
             </div>
           ))}

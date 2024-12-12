@@ -37,7 +37,6 @@ export default function Home() {
             <MessagePosted key={message.id} message={message} />
           </Link>
           <Reaction message={message} />
-          
         </div>
       ))}
     </div>

@@ -39,8 +39,10 @@ export default function MessagePost({ message }: Props) {
         window.location.reload(); // <- this
       })
       .catch((error) => {
-        console.error("Error:", error);
-        navigate("/login");
+        if (!user_id) {
+          console.error("Error:", error);
+          navigate("/login");
+        }
       });
   }
 
@@ -89,11 +91,7 @@ export default function MessagePost({ message }: Props) {
         <div className="wrapper-form">
           <div className="user-avatar">
             <Link
-              to={
-                user_id === null
-                  ?  `/login`
-                  : `/profile/${formattedUsername}`
-              }
+              to={user_id === null ? `/login` : `/profile/${formattedUsername}`}
             >
               <img
                 src={

@@ -39,7 +39,9 @@ public class FollowController {
 
     @GetMapping(value = "/checkfollow/{followerId}/{followingId}")
     public FollowDTO userAlreadyFollowing(@PathVariable Long followerId, @PathVariable Long followingId) {
+
         try {
+            System.out.println("Entrou no método userAlreadyFollowing");
             FollowDTO followDTO = followService.userAlreadyFollowing(followerId, followingId);
 
             if (followDTO == null) {

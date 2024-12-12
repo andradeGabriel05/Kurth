@@ -57,7 +57,7 @@ export default function ProfileContentDetails({ user }: Props) {
   // if you double click, this will not work
   // jesus...
 
-  async function handleFollow(event) {
+  async function handleFollow(event: any) {
     event.preventDefault();
     if (!userLoggedIn) {
       return navigate("/login");
