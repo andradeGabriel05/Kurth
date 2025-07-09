@@ -1,6 +1,8 @@
 @import "../../index.scss";
 
 .profile-content-details {
+  display: flex;
+  align-items: center;
   .profile-content-actions {
     display: flex;
     justify-content: space-between;
@@ -19,6 +21,8 @@
       margin-right: 10px;
       font-size: 0.9rem;
       cursor: pointer;
+      display: flex;
+      align-items: center;
     }
   }
 }

@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/likecount")
@@ -29,6 +31,16 @@ public class LikeCountController {
     public ResponseEntity<Page<LikeCountDTO>> findAll(Pageable pageable) {
         Page<LikeCountDTO> likeCountDTO = likeCountService.findAll(pageable);
         return ResponseEntity.ok(likeCountDTO);
+    }
+
+    @GetMapping("/user/{userId}")
+    public List<LikeCountDTO> findByUserId(@PathVariable Long userId) {
+        return likeCountService.findByUserId(userId);
+    }
+
+    @GetMapping("/user/{userId}/message/{messageId}")
+    public Optional<LikeCountDTO> findByUserIdAndMessageId(@PathVariable Long userId, @PathVariable Long messageId) {
+        return likeCountService.findByUserIdAndMessageId(userId, messageId);
     }
 
     @PostMapping

@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -46,6 +47,18 @@ public class LikeCountService {
     public Page<LikeCountDTO> findAll(Pageable pageable) {
         Page<LikeCount> likeCount = likeCountRepository.findAll(pageable);
         return likeCount.map(x -> new LikeCountDTO(x));
+    }
+
+    @Transactional(readOnly = true)
+    public List<LikeCountDTO> findByUserId(Long userId) {
+        List<LikeCount> likeCounts = likeCountRepository.findByUserId(userId);
+        return  likeCounts.stream().map(LikeCountDTO::new).toList();
+    }
+
+    @Transactional(readOnly = true)
+    public Optional<LikeCountDTO> findByUserIdAndMessageId(Long userId, Long messageId) {
+        Optional<LikeCount> likeCount = likeCountRepository.findByUserIdAndMessageId(userId, messageId);
+        return likeCount.map(LikeCountDTO::new);
     }
 
     @Transactional

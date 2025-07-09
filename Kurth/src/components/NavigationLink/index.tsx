@@ -10,7 +10,6 @@ export default function NavigationLink({ link, children }: Props) {
   const location = useLocation();
 
   return (
-    <li>
       <NavLink
         to={`/${link}` + location.search}
         className={({ isActive }) =>
@@ -19,6 +18,5 @@ export default function NavigationLink({ link, children }: Props) {
       >
         {children}
       </NavLink>
-    </li>
   );
 }

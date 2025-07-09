@@ -5,10 +5,15 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
 public interface LikeCountRepository extends JpaRepository<LikeCount, Long> {
+//    @Query("SELECT obj.id, obj.message.id, obj.user.id FROM LikeCount obj WHERE obj.user.id = :userId and obj.message.id = :messageId")
     Optional<LikeCount> findByUserIdAndMessageId(Long userId, Long messageId);
+
+    @Query("SELECT obj FROM LikeCount obj WHERE obj.user.id = :userId")
+    List<LikeCount> findByUserId(Long userId);
 
 }

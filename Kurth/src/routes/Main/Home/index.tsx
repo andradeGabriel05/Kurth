@@ -12,15 +12,17 @@ import axios from "../../../../node_modules/axios/index";
 export default function Home() {
   const [message, setMessage] = useState<MessageDTO[]>([]);
 
-  // const updatedLikeCount = response.data.likeCount;
-  // setLikeCount(updatedLikeCount);
-
   useEffect(() => {
     messageConst.findAll().then((response) => {
       console.log(response.data.content);
       setMessage(response.data.content);
     });
   }, []);
+
+  const userId = localStorage.getItem("user_id");
+
+
+
   return (
     <div className="wrapper-message-user">
       <header>

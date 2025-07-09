@@ -10,7 +10,7 @@
     align-items: center;
     font-size: 1.5rem;
     transition: 0.3s all;
-
+    width: 45px;
     .like__count {
       font-size: 1.1rem;
       margin-left: 10px;
@@ -20,7 +20,7 @@
   .reaction__like {
     &:hover {
       cursor: pointer;
-      color: #ff0000;
+      color: #ff6565;
       transition: 0.3s all;
     }
   }
@@ -39,5 +39,27 @@
       color: #0018d0;
       transition: 0.3s all;
     }
+  }
+}
+
+
+.like__count__icon {
+  transition: color 0.2s ease;
+}
+
+.like__count__icon.liked {
+  color: red;
+  animation: pop 0.3s ease;
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.4);
+  }
+  100% {
+    transform: scale(1);
   }
 }

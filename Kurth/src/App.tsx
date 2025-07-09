@@ -9,9 +9,7 @@ import MessagePage from "./routes/Main/MessagePage/index.tsx";
 import Account from "./routes/User/CreateAccount/index.tsx";
 import Login from "./routes/User/Login/index.tsx";
 import Explore from "./routes/Main/Explore/index.tsx";
-import { useEffect, useState } from "react";
-import { UserDTO } from "./models/user.ts";
-import * as User from "./constants/user.ts";
+
 import More from "./routes/Main/More/index.tsx";
 
 // import * as User from "./constants"

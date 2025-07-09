@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "a9e94d8d-0fed-4281-8b8f-b647874f5a5c",
+		"_postman_id": "df5ae87b-2a9b-4712-929d-a26623e4394c",
 		"name": "Kurth",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "34678955"
+		"_exporter_id": "40398770"
 	},
 	"item": [
 		{
@@ -478,6 +478,50 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Like by userId and messageId",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/likecount/user/1/message/6",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"likecount",
+						"user",
+						"1",
+						"message",
+						"6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Like by userId",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/likecount/user/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"likecount",
+						"user",
+						"1"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }

@@ -16,12 +16,15 @@ type Props = {
 
 export default function Reaction({ message }: Props) {
   const navigate = useNavigate();
-  const user_id = localStorage.getItem("user_id");
+  const userId = localStorage.getItem("user_id");
   let [likeCount, setLikeCount] = useState<number>(message.likeCount);
   const messageId = Number(message.id);
+  const [isLiked, setIsLiked] = useState<boolean>(false);
 
   let [replyCount, setReplyCount] = useState<number>(0);
 
+  const [isLiking, setIsLiking] = useState(false);
+  const [likeButtonClicked, setLikeButtonClicked] = useState(false);
   useEffect(() => {
     ReplyService.countReplyMessages(messageId)
       .then((response) => {
@@ -34,37 +37,48 @@ export default function Reaction({ message }: Props) {
       });
   }, [messageId]);
 
+  useEffect(() => {
+    if (messageId) {
+      checkMessageLike(messageId);
+    }
+  }, [isLiked, messageId]);
+
   //levar para constants => move this to constants
   async function handleLikeSubmit() {
-    if (user_id) {
+    if (isLiking) return; // block multiple clicks
+
+    setIsLiking(true);
+    if (userId) {
       try {
         await axios.post(`${BASE_URL}/likecount`, {
           user: {
-            id: localStorage.getItem("user_id"),
+            id: userId,
           },
           message: {
             id: message.id,
           },
         });
+        await axios.put(`${BASE_URL}/message/${message.id}/like-count`);
 
-        const response = await axios.put(
-          `${BASE_URL}/message/${message.id}/like-count`
-        );
-
-        setLikeCount(message.likeCount + 1);
-
-        console.log(response.data);
+        setLikeCount((c) => c + 1);
+        setIsLiked(true);
+        console.log(likeCount);
       } catch {
+        console.error("Error: User already liked this message");
         await axios.delete(`${BASE_URL}/likecount/remove/${message.id}`, {});
 
-        const response = await axios.put(
+        await axios.put(
           `${BASE_URL}/message/${message.id}/like-count-removing`
         );
 
-        setLikeCount(message.likeCount);
-
-        console.log(response.data);
+        setLikeCount((c) => c - 1);
+        setIsLiked(false);
+        console.log(likeCount);
+      } finally {
+        setIsLiking(false);
       }
+
+      console.log("Like button clicked");
     } else {
       navigate(`/login`);
     }
@@ -80,6 +94,26 @@ export default function Reaction({ message }: Props) {
     console.error("Message not found");
     return false;
   }
+
+  function checkMessageLike(messageId: number) {
+    // Check if the user has already liked the message
+    axios
+      .get(`${BASE_URL}/likecount/user/${userId}/message/${messageId}`)
+      .then((response) => {
+        console.log("Response data:", response.data);
+        if (response.data == null) {
+          setIsLiked(false);
+          console.log("User has not liked this message yet.");
+        } else {
+          setIsLiked(true);
+          console.log("User has liked this message.");
+        }
+      })
+      .catch((e) => {
+        console.error("Error:", e.response.data);
+      });
+  }
+
   return (
     <div className="reactions__message">
       <div
@@ -90,7 +124,7 @@ export default function Reaction({ message }: Props) {
         <span className="like__count">{replyCount ? replyCount : 0}</span>
       </div>
       <div className="reaction__like reaction__icon" onClick={handleLikeSubmit}>
-        <FaHeart className="like__count__icon" />
+        <FaHeart className={`like__count__icon ${isLiked ? "liked" : ""}`} />
         <span className="like__count">{likeCount}</span>
       </div>
       <div className="reaction__share reaction__icon">
