@@ -68,7 +68,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/message/user_messages/@aliceinwonderland",
+							"raw": "http://localhost:8080/message/user_messages/thispersondoesnotexist?page=0&size=6&sort=id,asc",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -77,7 +77,21 @@
 							"path": [
 								"message",
 								"user_messages",
-								"@aliceinwonderland"
+								"thispersondoesnotexist"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "6"
+								},
+								{
+									"key": "sort",
+									"value": "id,asc"
+								}
 							]
 						}
 					},
@@ -229,12 +243,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/user/4",
-							"protocol": "http",
+							"raw": "{{host}}/user/4",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
 								"user",
 								"4"
@@ -331,12 +343,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/messages/1/replies",
-							"protocol": "http",
+							"raw": "{{host}}/messages/1/replies",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
 								"messages",
 								"1",
@@ -372,12 +382,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/reply?page=0&size=6&sort=id,asc",
-							"protocol": "http",
+							"raw": "{{host}}/reply?page=0&size=6&sort=id,asc",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
 								"reply"
 							],
@@ -480,48 +488,73 @@
 			]
 		},
 		{
-			"name": "Like by userId and messageId",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/likecount/user/1/message/6",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"likecount",
-						"user",
-						"1",
-						"message",
-						"6"
-					]
+			"name": "Likes",
+			"item": [
+				{
+					"name": "Like by userId and messageId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/likecount/user/1/message/6",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"likecount",
+								"user",
+								"1",
+								"message",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Like by userId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/likecount/user/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"likecount",
+								"user",
+								"1"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "Like by userId",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/likecount/user/1",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"likecount",
-						"user",
-						"1"
-					]
+			"name": "Follow",
+			"item": [
+				{
+					"name": "Check follow",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/checkfollow/1/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"checkfollow",
+								"1",
+								"1"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		}
 	]
 }

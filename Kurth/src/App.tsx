@@ -11,6 +11,7 @@ import Login from "./routes/User/Login/index.tsx";
 import Explore from "./routes/Main/Explore/index.tsx";
 
 import More from "./routes/Main/More/index.tsx";
+import Likes from "./routes/Main/Profile/Likes/index.tsx";
 
 // import * as User from "./constants"
 
@@ -48,6 +49,7 @@ export default function App() {
             />
 
             <Route path="profile/:username" element={<Profile />} />
+            <Route path="profile/:username/likes" element={<Likes />} />
             <Route path="more" element={<More />} />
           </Route>
           <Route path="login" element={<Login />} />

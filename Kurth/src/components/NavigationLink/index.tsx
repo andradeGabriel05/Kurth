@@ -4,12 +4,24 @@ import "./style.scss";
 type Props = {
   link: string;
   children: (string | JSX.Element)[];
+  profile?: boolean;
 };
 
-export default function NavigationLink({ link, children }: Props) {
+export default function NavigationLink({ link, children, profile }: Props) {
   const location = useLocation();
 
   return (
+    profile ? (
+      <NavLink
+        to={`/${link}`}
+        end
+        className={({ isActive }) =>
+          isActive ? "profile-page-active" : "profile-page-not-active"
+        }
+      >
+        {children}
+      </NavLink>
+    ) : (
       <NavLink
         to={`/${link}` + location.search}
         className={({ isActive }) =>
@@ -18,5 +30,6 @@ export default function NavigationLink({ link, children }: Props) {
       >
         {children}
       </NavLink>
+    )
   );
 }

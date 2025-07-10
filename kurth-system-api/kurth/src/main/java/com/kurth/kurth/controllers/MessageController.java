@@ -36,8 +36,8 @@ public class MessageController {
 
 
     @GetMapping(value = "/user_messages/{username}")
-    public List<MessageDTO> findAllUserMessages(@PathVariable String username) {
-        return messageService.findAllUserMessages(username);
+    public Page<MessageDTO> findAllUserMessages(@PathVariable String username, Pageable pageable) {
+        return messageService.findAllUserMessages(username, pageable);
     }
 
     @GetMapping(value = "/images-details")

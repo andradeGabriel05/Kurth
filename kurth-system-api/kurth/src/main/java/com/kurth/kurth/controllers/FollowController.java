@@ -39,21 +39,13 @@ public class FollowController {
 
     @GetMapping(value = "/checkfollow/{followerId}/{followingId}")
     public FollowDTO userAlreadyFollowing(@PathVariable Long followerId, @PathVariable Long followingId) {
+        FollowDTO followDTO = followService.userAlreadyFollowing(followerId, followingId);
 
-        try {
-            System.out.println("Entrou no método userAlreadyFollowing");
-            FollowDTO followDTO = followService.userAlreadyFollowing(followerId, followingId);
-
-            if (followDTO == null) {
-                throw new ResourceNotFoundException("Relacionamento de follow não encontrado.");
-            }
-
-            return followDTO;
-
-        } catch (Exception e) {
-            e.printStackTrace();  // Mostra o erro no console
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Erro ao verificar follow", e);
+        if (followDTO == null) {
+            throw new ResourceNotFoundException("Relacionamento de follow não encontrado.");
         }
+
+        return followDTO;
     }
 
 

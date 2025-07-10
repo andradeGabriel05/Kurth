@@ -10,7 +10,7 @@ export function findById(id: number) {
 }
 
 export function findUserMessages(username: string) {
-  return axios.get(`${BASE_URL}/message/user_messages/${username}`);
+  return axios.get(`${BASE_URL}/message/user_messages/${username}?page=0&size=12&sort=id,desc`);
 }
 
 export function findAllMessagesWithImage() {

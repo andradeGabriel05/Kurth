@@ -1,6 +1,8 @@
 package com.kurth.kurth.repositories;
 
 import com.kurth.kurth.entities.LikeCount;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -14,6 +16,6 @@ public interface LikeCountRepository extends JpaRepository<LikeCount, Long> {
     Optional<LikeCount> findByUserIdAndMessageId(Long userId, Long messageId);
 
     @Query("SELECT obj FROM LikeCount obj WHERE obj.user.id = :userId")
-    List<LikeCount> findByUserId(Long userId);
+    Page<LikeCount> findByUserId(Long userId, Pageable pageable);
 
 }

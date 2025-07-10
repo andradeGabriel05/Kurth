@@ -32,9 +32,9 @@ public class MessageService {
 
 
     @Transactional(readOnly = true)
-    public List<MessageDTO> findAllUserMessages(String username) {
-        List<Message> messages = messageRepository.findAllUserMessages(username);
-        return messages.stream().map(x -> new MessageDTO(x)).toList();
+    public Page<MessageDTO> findAllUserMessages(String username, Pageable pageable) {
+        Page<Message> messages = messageRepository.findAllUserMessages(username, pageable);
+        return messages.map(x -> new MessageDTO(x));
     }
 
     @Transactional(readOnly = true)

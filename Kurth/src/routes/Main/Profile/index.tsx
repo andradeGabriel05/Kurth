@@ -1,5 +1,4 @@
 import "./style.scss";
-import ProfileContentActions from "../../../components/ProfileContentActions";
 import ProfileContentDetails from "../../../components/ProfileContentDetails";
 import ProfileHeader from "../../../components/ProfileHeader";
 import { Link, useParams } from "react-router-dom";
@@ -32,7 +31,7 @@ export default function Profile() {
     MessageService.findUserMessages(params.username as string)
       .then((response) => {
         console.log(response.data);
-        setMessage(response.data);
+        setMessage(response.data.content);
       })
 
       .catch((error) => {
@@ -40,6 +39,7 @@ export default function Profile() {
       });
   }, []);
 
+console.log("message:", message);
 
   return (
     <div className="profile-container">
@@ -52,9 +52,9 @@ export default function Profile() {
         <div className="no-message">No messages found for this user.</div>
       )}
       {message.map((message) => (
-        <div className="message-posted profile-message-posted">
+        <div key={message.id} className="message-posted profile-message-posted">
           <Link to={`/${message.user.username}/posts/${message.id}`}>
-            <MessagePosted key={message.id} message={message} />
+            <MessagePosted  message={message} />
           </Link>
           <Reaction message={message} />
         </div>
