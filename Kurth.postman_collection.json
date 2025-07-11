@@ -15,12 +15,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/message?page=0&size=6&sort=id,asc",
-							"protocol": "http",
+							"raw": "{{host}}/message?page=0&size=6&sort=id,asc",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
 								"message"
 							],
@@ -169,6 +167,25 @@
 							"path": [
 								"message",
 								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Follow user messages",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/message/user-following-messages/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"message",
+								"user-following-messages",
+								"1"
 							]
 						}
 					},
@@ -517,14 +534,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/likecount/user/1",
+							"raw": "{{host}}/likecount/user/thispersondoesnotexist",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"likecount",
 								"user",
-								"1"
+								"thispersondoesnotexist"
 							]
 						}
 					},

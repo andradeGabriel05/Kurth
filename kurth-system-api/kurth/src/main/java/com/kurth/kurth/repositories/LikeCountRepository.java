@@ -15,7 +15,7 @@ public interface LikeCountRepository extends JpaRepository<LikeCount, Long> {
 //    @Query("SELECT obj.id, obj.message.id, obj.user.id FROM LikeCount obj WHERE obj.user.id = :userId and obj.message.id = :messageId")
     Optional<LikeCount> findByUserIdAndMessageId(Long userId, Long messageId);
 
-    @Query("SELECT obj FROM LikeCount obj WHERE obj.user.id = :userId")
-    Page<LikeCount> findByUserId(Long userId, Pageable pageable);
+    @Query("SELECT obj FROM LikeCount obj WHERE obj.user.username = :username")
+    Page<LikeCount> findByUserId(String username, Pageable pageable);
 
 }

@@ -1,7 +1,6 @@
 package com.kurth.kurth.services;
 
 import com.kurth.kurth.dto.MessageDTO;
-import com.kurth.kurth.dto.UserDTO;
 import com.kurth.kurth.entities.Message;
 import com.kurth.kurth.entities.User;
 import com.kurth.kurth.repositories.MessageRepository;
@@ -12,7 +11,6 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -29,8 +27,6 @@ public class MessageService {
     @Autowired
     private UserRepository userRepository;
 
-
-
     @Transactional(readOnly = true)
     public Page<MessageDTO> findAllUserMessages(String username, Pageable pageable) {
         Page<Message> messages = messageRepository.findAllUserMessages(username, pageable);
@@ -41,6 +37,12 @@ public class MessageService {
     public List<MessageDTO> findAllMessagesWithImage() {
         List<Message> messages = messageRepository.findAllMessagesWithImage();
         return messages.stream().map(x -> new MessageDTO(x)).toList();
+    }
+
+    @Transactional(readOnly = true)
+    public Page<MessageDTO> findAllUserFollowingMessages(Pageable pageable, Long followerId) {
+        Page<Message> messages = messageRepository.findAllUserFollowingMessages(pageable, followerId);
+        return messages.map(MessageDTO::new);
     }
 
     @Transactional(readOnly = true)

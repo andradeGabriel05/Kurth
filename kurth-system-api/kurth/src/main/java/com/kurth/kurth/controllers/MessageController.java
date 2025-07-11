@@ -45,6 +45,11 @@ public class MessageController {
         return messageService.findAllMessagesWithImage();
     }
 
+    @GetMapping(value ="/user-following-messages/{followerId}")
+    public Page<MessageDTO> findAllUserFollowingMessages(Pageable pageable, @PathVariable Long followerId) {
+        return messageService.findAllUserFollowingMessages(pageable, followerId);
+    }
+
     @PostMapping
     public ResponseEntity<MessageDTO> insert(@Valid  @RequestBody MessageDTO messageDTO) {
         messageDTO = messageService.newMessage(messageDTO);

@@ -33,9 +33,9 @@ public class LikeCountController {
         return ResponseEntity.ok(likeCountDTO);
     }
 
-    @GetMapping("/user/{userId}")
-    public Page<LikeCountDTO> findByUserId(@PathVariable Long userId,Pageable pageable) {
-        return likeCountService.findByUserId(userId, pageable);
+    @GetMapping("/user/{username}")
+    public Page<LikeCountDTO> findByUserId(@PathVariable String username,Pageable pageable) {
+        return likeCountService.findByUserId(username, pageable);
     }
 
     @GetMapping("/user/{userId}/message/{messageId}")

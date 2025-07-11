@@ -16,6 +16,12 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
     @Query("SELECT obj FROM Message obj WHERE obj.user.username = :username")
     Page<Message> findAllUserMessages(String username, Pageable pageable);
 
+    @Query("SELECT obj FROM Message obj WHERE obj.image IS NOT NULL")
+    List<Message> findAllMessagesWithImage();
+
+    @Query("SELECT m FROM Message m JOIN Follow f ON m.user.id = f.userFollowingId WHERE f.userFollowerId = :followerId")
+    Page<Message> findAllUserFollowingMessages(Pageable pageable, Long followerId);
+
     @Modifying
     @Query("UPDATE Message obj SET obj.likeCount = obj.likeCount + 1 WHERE obj.id = :id")
     Integer updateLikeCount(@Param("id") Long id);
@@ -23,8 +29,5 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
     @Modifying
     @Query("UPDATE Message obj SET obj.likeCount = obj.likeCount - 1 WHERE obj.id = :id")
     Integer removeLike(@Param("id") Long id);
-
-    @Query("SELECT obj FROM Message obj WHERE obj.image IS NOT NULL")
-    List<Message> findAllMessagesWithImage();
 
 }

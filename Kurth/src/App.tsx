@@ -12,6 +12,7 @@ import Explore from "./routes/Main/Explore/index.tsx";
 
 import More from "./routes/Main/More/index.tsx";
 import Likes from "./routes/Main/Profile/Likes/index.tsx";
+import Following from "./routes/Main/Following/index.tsx";
 
 // import * as User from "./constants"
 
@@ -41,6 +42,7 @@ export default function App() {
           <Route path="/" element={<Main />}>
             <Route index element={<Home />} />
             <Route path="home" element={<Home />} />
+            <Route path="following" element={<Following />} />
             <Route path="search" element={<Search />} />
             <Route path="explore" element={<Explore />} />
             <Route
