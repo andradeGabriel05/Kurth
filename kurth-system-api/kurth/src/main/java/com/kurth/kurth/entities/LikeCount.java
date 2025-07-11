@@ -15,7 +15,7 @@ public class LikeCount {
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "message_id")
+    @JoinColumn(name = "post_id")
     private Post post;
 
     public LikeCount(Long id, User user, Post post) {

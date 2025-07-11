@@ -4,24 +4,24 @@ import "./style.scss";
 import { FaShareSquare } from "react-icons/fa";
 import { FaComment, FaHeart } from "react-icons/fa6";
 import { useNavigate, useParams } from "react-router-dom";
-import { MessageDTO } from "../../models/message";
+import { PostDTO } from "../../models/message";
 import { ReplyDTO } from "../../models/reply";
 import { useEffect, useState } from "react";
 import { BASE_URL } from "../../utils/system";
 import * as ReplyService from "../../constants/reply";
 
 type Props = {
-  message: MessageDTO | ReplyDTO;
+  message: PostDTO | ReplyDTO;
 };
 
 export default function Reaction({ message }: Props) {
   const navigate = useNavigate();
-  const userId = localStorage.getItem("user_id");
-  let [likeCount, setLikeCount] = useState<number>(message.likeCount);
+  const userId = Number(localStorage.getItem("user_id"));
+  const [likeCount, setLikeCount] = useState<number>(message.likeCount || 0);
   const messageId = Number(message.id);
   const [isLiked, setIsLiked] = useState<boolean>(false);
 
-  let [replyCount, setReplyCount] = useState<number>(0);
+  const [replyCount, setReplyCount] = useState<number>(0);
 
   const [isLiking, setIsLiking] = useState(false);
   const [likeButtonClicked, setLikeButtonClicked] = useState(false);
@@ -45,6 +45,12 @@ export default function Reaction({ message }: Props) {
 
   //levar para constants => move this to constants
   async function handleLikeSubmit() {
+    console.log("handleLikeSubmit called");
+    console.log("User ID:", userId);
+    console.log("Message ID:", message.id);
+    console.log("Message:", message);
+
+    
     if (isLiking) return; // block multiple clicks
 
     setIsLiking(true);
@@ -54,7 +60,7 @@ export default function Reaction({ message }: Props) {
           user: {
             id: userId,
           },
-          message: {
+          post: {
             id: message.id,
           },
         });

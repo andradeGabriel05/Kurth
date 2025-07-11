@@ -5,7 +5,7 @@ import MessagePosted from "../../../components/MessagePosted";
 import "./style.scss";
 import MessagePost from "../../../components/MessagePost";
 import { useEffect, useState } from "react";
-import { MessageDTO } from "../../../models/message";
+import { PostDTO } from "../../../models/message";
 import { ReplyDTO } from "../../../models/reply";
 import Reaction from "../../../components/Reaction";
 
@@ -14,7 +14,7 @@ export default function MessagePage() {
 
   const navigate = useNavigate();
 
-  const [messageDTO, setMessageDTO] = useState<MessageDTO>();
+  const [PostDTO, setPostDTO] = useState<PostDTO>();
 
   const [reply, setReply] = useState<ReplyDTO>();
 
@@ -28,7 +28,7 @@ export default function MessagePage() {
     MessageService.findById(messageId)
       .then((response) => {
         console.log(response.data);
-        setMessageDTO(response.data);
+        setPostDTO(response.data);
       })
       .catch((error) => {
         console.error("Error:", error.response.data);
@@ -48,9 +48,9 @@ export default function MessagePage() {
   return (
     <div className="wrapper-message">
       <div className="reaction-message-page">
-        {messageDTO && <MessagePosted message={messageDTO} />}
+        {PostDTO && <MessagePosted post={PostDTO} />}
       </div>
-      {messageDTO && <Reaction message={messageDTO} />}
+      {PostDTO && <Reaction message={PostDTO} />}
 
       <div className="post-message">
         <MessagePost message="What do you think about this?" />
@@ -61,7 +61,7 @@ export default function MessagePage() {
           {reply &&
             reply.content.map((reply: ReplyDTO) => (
               <div key={reply.id} className="reply-text">
-                <MessagePosted message={reply} />
+                <MessagePosted post={reply} />
               </div>
             ))}
         </div>

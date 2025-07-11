@@ -6,7 +6,7 @@ import * as UserService from "../../../constants/user";
 import * as MessageService from "../../../constants/message";
 import { UserDTO } from "../../../models/user";
 import { useEffect, useState } from "react";
-import { MessageDTO } from "../../../models/message";
+import { PostDTO } from "../../../models/message";
 import MessagePosted from "../../../components/MessagePosted";
 import Reaction from "../../../components/Reaction";
 // import { user } from "../../constants/";
@@ -26,7 +26,7 @@ export default function Profile() {
       });
   }, []);
 
-  const [message, setMessage] = useState<MessageDTO[]>([]);
+  const [message, setMessage] = useState<PostDTO[]>([]);
   useEffect(() => {
     MessageService.findUserMessages(params.username as string)
       .then((response) => {
@@ -39,7 +39,7 @@ export default function Profile() {
       });
   }, []);
 
-console.log("message:", message);
+  console.log("message:", message);
 
   return (
     <div className="profile-container">
@@ -54,7 +54,7 @@ console.log("message:", message);
       {message.map((message) => (
         <div key={message.id} className="message-posted profile-message-posted">
           <Link to={`/${message.user.username}/posts/${message.id}`}>
-            <MessagePosted  message={message} />
+            <MessagePosted post={message} />
           </Link>
           <Reaction message={message} />
         </div>

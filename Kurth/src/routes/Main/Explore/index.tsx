@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import { MessageDTO } from "../../../models/message";
-import MessagePosted from "../../../components/MessagePosted";
+import { PostDTO } from "../../../models/message";
 import * as MessageService from "../../../constants/message";
 import "./style.scss";
 import { Link } from "react-router-dom";
 
 export default function Explore() {
-  const [message, setMessage] = useState<MessageDTO[]>([]);
+  const [message, setMessage] = useState<PostDTO[]>([]);
 
   useEffect(() => {
     MessageService.findAllMessagesWithImage()

@@ -6,37 +6,31 @@ import { Link, useParams } from "react-router-dom";
 import * as UserService from "../../../../constants/user";
 import MessagePosted from "../../../../components/MessagePosted";
 import Reaction from "../../../../components/Reaction";
-import { MessageDTO } from "../../../../models/message";
+import { PostDTO } from "../../../../models/message";
 import { BASE_URL } from "../../../../utils/system";
 import axios from "axios";
 
-export default function Likes() {
+type Props = {
+  user: UserDTO;
+};
+
+export default function Likes({ user }: Props) {
   const params = useParams();
 
-  const [user, setUser] = useState<UserDTO>();
+  // const [user, setUser] = useState<UserDTO>();
 
-  const [message, setMessage] = useState<MessageDTO[]>([]);
+  const [post, setPost] = useState<PostDTO[]>([]);
 
 
   useEffect(() => {
     axios.get(`${BASE_URL}/likecount/user/${params.username}`).then((response) => {
       console.log(response.data.content);
+       type LikeResponse = { post: PostDTO };
        const msgs = response.data.content.map(
-          (msg: MessageDTO) => msg.message
+          (msg: LikeResponse) => msg.post
         );
-        setMessage(msgs);
+        setPost(msgs);
     });
-  }, []);
-
-  useEffect(() => {
-    UserService.findByUsername(params.username as string)
-      .then((response) => {
-        console.log(response.data);
-        setUser(response.data);
-      })
-      .catch((error) => {
-        console.error("Error:", error.response.data);
-      });
   }, []);
 
   return (
@@ -45,12 +39,12 @@ export default function Likes() {
       <div className="profile-content">
         {user && <ProfileContentDetails user={user} />}
       </div>
-      {message.map((message) => (
-        <div key={message.id} className="message-posted">
-          <Link to={`/${message.user.username}/posts/${message.id}`}>
-            <MessagePosted message={message} />
+      {post.map((post) => (
+        <div key={post.id} className="message-posted">
+          <Link to={`/${post.user.username}/posts/${post.id}`}>
+            <MessagePosted post={post} />
           </Link>
-          <Reaction message={message} />
+          <Reaction message={post} />
         </div>
       ))}
     </div>

@@ -1,6 +1,6 @@
 import { UserDTO } from "./user";
 
-export type MessageDTO = {
+export type PostDTO = {
     id: number;
     message: string;
     postedAt: string;

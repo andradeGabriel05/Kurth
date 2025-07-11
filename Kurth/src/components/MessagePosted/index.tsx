@@ -1,25 +1,24 @@
 import "./style.scss";
 
 import { Link } from "react-router-dom";
-import { MessageDTO } from "../../models/message";
+import { PostDTO } from "../../models/message";
 import { ReplyDTO } from "../../models/reply";
-import Reaction from "../Reaction";
 
 type Props = {
-  message: MessageDTO | ReplyDTO;
+  post: PostDTO | ReplyDTO;
 };
 
-export default function MessagePosted({ message }: Props) {
-  const showImage = message.image && message.image !== "";
-
+export default function MessagePosted({ post }: Props) {
+  console.log("MessagePosted component rendered with post:", post);
+  const showImage = post.image && post.image !== "";
   return (
     <div className="form__message__posted p18">
       <div className="user-wrapper">
         <div className="user__image">
-          <Link to={`/profile/${message.user.username}`}>
+          <Link to={`/profile/${post.user.username}`}>
             <img
-              src={message.user.avatar === null ? "https://cdn-icons-png.freepik.com/512/8742/8742495.png" : message.user.avatar}
-              alt={message.user.name}
+              src={post.user.avatar === null ? "https://cdn-icons-png.freepik.com/512/8742/8742495.png" : post.user.avatar}
+              alt={post.user.name}
               className="icon"
             />
           </Link>
@@ -28,30 +27,30 @@ export default function MessagePosted({ message }: Props) {
           <div className="routes__profile">
             <div className="post__details">
               <Link
-                to={`/profile/${message.user.username}`}
+                to={`/profile/${post.user.username}`}
                 className="route__element"
               >
-                <span>{message.user.name}</span>
+                <span>{post.user.name}</span>
               </Link>
             </div>
             <div className="post__details">
               <Link
-                to={`/profile/${message.user.username}`}
+                to={`/profile/${post.user.username}`}
                 className="route__element"
               >
-                <span className="username">@{message.user.username}</span>
+                <span className="username">@{post.user.username}</span>
               </Link>
             </div>
             <div className="post__details">
-              <span className="messagedate">{message.postedAt}</span>
+              <span className="messagedate">{post.postedAt}</span>
             </div>
           </div>
           <div className="message">
-            <span>{message.message}</span>
+            <span>{post.message}</span>
           </div>
           {showImage && (
             <div className="image-posted">
-              <img src={message.image} alt={`${message.id}`} />
+              <img src={post.image} alt={`${post.id}`} />
             </div>
           )}
         </div>

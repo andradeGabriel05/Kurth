@@ -9,31 +9,28 @@ import MessagePage from "./routes/Main/MessagePage/index.tsx";
 import Account from "./routes/User/CreateAccount/index.tsx";
 import Login from "./routes/User/Login/index.tsx";
 import Explore from "./routes/Main/Explore/index.tsx";
-
 import More from "./routes/Main/More/index.tsx";
 import Likes from "./routes/Main/Profile/Likes/index.tsx";
 import Following from "./routes/Main/Following/index.tsx";
+import { UserDTO } from "./models/user.ts";
+import { useEffect, useState } from "react";
 
-// import * as User from "./constants"
+import * as User from "./constants/user.ts"
 
 export default function App() {
   //tomorrow: improve the use of findById on aside and messagePost... Try to get only here and pass as props?
-  // const user_id = localStorage.getItem("user_id");
+  const user_id = localStorage.getItem("user_id");
 
-  // const [userDTO, setUserDTO] = useState<UserDTO>();
+  const [userDTO, setUserDTO] = useState<UserDTO>();
 
   // const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   User.findById(user_id)
-  //     .then((response) => {
-  //       setUserDTO(response.data);
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error:", error.response.data);
-  //       navigate(`/`);
-  //     });
-  // }, [user_id]);
+  useEffect(() => {
+    User.findById(user_id) 
+      .then((response) => {
+        setUserDTO(response.data);
+      })
+  }, [user_id]);
 
   return (
     <div className="container">
@@ -42,7 +39,7 @@ export default function App() {
           <Route path="/" element={<Main />}>
             <Route index element={<Home />} />
             <Route path="home" element={<Home />} />
-            <Route path="following" element={<Following />} />
+            <Route path="following" element={userDTO ? <Following user={userDTO} /> : null} />
             <Route path="search" element={<Search />} />
             <Route path="explore" element={<Explore />} />
             <Route
@@ -51,7 +48,10 @@ export default function App() {
             />
 
             <Route path="profile/:username" element={<Profile />} />
-            <Route path="profile/:username/likes" element={<Likes />} />
+            <Route
+              path="profile/:username/likes"
+              element={userDTO ? <Likes user={userDTO} /> : null}
+            />
             <Route path="more" element={<More />} />
           </Route>
           <Route path="login" element={<Login />} />

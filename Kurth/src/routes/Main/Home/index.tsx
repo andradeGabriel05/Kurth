@@ -4,13 +4,11 @@ import MessagePosted from "../../../components/MessagePosted";
 import * as messageConst from "../../../constants/message";
 import "./style.scss";
 import { useEffect, useState } from "react";
-import { MessageDTO } from "../../../models/message";
+import { PostDTO } from "../../../models/message";
 import Reaction from "../../../components/Reaction";
-import { BASE_URL } from "../../../utils/system";
-import axios from "../../../../node_modules/axios/index";
 
 export default function Home() {
-  const [message, setMessage] = useState<MessageDTO[]>([]);
+  const [message, setMessage] = useState<PostDTO[]>([]);
 
   useEffect(() => {
     messageConst.findAll().then((response) => {
@@ -36,7 +34,7 @@ export default function Home() {
       {message.map((message) => (
         <div className="message-posted">
           <Link to={`/${message.user.username}/posts/${message.id}`}>
-            <MessagePosted key={message.id} message={message} />
+            <MessagePosted key={message.id} post={message} />
           </Link>
           <Reaction message={message} />
         </div>
