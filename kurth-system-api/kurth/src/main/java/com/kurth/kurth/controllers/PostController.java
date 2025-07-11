@@ -1,0 +1,86 @@
+package com.kurth.kurth.controllers;
+
+import com.kurth.kurth.dto.PostDTO;
+import com.kurth.kurth.services.PostService;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
+import java.util.List;
+
+@RestController
+@RequestMapping(value = "/message")
+public class PostController {
+
+    @Autowired
+    private PostService postService;
+
+
+    @GetMapping(value = "/{id}")
+    public PostDTO findById(@PathVariable Long id) {
+        return postService.findById(id);
+    }
+
+    @GetMapping
+    public ResponseEntity<Page<PostDTO>> findAll(Pageable pageable) {
+        Page<PostDTO> messageDTO = postService.findAll(pageable);
+        return ResponseEntity.ok(messageDTO);
+    }
+
+
+    @GetMapping(value = "/user_messages/{username}")
+    public Page<PostDTO> findAllUserMessages(@PathVariable String username, Pageable pageable) {
+        return postService.findAllUserMessages(username, pageable);
+    }
+
+    @GetMapping(value = "/images-details")
+    public List<PostDTO> findAllMessagesWithImage() {
+        return postService.findAllMessagesWithImage();
+    }
+
+    @GetMapping(value ="/user-following-messages/{followerId}")
+    public Page<PostDTO> findAllUserFollowingMessages(Pageable pageable, @PathVariable Long followerId) {
+        return postService.findAllUserFollowingMessages(pageable, followerId);
+    }
+
+    @PostMapping
+    public ResponseEntity<PostDTO> insert(@Valid  @RequestBody PostDTO postDTO) {
+        postDTO = postService.newMessage(postDTO);
+
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(postDTO.getId()).toUri();
+        return ResponseEntity.created(uri).body(postDTO);
+    }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<PostDTO> update(@PathVariable Long id, @RequestBody PostDTO postDTO) {
+        postDTO = postService.update(id, postDTO);
+        return ResponseEntity.ok(postDTO);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        postService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping(value = "/{id}/like-count")
+    public ResponseEntity<PostDTO> updateLikeCount(@PathVariable Long id) {
+        PostDTO postDTO = postService.updateLikeCount(id);
+        return ResponseEntity.ok(postDTO);
+    }
+
+    @PutMapping(value = "/{id}/like-count-removing")
+    public ResponseEntity<PostDTO> removeLike(@PathVariable Long id) {
+        PostDTO postDTO = postService.removeLike(id);
+        return ResponseEntity.ok(postDTO);
+    }
+
+
+
+
+}

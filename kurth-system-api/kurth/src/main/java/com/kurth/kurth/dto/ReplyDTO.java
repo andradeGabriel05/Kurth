@@ -1,8 +1,6 @@
 package com.kurth.kurth.dto;
 
-import com.kurth.kurth.entities.Message;
 import com.kurth.kurth.entities.Reply;
-import com.kurth.kurth.entities.User;
 
 import java.time.Instant;
 
@@ -13,13 +11,13 @@ public class ReplyDTO {
     private Instant postedAt;
     private String image;
 
-    private Long messageId;
+    private Long postId;
     private UserDTO user;
 
-    public ReplyDTO(Long id, String message, Long messageId, UserDTO user) {
+    public ReplyDTO(Long id, String message, Long postId, UserDTO user) {
         this.id = id;
         this.message = message;
-        this.messageId = messageId;
+        this.postId = postId;
         this.user = user;
     }
 
@@ -28,7 +26,7 @@ public class ReplyDTO {
         this.message = reply.getMessage();
         this.postedAt = reply.getPostedAt();
         this.image = reply.getImage();
-        this.messageId = reply.getMessageId().getId();
+        this.postId = reply.getPostId().getId();
         this.user = new UserDTO(reply.getUser());
     }
 
@@ -41,7 +39,7 @@ public class ReplyDTO {
     }
 
     public Long getMessageId() {
-        return messageId;
+        return postId;
     }
 
     public UserDTO getUser() {

@@ -1,7 +1,6 @@
 package com.kurth.kurth.controllers;
 
 import com.kurth.kurth.dto.LikeCountDTO;
-import com.kurth.kurth.dto.MessageDTO;
 import com.kurth.kurth.services.LikeCountService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -38,9 +36,9 @@ public class LikeCountController {
         return likeCountService.findByUserId(username, pageable);
     }
 
-    @GetMapping("/user/{userId}/message/{messageId}")
-    public Optional<LikeCountDTO> findByUserIdAndMessageId(@PathVariable Long userId, @PathVariable Long messageId) {
-        return likeCountService.findByUserIdAndMessageId(userId, messageId);
+    @GetMapping("/user/{userId}/message/{postId}")
+    public Optional<LikeCountDTO> findByUserIdAndMessageId(@PathVariable Long userId, @PathVariable Long postId) {
+        return likeCountService.findByUserIdAndMessageId(userId, postId);
     }
 
     @PostMapping

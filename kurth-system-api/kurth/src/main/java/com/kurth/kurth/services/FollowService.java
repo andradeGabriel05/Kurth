@@ -1,12 +1,7 @@
 package com.kurth.kurth.services;
 
 import com.kurth.kurth.dto.FollowDTO;
-import com.kurth.kurth.dto.LikeCountDTO;
-import com.kurth.kurth.dto.UserDTO;
 import com.kurth.kurth.entities.Follow;
-import com.kurth.kurth.entities.LikeCount;
-import com.kurth.kurth.entities.Message;
-import com.kurth.kurth.entities.User;
 import com.kurth.kurth.repositories.FollowRepository;
 import com.kurth.kurth.services.exceptions.DatabaseException;
 import com.kurth.kurth.services.exceptions.ResourceNotFoundException;

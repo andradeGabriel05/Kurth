@@ -1,6 +1,7 @@
 package com.kurth.kurth.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
@@ -34,6 +35,15 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<Reply> replies = new ArrayList<>();
+
+    @OneToMany(mappedBy = "sentByUser")
+    @JsonIgnore
+    private List<Message> messagesSent = new ArrayList<>();
+
+    // Mensagens recebidas
+    @OneToMany(mappedBy = "sentToUser")
+    @JsonIgnore
+    private List<Message> messagesReceived = new ArrayList<>();
 
 //    @OneToMany(mappedBy = "user")
 //    private List<Message> message = new ArrayList<>();
@@ -150,4 +160,11 @@ public class User {
 //    }
 
 
+    public List<Message> getMessagesReceived() {
+        return messagesReceived;
+    }
+
+    public List<Message> getMessagesSent() {
+        return messagesSent;
+    }
 }

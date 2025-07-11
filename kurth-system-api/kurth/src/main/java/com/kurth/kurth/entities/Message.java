@@ -1,88 +1,79 @@
 package com.kurth.kurth.entities;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
-@Table(name = "tb_message")
+@Table(name = "tb_messages")
 public class Message {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(columnDefinition = "TEXT")
+    @NotNull
     private String message;
 
-    private Instant postedAt;
-
-    private String image;
-
-    @Column(name = "like_count")
-    private Integer likeCount;
+    private Instant sentAt;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "sent_by_id")
+    private User sentByUser;
 
+    @ManyToOne
+    @JoinColumn(name = "sent_to_id")
+    private User sentToUser;
 
-    public Message() {}
+    public Message() {
+    }
 
-    public Message(Long id, String message, Instant postedAt, String image, User user) {
+    public Message(Long id, String message, Instant sentAt, User sentByUser, User sentToUser) {
         this.id = id;
         this.message = message;
-        this.postedAt = postedAt;
-        this.image = image;
-        this.user = user;
+        this.sentAt = sentAt;
+        this.sentByUser = sentByUser;
+        this.sentToUser = sentToUser;
     }
 
     public Long getId() {
         return id;
     }
 
-    public String getMessage() {
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public @NotNull String getMessage() {
         return message;
     }
 
-    public void setMessage(String message) {
+    public void setMessage(@NotNull String message) {
         this.message = message;
     }
 
-    public User getUser() {
-        return user;
+    public Instant getSentAt() {
+        return sentAt;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setSentAt(Instant sentAt) {
+        this.sentAt = sentAt;
     }
 
-    public Instant getPostedAt() {
-        return postedAt;
+    public User getSentByUser() {
+        return sentByUser;
     }
 
-    public void setPostedAt(Instant postedAt) {
-        this.postedAt = postedAt;
+    public void setSentByUser(User sentByUser) {
+        this.sentByUser = sentByUser;
     }
 
-    public String getImage() {
-        return image;
+    public User getSentToUser() {
+        return sentToUser;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setSentToUser(User sentToUser) {
+        this.sentToUser = sentToUser;
     }
-
-    public Integer getLikeCount() {
-        return likeCount;
-    }
-
-    public void setLikeCount(Integer likeCount) {
-        this.likeCount = likeCount;
-    }
-
 }

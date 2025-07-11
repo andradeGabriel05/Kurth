@@ -1,17 +1,16 @@
 package com.kurth.kurth.services;
 
 import com.kurth.kurth.dto.ReplyDTO;
-import com.kurth.kurth.entities.Message;
+import com.kurth.kurth.entities.Post;
 import com.kurth.kurth.entities.Reply;
 import com.kurth.kurth.entities.User;
-import com.kurth.kurth.repositories.MessageRepository;
+import com.kurth.kurth.repositories.PostRepository;
 import com.kurth.kurth.repositories.ReplyRepository;
 import com.kurth.kurth.repositories.UserRepository;
 import com.kurth.kurth.services.exceptions.DatabaseException;
 import com.kurth.kurth.services.exceptions.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +23,7 @@ public class ReplyService {
     @Autowired
     private ReplyRepository replyRepository;
     @Autowired
-    private MessageRepository messageRepository;
+    private PostRepository postRepository;
     @Autowired
     private UserRepository userRepository;
 
@@ -61,10 +60,10 @@ public class ReplyService {
         reply.setImage(replyDTO.getImage());
         reply.setPostedAt(replyDTO.getPostedAt());
 
-        Message message = messageRepository.findById(replyDTO.getMessageId()).orElseThrow(() -> new DatabaseException("[Service] User not found"));
+        Post post = postRepository.findById(replyDTO.getMessageId()).orElseThrow(() -> new DatabaseException("[Service] User not found"));
         User user = userRepository.getReferenceById(replyDTO.getUser().getId());
 
-        reply.setMessageId(message);
+        reply.setPostId(post);
         reply.setUser(user);
         reply = replyRepository.save(reply);
 
@@ -73,7 +72,7 @@ public class ReplyService {
 
     @Transactional
     public ReplyDTO updateReply(Long id, ReplyDTO replyDTO) {
-        if(!messageRepository.existsById(id)) {
+        if(!postRepository.existsById(id)) {
             throw new ResourceNotFoundException("Id message not found");
         }
 
@@ -83,10 +82,10 @@ public class ReplyService {
         reply.setImage(replyDTO.getImage());
         reply.setPostedAt(replyDTO.getPostedAt());
 
-        Message message = messageRepository.findById(replyDTO.getMessageId()).orElseThrow(() -> new DatabaseException("[Service] User not found"));
+        Post post = postRepository.findById(replyDTO.getMessageId()).orElseThrow(() -> new DatabaseException("[Service] User not found"));
         User user = userRepository.getReferenceById(replyDTO.getUser().getId());
 
-        reply.setMessageId(message);
+        reply.setPostId(post);
         reply.setUser(user);
         reply = replyRepository.save(reply);
 
@@ -95,7 +94,7 @@ public class ReplyService {
 
     @Transactional
     public ResponseEntity<Void> deleteReply(Long id) {
-        if(!messageRepository.existsById(id)) {
+        if(!postRepository.existsById(id)) {
             throw new ResourceNotFoundException("Id message not found");
         }
         try {

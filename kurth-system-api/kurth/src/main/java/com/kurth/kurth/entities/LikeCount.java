@@ -1,8 +1,6 @@
 package com.kurth.kurth.entities;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.SQLInsert;
-import org.springframework.lang.Nullable;
 
 @Entity
 @Table(name = "tb_like_count")
@@ -18,12 +16,12 @@ public class LikeCount {
 
     @ManyToOne
     @JoinColumn(name = "message_id")
-    private Message message;
+    private Post post;
 
-    public LikeCount(Long id, User user, Message message) {
+    public LikeCount(Long id, User user, Post post) {
         this.id = id;
         this.user = user;
-        this.message = message;
+        this.post = post;
     }
 
     public LikeCount() {
@@ -38,12 +36,12 @@ public class LikeCount {
         this.user = user;
     }
 
-    public Message getMessage() {
-        return message;
+    public Post getPost() {
+        return post;
     }
 
-    public void setMessage(Message message) {
-        this.message = message;
+    public void setPost(Post post) {
+        this.post = post;
     }
 
     public void setId(Long id) {

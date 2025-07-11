@@ -13,7 +13,7 @@ import java.util.Optional;
 @Repository
 public interface LikeCountRepository extends JpaRepository<LikeCount, Long> {
 //    @Query("SELECT obj.id, obj.message.id, obj.user.id FROM LikeCount obj WHERE obj.user.id = :userId and obj.message.id = :messageId")
-    Optional<LikeCount> findByUserIdAndMessageId(Long userId, Long messageId);
+    Optional<LikeCount> findByUserIdAndPostId(Long userId, Long postId);
 
     @Query("SELECT obj FROM LikeCount obj WHERE obj.user.username = :username")
     Page<LikeCount> findByUserId(String username, Pageable pageable);

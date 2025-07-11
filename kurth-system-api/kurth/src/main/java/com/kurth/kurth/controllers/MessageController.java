@@ -1,88 +1,29 @@
 package com.kurth.kurth.controllers;
 
 import com.kurth.kurth.dto.MessageDTO;
-import com.kurth.kurth.dto.UserDTO;
 import com.kurth.kurth.services.MessageService;
-import com.kurth.kurth.services.UserService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.List;
 
 @RestController
-@RequestMapping(value = "/message")
+@RequestMapping(value = "/message-chat")
 public class MessageController {
 
     @Autowired
     private MessageService messageService;
 
-
-    @GetMapping(value = "/{id}")
-    public MessageDTO findById(@PathVariable Long id) {
-        return messageService.findById(id);
-    }
-
-    @GetMapping
-    public ResponseEntity<Page<MessageDTO>> findAll(Pageable pageable) {
-        Page<MessageDTO> messageDTO = messageService.findAll(pageable);
-        return ResponseEntity.ok(messageDTO);
-    }
-
-
-    @GetMapping(value = "/user_messages/{username}")
-    public Page<MessageDTO> findAllUserMessages(@PathVariable String username, Pageable pageable) {
-        return messageService.findAllUserMessages(username, pageable);
-    }
-
-    @GetMapping(value = "/images-details")
-    public List<MessageDTO> findAllMessagesWithImage() {
-        return messageService.findAllMessagesWithImage();
-    }
-
-    @GetMapping(value ="/user-following-messages/{followerId}")
-    public Page<MessageDTO> findAllUserFollowingMessages(Pageable pageable, @PathVariable Long followerId) {
-        return messageService.findAllUserFollowingMessages(pageable, followerId);
-    }
-
     @PostMapping
-    public ResponseEntity<MessageDTO> insert(@Valid  @RequestBody MessageDTO messageDTO) {
-        messageDTO = messageService.newMessage(messageDTO);
+    public ResponseEntity<MessageDTO> sendMessage(@RequestBody MessageDTO messageDTO) {
+        messageDTO = messageService.sendMessage(messageDTO);
 
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(messageDTO.getId()).toUri();
         return ResponseEntity.created(uri).body(messageDTO);
     }
-
-    @PutMapping(value = "/{id}")
-    public ResponseEntity<MessageDTO> update(@PathVariable Long id, @RequestBody MessageDTO messageDTO) {
-        messageDTO = messageService.update(id, messageDTO);
-        return ResponseEntity.ok(messageDTO);
-    }
-
-    @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        messageService.delete(id);
-        return ResponseEntity.noContent().build();
-    }
-
-    @PutMapping(value = "/{id}/like-count")
-    public ResponseEntity<MessageDTO> updateLikeCount(@PathVariable Long id) {
-            MessageDTO messageDTO = messageService.updateLikeCount(id);
-            return ResponseEntity.ok(messageDTO);
-    }
-
-    @PutMapping(value = "/{id}/like-count-removing")
-    public ResponseEntity<MessageDTO> removeLike(@PathVariable Long id) {
-        MessageDTO messageDTO = messageService.removeLike(id);
-        return ResponseEntity.ok(messageDTO);
-    }
-
-
-
-
 }

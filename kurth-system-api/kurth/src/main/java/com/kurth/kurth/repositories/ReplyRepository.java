@@ -11,11 +11,11 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ReplyRepository extends JpaRepository<Reply, Long> {
     @Query("SELECT obj FROM Reply obj " +
-            "WHERE obj.messageId.id = :id")
+            "WHERE obj.postId.id = :id")
     Page<Reply> findAllByMessageId(@Param("id") Long id, Pageable pageable);
 
     @Query("SELECT COUNT(obj) FROM Reply obj " +
-            "WHERE obj.messageId.id = :id GROUP BY obj.messageId.id")
+            "WHERE obj.postId.id = :id GROUP BY obj.postId.id")
     Integer countReplyMessages(@Param("id") Long id);
 
 

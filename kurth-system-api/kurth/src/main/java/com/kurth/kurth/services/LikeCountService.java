@@ -1,12 +1,11 @@
 package com.kurth.kurth.services;
 
 import com.kurth.kurth.dto.LikeCountDTO;
-import com.kurth.kurth.dto.MessageDTO;
 import com.kurth.kurth.entities.LikeCount;
-import com.kurth.kurth.entities.Message;
+import com.kurth.kurth.entities.Post;
 import com.kurth.kurth.entities.User;
 import com.kurth.kurth.repositories.LikeCountRepository;
-import com.kurth.kurth.repositories.MessageRepository;
+import com.kurth.kurth.repositories.PostRepository;
 import com.kurth.kurth.repositories.UserRepository;
 import com.kurth.kurth.services.exceptions.DatabaseException;
 import com.kurth.kurth.services.exceptions.ResourceNotFoundException;
@@ -14,12 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -32,7 +29,7 @@ public class LikeCountService {
     private UserRepository userRepository;
 
     @Autowired
-    private MessageRepository messageRepository;
+    private PostRepository postRepository;
 
     @Transactional(readOnly = true)
     public LikeCountDTO findById(Long id) {
@@ -56,8 +53,8 @@ public class LikeCountService {
     }
 
     @Transactional(readOnly = true)
-    public Optional<LikeCountDTO> findByUserIdAndMessageId(Long userId, Long messageId) {
-        Optional<LikeCount> likeCount = likeCountRepository.findByUserIdAndMessageId(userId, messageId);
+    public Optional<LikeCountDTO> findByUserIdAndMessageId(Long userId, Long postId) {
+        Optional<LikeCount> likeCount = likeCountRepository.findByUserIdAndPostId(userId, postId);
         return likeCount.map(LikeCountDTO::new);
     }
 
@@ -65,9 +62,9 @@ public class LikeCountService {
     public LikeCountDTO insertLike(LikeCountDTO likeCountDTO) {
         try {
             Long userId = likeCountDTO.getUser().getId();
-            Long messageId = likeCountDTO.getMessage().getId();
+            Long postId = likeCountDTO.getPost().getId();
 
-            Optional<LikeCount> existingLike = likeCountRepository.findByUserIdAndMessageId(userId, messageId);
+            Optional<LikeCount> existingLike = likeCountRepository.findByUserIdAndPostId(userId, postId);
 
             if (existingLike.isPresent()) {
                 removeLike(existingLike.get().getId());
@@ -77,10 +74,10 @@ public class LikeCountService {
             LikeCount likeCount = new LikeCount();
 
             User user = userRepository.getReferenceById(userId);
-            Message message = messageRepository.getReferenceById(messageId);
+            Post post = postRepository.getReferenceById(postId);
 
             likeCount.setUser(user);
-            likeCount.setMessage(message);
+            likeCount.setPost(post);
 
 
             likeCount = likeCountRepository.save(likeCount);
@@ -95,10 +92,10 @@ public class LikeCountService {
         LikeCount likeCount = likeCountRepository.getReferenceById(id);
 
         User user = userRepository.getReferenceById(likeCountDTO.getUser().getId());
-        Message message = messageRepository.getReferenceById(likeCountDTO.getMessage().getId());
+        Post post = postRepository.getReferenceById(likeCountDTO.getPost().getId());
 
         likeCount.setUser(user);
-        likeCount.setMessage(message);
+        likeCount.setPost(post);
 
         likeCount = likeCountRepository.save(likeCount);
         return new LikeCountDTO(likeCount);

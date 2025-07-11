@@ -5,34 +5,40 @@ import jakarta.persistence.*;
 import java.time.Instant;
 
 @Entity
-@Table(name = "tb_reply")
-public class Reply {
+@Table(name = "tb_post")
+public class Post {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(columnDefinition = "TEXT")
     private String message;
 
     private Instant postedAt;
 
     private String image;
 
-    @ManyToOne
-    @JoinColumn(name = "post_id")
-    private Post postId;
+    @Column(name = "like_count")
+    private Integer likeCount;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
-    // Getters and Setters
-    public Long getId() {
-        return id;
+
+    public Post() {}
+
+    public Post(Long id, String message, Instant postedAt, String image, User user) {
+        this.id = id;
+        this.message = message;
+        this.postedAt = postedAt;
+        this.image = image;
+        this.user = user;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public Long getId() {
+        return id;
     }
 
     public String getMessage() {
@@ -41,14 +47,6 @@ public class Reply {
 
     public void setMessage(String message) {
         this.message = message;
-    }
-
-    public Post getPostId() {
-        return postId;
-    }
-
-    public void setPostId(Post postId) {
-        this.postId = postId;
     }
 
     public User getUser() {
@@ -74,4 +72,13 @@ public class Reply {
     public void setImage(String image) {
         this.image = image;
     }
+
+    public Integer getLikeCount() {
+        return likeCount;
+    }
+
+    public void setLikeCount(Integer likeCount) {
+        this.likeCount = likeCount;
+    }
+
 }
