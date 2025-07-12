@@ -17,3 +17,7 @@ export function findAllMessagesWithImage() {
 
   return axios.get(`${BASE_URL}/message/images-details`);
 }
+
+export function findAllUserFollowingMessages(followerId: number) {
+  return axios.get(`${BASE_URL}/message/user-following-messages/${followerId}`);
+}
