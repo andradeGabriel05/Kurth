@@ -7,7 +7,7 @@
 	},
 	"item": [
 		{
-			"name": "Message",
+			"name": "Post",
 			"item": [
 				{
 					"name": "Messages",
@@ -15,12 +15,50 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/message?page=0&size=6&sort=id,asc",
+							"raw": "{{host}}/message?page=0&size=10&sort=id,asc",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"message"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								},
+								{
+									"key": "sort",
+									"value": "id,asc"
+								},
+								{
+									"key": "id",
+									"value": "7",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find message replies",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/message/find-replies/1?page=0&size=6&sort=id,asc",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"message",
+								"find-replies",
+								"1"
 							],
 							"query": [
 								{
@@ -46,15 +84,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/message/4",
-							"protocol": "http",
+							"raw": "{{host}}/message/20",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
 								"message",
-								"4"
+								"20"
 							]
 						}
 					},
@@ -96,6 +132,28 @@
 					"response": []
 				},
 				{
+					"name": "Count message replies",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/message/reply/message-count/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"message",
+								"reply",
+								"message-count",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "New message",
 					"request": {
 						"method": "POST",
@@ -103,6 +161,32 @@
 						"body": {
 							"mode": "raw",
 							"raw": "{\r\n    \"message\": \"Uma mensagem nova novanovanova\",\r\n    \"postedAt\": \"2022-12-21T15:00:00Z\",\r\n    \"image\": \"\",\r\n    \"user\": {\r\n        \"id\": 2\r\n    }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/message",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"message"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New reply",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"message\": \"Uma mensagem nova novanovanova\",\r\n    \"postedAt\": \"2022-12-21T15:00:00Z\",\r\n    \"likeCount\": 0,\r\n    \"user\": {\r\n        \"id\": 2\r\n    }\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -534,7 +618,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/likecount/user/thispersondoesnotexist",
+							"raw": "{{host}}/likecount/user/thispersondoesnotexist?sort=id,desc",
 							"host": [
 								"{{host}}"
 							],
@@ -542,6 +626,12 @@
 								"likecount",
 								"user",
 								"thispersondoesnotexist"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "id,desc"
+								}
 							]
 						}
 					},
@@ -572,6 +662,40 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"message\": \"Olá, tudo bem?\",\r\n  \"sentByUser\": {\r\n    \"id\": 2\r\n  },\r\n  \"sentToUser\": {\r\n    \"id\": 1\r\n  }\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/message-chat",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"message-chat"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
 		}
 	]
 }
