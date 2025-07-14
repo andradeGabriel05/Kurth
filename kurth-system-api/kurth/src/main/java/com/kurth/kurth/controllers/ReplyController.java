@@ -20,7 +20,7 @@ public class ReplyController {
     @Autowired
     private ReplyService replyService;
 
-    @GetMapping(value = "/{id}")
+    @GetMapping(value = "/excluded-route/{id}")
     public ResponseEntity<ReplyDTO> findById(@PathVariable long id) {
         ReplyDTO replyDTO = replyService.findById(id);
         return ResponseEntity.ok(replyDTO);
@@ -32,7 +32,7 @@ public class ReplyController {
         return ResponseEntity.ok(replyDTO);
     }
 
-    @GetMapping("/message/{id}")
+    @GetMapping("/excluded-route/message/{id}")
     public ResponseEntity<Page<ReplyDTO>> findAllByMessageId(@PathVariable Long id, Pageable pageable) {
         Page<ReplyDTO> replyDTO = replyService.findAllByMessageId(id, pageable);
         return ResponseEntity.ok(replyDTO);
@@ -52,13 +52,13 @@ public class ReplyController {
         return ResponseEntity.created(uri).body(replyDTO);
     }
 
-    @PutMapping(value = "/{id}")
+    @PutMapping(value = "/b/excluded-route{id}")
     public ResponseEntity<ReplyDTO> updateReply(@PathVariable Long id, @RequestBody ReplyDTO replyDTO) {
         replyDTO = replyService.updateReply(id, replyDTO);
         return ResponseEntity.ok(replyDTO);
     }
 
-    @DeleteMapping(value = "/{id}")
+    @DeleteMapping(value = "/a/excluded-route{id}")
     public ResponseEntity<ReplyDTO> deleteReply(@PathVariable long id) {
         replyService.deleteReply(id);
         return ResponseEntity.noContent().build();

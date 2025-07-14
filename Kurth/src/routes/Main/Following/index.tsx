@@ -7,6 +7,7 @@ import { PostDTO } from "../../../models/message";
 import MessagePosted from "../../../components/MessagePosted";
 import Reaction from "../../../components/Reaction";
 import MessagePost from "../../../components/MessagePost";
+import PostMapping from "../../../components/PostMapping";
 
 type Props = {
   user: UserDTO;
@@ -43,14 +44,7 @@ export default function Following({ user }: Props) {
         <Link to="/following">Following</Link>
       </header>
       <MessagePost message="Write anything" />
-      {message.map((message) => (
-        <div className="message-posted" key={message.id}>
-          <Link to={`/${message.user.username}/posts/${message.id}`}>
-            <MessagePosted post={message} />
-          </Link>
-          <Reaction message={message} />
-        </div>
-      ))}
+      <PostMapping post={message} />
     </div>
   );
 }

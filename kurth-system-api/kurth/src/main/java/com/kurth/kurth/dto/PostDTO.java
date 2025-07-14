@@ -22,11 +22,11 @@ public class PostDTO {
 
     private Integer likeCount;
 
-    private Post parent;
+    private PostDTO parent;
 
     private UserDTO user;
 
-    public PostDTO(Long id, String message, Instant postedAt, String image, Integer likeCount, Post parent, UserDTO user) {
+    public PostDTO(Long id, String message, Instant postedAt, String image, Integer likeCount, PostDTO parent, UserDTO user) {
         this.id = id;
         this.message = message;
         this.postedAt = postedAt;
@@ -42,8 +42,10 @@ public class PostDTO {
         this.postedAt = post.getPostedAt();
         this.image = post.getImage();
         this.likeCount = post.getLikeCount();
-        this.parent = post.getParent();
         this.user = new UserDTO(post.getUser());
+        if (post.getParent() != null) {
+            this.parent = new PostDTO(post.getParent());
+        }
     }
 
     public Long getId() {
@@ -62,7 +64,7 @@ public class PostDTO {
         return image;
     }
 
-    public Post getParent() {
+    public PostDTO getParent() {
         return parent;
     }
 

@@ -49,16 +49,17 @@ export default function MessagePost({ message }: Props) {
   function handleReply(event: any) {
     event.preventDefault();
     axios
-      .post(`${BASE_URL}/reply`, {
+      .post(`${BASE_URL}/message`, {
         message: messageForm,
-        messageId: params.messageId,
         postedAt: currentDate,
+        likeCount: 0,
+        parent: { id: params.messageId },
         user: {
           id: user_id,
         },
       })
       .then((response) => {
-        console.log("Reply posted:", response.data);
+        console.log("Reply posted:", response);
         window.location.reload(); // <- this too
       })
       .catch((error) => {
