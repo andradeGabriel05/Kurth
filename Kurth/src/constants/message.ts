@@ -2,7 +2,7 @@ import axios from "axios";
 import { BASE_URL } from "../utils/system";
 
 export function findAll() {
-  return axios.get(`${BASE_URL}/message?page=0&size=12&sort=id,desc`);
+  return axios.get(`${BASE_URL}/message?page=0&size=20&sort=id,desc`);
 }
 
 export function findById(id: number) {
@@ -20,4 +20,8 @@ export function findAllMessagesWithImage() {
 
 export function findAllUserFollowingMessages(followerId: number) {
   return axios.get(`${BASE_URL}/message/user-following-messages/${followerId}`);
+}
+
+export function findReplies(id: number) {
+  return axios.get(`${BASE_URL}/message/find-replies/${id}?page=0&size=6&sort=id,asc`);
 }

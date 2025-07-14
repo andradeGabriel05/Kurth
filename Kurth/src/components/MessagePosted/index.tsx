@@ -10,6 +10,7 @@ type Props = {
 
 export default function MessagePosted({ post }: Props) {
   console.log("MessagePosted component rendered with post:", post);
+
   const showImage = post.image && post.image !== "";
   return (
     <div className="form__message__posted p18">

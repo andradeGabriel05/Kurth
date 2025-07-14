@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import * as MessageService from "../../../constants/message";
 import * as ReplyService from "../../../constants/reply";
 import MessagePosted from "../../../components/MessagePosted";
@@ -16,7 +16,7 @@ export default function MessagePage() {
 
   const [PostDTO, setPostDTO] = useState<PostDTO>();
 
-  const [reply, setReply] = useState<ReplyDTO>();
+  const [reply, setReply] = useState<ReplyDTO[]>([]);
 
   useEffect(() => {
     const messageId = Number(params.messageId);
@@ -35,10 +35,10 @@ export default function MessagePage() {
         navigate(`/`);
       });
 
-    ReplyService.findByMessageId(0, messageId)
+    MessageService.findReplies(messageId)
       .then((response) => {
-        console.log(response.data);
-        setReply(response.data);
+        console.log(response.data.content);
+        setReply(response.data.content);
       })
       .catch((e) => {
         console.error("Error:", e.response.data);
@@ -58,12 +58,14 @@ export default function MessagePage() {
 
       <div className="replies-list-message-page">
         <div className="reply-item">
-          {reply &&
-            reply.content.map((reply: ReplyDTO) => (
-              <div key={reply.id} className="reply-text">
-                <MessagePosted post={reply} />
-              </div>
-            ))}
+          {reply && reply.map((reply: PostDTO) => (
+            <div className="message-posted">
+              <Link to={`/${reply.user.username}/posts/${reply.id}`}>
+                <MessagePosted key={reply.id} post={reply} />
+              </Link>
+              <Reaction message={reply} />
+            </div>
+          ))}
         </div>
       </div>
     </div>
