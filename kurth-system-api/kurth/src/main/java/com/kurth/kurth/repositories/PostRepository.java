@@ -22,6 +22,14 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     @Query("SELECT m FROM Post m JOIN Follow f ON m.user.id = f.userFollowingId WHERE f.userFollowerId = :followerId")
     Page<Post> findAllUserFollowingMessages(Pageable pageable, Long followerId);
 
+    //atenção!!! todo -> remove REPLY
+    @Query("SELECT COUNT(obj) FROM Post obj " +
+            "WHERE obj.parent.id = :id GROUP BY obj.parent.id")
+    Integer countReplyMessages(@Param("id") Long id);
+
+    @Query("SELECT obj FROM Post obj WHERE obj.parent.id = :id")
+    Page<Post> findReplies(Pageable pageable, @Param("id") Long id);
+
     @Modifying
     @Query("UPDATE Post obj SET obj.likeCount = obj.likeCount + 1 WHERE obj.id = :id")
     Integer updateLikeCount(@Param("id") Long id);
@@ -29,5 +37,6 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     @Modifying
     @Query("UPDATE Post obj SET obj.likeCount = obj.likeCount - 1 WHERE obj.id = :id")
     Integer removeLike(@Param("id") Long id);
+
 
 }

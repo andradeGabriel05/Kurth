@@ -48,6 +48,17 @@ public class PostController {
         return postService.findAllUserFollowingMessages(pageable, followerId);
     }
 
+    @GetMapping("/reply/message-count/{id}")
+    public Integer countReplyMessages(@PathVariable Long id) {
+        return postService.countReplyMessages(id);
+    }
+
+    @GetMapping("/find-replies/{id}")
+    public Page<PostDTO> findReplies(Pageable pageable,@PathVariable Long id) {
+        return postService.findReplies(pageable, id);
+    }
+
+
     @PostMapping
     public ResponseEntity<PostDTO> insert(@Valid  @RequestBody PostDTO postDTO) {
         postDTO = postService.newMessage(postDTO);

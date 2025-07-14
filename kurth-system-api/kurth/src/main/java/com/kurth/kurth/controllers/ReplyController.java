@@ -11,6 +11,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 
+// this is actually also a post. so, instead of a new table, we should do a self-relation at post table.
+// create a new att to identify the type -> "reply" or "post". but, how could it be the fk?
 @RestController
 @RequestMapping(value = "/reply")
 public class ReplyController {
@@ -36,7 +38,8 @@ public class ReplyController {
         return ResponseEntity.ok(replyDTO);
     }
 
-    @GetMapping("/message-count/{id}")
+//    @GetMapping("/message-count/{id}")
+    @GetMapping("/excluded-route")
     public Integer countReplyMessages(@PathVariable Long id) {
         return replyService.countReplyMessages(id);
     }

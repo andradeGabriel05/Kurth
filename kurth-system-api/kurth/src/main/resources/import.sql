@@ -20,30 +20,30 @@ INSERT INTO tb_post (message, posted_at, like_count, user_id) VALUES ('Neque por
 
 INSERT INTO tb_post (message, posted_at, image, like_count, user_id) VALUES ('Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit. Sed quia non numquam eius modi tempora incidunt. Sed quia non numquam eius modi tempora incidunt.', TIMESTAMP WITH TIME ZONE '2024-03-03T15:00:00Z', 'https://img.lagaceta.com.ar/fotos/notas/2024/03/27/600x400_lula-macron-celebran-lazos-estrategicos-1028985-233606.webp',0, 1);
 
-INSERT INTO tb_reply (message, post_id, user_id, posted_at) VALUES ('Concordo completamente com o que foi dito!', 1, 1, TIMESTAMP WITH TIME ZONE '2024-07-26T10:00:00Z');
+INSERT INTO tb_post (message, posted_at, like_count, parent_id, user_id) VALUES ('Concordo completamente com o que foi dito!', TIMESTAMP WITH TIME ZONE '2024-07-26T10:00:00Z', 1, 1, 1);
 
-INSERT INTO tb_reply (message, post_id, user_id, posted_at) VALUES ('Muito interessante, obrigado por compartilhar!', 2, 2, TIMESTAMP WITH TIME ZONE '2024-07-26T11:00:00Z');
+INSERT INTO tb_post (message, posted_at, like_count, parent_id, user_id) VALUES ('Muito interessante, obrigado por compartilhar!', TIMESTAMP WITH TIME ZONE '2024-07-26T11:00:00Z', 1, 1, 1);
 
-INSERT INTO tb_reply (message, post_id, user_id, posted_at) VALUES ('Essa é uma ótima notícia!', 3, 3, TIMESTAMP WITH TIME ZONE '2024-07-26T12:00:00Z');
+INSERT INTO tb_post (message, posted_at, like_count, parent_id, user_id) VALUES ('Essa é uma ótima notícia!', TIMESTAMP WITH TIME ZONE '2024-07-26T12:00:00Z', 0, 3, 3);
 
-INSERT INTO tb_reply (message, post_id, user_id, posted_at) VALUES ('Acho que isso vai trazer grandes mudanças.', 1, 2, TIMESTAMP WITH TIME ZONE '2024-07-26T13:00:00Z');
+INSERT INTO tb_post (message, posted_at, like_count, parent_id, user_id) VALUES ('Acho que isso vai trazer grandes mudanças.', TIMESTAMP WITH TIME ZONE '2024-07-26T13:00:00Z', 0, 1, 2);
 
-INSERT INTO tb_reply (message, post_id, user_id, posted_at) VALUES ('Pode ser um ponto de partida para novas discussões.', 1, 3, TIMESTAMP WITH TIME ZONE '2024-07-26T14:00:00Z');
+INSERT INTO tb_post (message, posted_at, like_count, parent_id, user_id) VALUES ('Pode ser um ponto de partida para novas discussões.', TIMESTAMP WITH TIME ZONE '2024-07-26T14:00:00Z', 0, 1, 3);
 
-INSERT INTO tb_reply (message, post_id, user_id, posted_at) VALUES ('Concordo! É sempre bom ver ações concretas.', 2, 1, TIMESTAMP WITH TIME ZONE '2024-07-26T15:00:00Z');
+INSERT INTO tb_post (message, posted_at, like_count, parent_id, user_id) VALUES ('Concordo! É sempre bom ver ações concretas.', TIMESTAMP WITH TIME ZONE '2024-07-26T15:00:00Z', 0, 2, 1);
 
-INSERT INTO tb_reply (message, post_id, user_id, posted_at) VALUES ('O conteúdo é relevante, obrigado pela atualização.', 2, 3, TIMESTAMP WITH TIME ZONE '2024-07-26T16:00:00Z');
+INSERT INTO tb_post (message, posted_at, like_count, parent_id, user_id) VALUES ('O conteúdo é relevante, obrigado pela atualização.', TIMESTAMP WITH TIME ZONE '2024-07-26T16:00:00Z', 0, 2, 3);
 
-INSERT INTO tb_reply (message, post_id, user_id, posted_at) VALUES ('Esses eventos são fundamentais para o futuro.', 3, 1, TIMESTAMP WITH TIME ZONE '2024-07-26T17:00:00Z');
+INSERT INTO tb_post (message, posted_at, like_count, parent_id, user_id) VALUES ('Esses eventos são fundamentais para o futuro.', TIMESTAMP WITH TIME ZONE '2024-07-26T17:00:00Z', 0, 3, 1);
 
-INSERT INTO tb_reply (message, post_id, user_id, posted_at) VALUES ('Realmente, as implicações são grandes.', 3, 2, TIMESTAMP WITH TIME ZONE '2024-07-26T18:00:00Z');
+INSERT INTO tb_post (message, posted_at, like_count, parent_id, user_id) VALUES ('Realmente, as implicações são grandes.', TIMESTAMP WITH TIME ZONE '2024-07-26T18:00:00Z', 0, 3, 2);
 
-INSERT INTO tb_reply (message, post_id, user_id, posted_at) VALUES ('Muito bem colocado, é essencial discutir esses pontos.', 4, 1, TIMESTAMP WITH TIME ZONE '2024-07-26T19:00:00Z');
+INSERT INTO tb_post (message, posted_at, like_count, parent_id, user_id) VALUES ('Muito bem colocado, é essencial discutir esses pontos.', TIMESTAMP WITH TIME ZONE '2024-07-26T19:00:00Z', 0, 4, 1);
 
-INSERT INTO tb_reply (message, post_id, user_id, posted_at) VALUES ('Excelente perspectiva, acredito que isso vai impactar muito.', 4, 2, TIMESTAMP WITH TIME ZONE '2024-07-26T20:00:00Z');
+INSERT INTO tb_post (message, posted_at, like_count, parent_id, user_id) VALUES ('Excelente perspectiva, acredito que isso vai impactar muito.', TIMESTAMP WITH TIME ZONE '2024-07-26T20:00:00Z', 0, 4, 2);
 
-INSERT INTO tb_reply (message, post_id, user_id, posted_at) VALUES ('Acho que essa informação pode mudar a forma como vemos o assunto.', 5, 1, TIMESTAMP WITH TIME ZONE '2024-07-26T21:00:00Z');
+INSERT INTO tb_post (message, posted_at, like_count, parent_id, user_id) VALUES ('Acho que essa informação pode mudar a forma como vemos o assunto.', TIMESTAMP WITH TIME ZONE '2024-07-26T21:00:00Z', 0, 5, 1);
 
-INSERT INTO tb_reply (message, post_id, user_id, posted_at) VALUES ('Interessante, vou acompanhar mais sobre isso.',  5, 2, TIMESTAMP WITH TIME ZONE '2024-07-26T22:00:00Z');
+INSERT INTO tb_post (message, posted_at, like_count, parent_id, user_id) VALUES ('Interessante, vou acompanhar mais sobre isso.', TIMESTAMP WITH TIME ZONE '2024-07-26T22:00:00Z', 0, 8, 2);
 
 --INSERT INTO tb_like_count (user_id, post_id) VALUES (1, 3);

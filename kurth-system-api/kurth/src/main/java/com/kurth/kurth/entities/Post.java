@@ -23,17 +23,23 @@ public class Post {
     private Integer likeCount;
 
     @ManyToOne
+    @JoinColumn(name = "parent_id")
+    private Post parent;
+
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
 
     public Post() {}
 
-    public Post(Long id, String message, Instant postedAt, String image, User user) {
+    public Post(Long id, String message, Instant postedAt, String image, Integer likeCount, Post parent, User user) {
         this.id = id;
         this.message = message;
         this.postedAt = postedAt;
         this.image = image;
+        this.likeCount = likeCount;
+        this.parent = parent;
         this.user = user;
     }
 
@@ -81,4 +87,11 @@ public class Post {
         this.likeCount = likeCount;
     }
 
+    public Post getParent() {
+        return parent;
+    }
+
+    public void setParent(Post parent) {
+        this.parent = parent;
+    }
 }

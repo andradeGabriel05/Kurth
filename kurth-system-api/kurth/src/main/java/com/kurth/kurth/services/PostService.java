@@ -46,6 +46,11 @@ public class PostService {
     }
 
     @Transactional(readOnly = true)
+    public Integer countReplyMessages(Long id) {
+        return postRepository.countReplyMessages(id);
+    }
+
+    @Transactional(readOnly = true)
     public PostDTO findById(Long id) {
 
         Post post = postRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Resource not found"));
@@ -104,6 +109,16 @@ public class PostService {
             throw new ResourceNotFoundException("Resource not found");
         }
 
+    }
+
+    @Transactional
+    public Page<PostDTO> findReplies(Pageable pageable, Long id) {
+        if(!postRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Id message not found");
+        }
+
+        Page<Post> message = postRepository.findReplies(pageable, id);
+        return message.map(x -> new PostDTO(x));
     }
 
     @Transactional
