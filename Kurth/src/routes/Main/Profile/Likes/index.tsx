@@ -9,6 +9,7 @@ import Reaction from "../../../../components/Reaction";
 import { PostDTO } from "../../../../models/message";
 import { BASE_URL } from "../../../../utils/system";
 import axios from "axios";
+import PostMapping from "../../../../components/PostMapping";
 
 type Props = {
   user: UserDTO;
@@ -21,17 +22,16 @@ export default function Likes({ user }: Props) {
 
   const [post, setPost] = useState<PostDTO[]>([]);
 
-
   useEffect(() => {
-    axios.get(`${BASE_URL}/likecount/user/${params.username}`).then((response) => {
-      console.log(response.data.content);
-       type LikeResponse = { post: PostDTO };
-       const msgs = response.data.content.map(
-          (msg: LikeResponse) => msg.post
-        );
+    axios
+      .get(`${BASE_URL}/likecount/user/${params.username}`)
+      .then((response) => {
+        console.log(response.data.content);
+        type LikeResponse = { post: PostDTO };
+        const msgs = response.data.content.map((msg: LikeResponse) => msg.post);
         setPost(msgs);
-    });
-  }, []);
+      });
+  }, [params.username]);
 
   return (
     <div className="profile-container">
@@ -39,14 +39,7 @@ export default function Likes({ user }: Props) {
       <div className="profile-content">
         {user && <ProfileContentDetails user={user} />}
       </div>
-      {post.map((post) => (
-        <div key={post.id} className="message-posted">
-          <Link to={`/${post.user.username}/posts/${post.id}`}>
-            <MessagePosted post={post} />
-          </Link>
-          <Reaction message={post} />
-        </div>
-      ))}
+      <PostMapping post={post} />
     </div>
   );
 }

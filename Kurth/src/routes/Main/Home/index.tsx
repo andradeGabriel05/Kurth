@@ -6,6 +6,7 @@ import "./style.scss";
 import { useEffect, useState } from "react";
 import { PostDTO } from "../../../models/message";
 import Reaction from "../../../components/Reaction";
+import PostMapping from "../../../components/PostMapping";
 
 export default function Home() {
   const [message, setMessage] = useState<PostDTO[]>([]);
@@ -19,8 +20,6 @@ export default function Home() {
 
   const userId = localStorage.getItem("user_id");
 
-
-
   return (
     <div className="wrapper-message-user">
       <header>
@@ -31,14 +30,7 @@ export default function Home() {
       </header>
       <MessagePost message="Write anything" />
 
-      {message.map((message) => (
-        <div className="message-posted">
-          <Link to={`/${message.user.username}/posts/${message.id}`}>
-            <MessagePosted key={message.id} post={message} />
-          </Link>
-          <Reaction message={message} />
-        </div>
-      ))}
+      <PostMapping post={message} />
     </div>
   );
 }

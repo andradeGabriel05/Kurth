@@ -15,6 +15,9 @@ export default function Profile() {
   const params = useParams();
 
   const [user, setUser] = useState<UserDTO>();
+
+  const [message, setMessage] = useState<PostDTO[]>([]);
+
   useEffect(() => {
     UserService.findByUsername(params.username as string)
       .then((response) => {
@@ -24,10 +27,7 @@ export default function Profile() {
       .catch((error) => {
         console.error("Error:", error.response.data);
       });
-  }, []);
 
-  const [message, setMessage] = useState<PostDTO[]>([]);
-  useEffect(() => {
     MessageService.findUserMessages(params.username as string)
       .then((response) => {
         console.log(response.data);
@@ -37,7 +37,7 @@ export default function Profile() {
       .catch((error) => {
         console.error("Error:", error.response.data);
       });
-  }, []);
+  }, [params.username]);
 
   console.log("message:", message);
 

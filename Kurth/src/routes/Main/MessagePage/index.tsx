@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { PostDTO } from "../../../models/message";
 import { ReplyDTO } from "../../../models/reply";
 import Reaction from "../../../components/Reaction";
+import PostMapping from "../../../components/PostMapping";
 
 export default function MessagePage() {
   const params = useParams();
@@ -43,7 +44,7 @@ export default function MessagePage() {
       .catch((e) => {
         console.error("Error:", e.response.data);
       });
-  }, []);
+  }, [params.messageId]);
 
   return (
     <div className="wrapper-message">
@@ -58,14 +59,7 @@ export default function MessagePage() {
 
       <div className="replies-list-message-page">
         <div className="reply-item">
-          {reply && reply.map((reply: PostDTO) => (
-            <div className="message-posted">
-              <Link to={`/${reply.user.username}/posts/${reply.id}`}>
-                <MessagePosted key={reply.id} post={reply} />
-              </Link>
-              <Reaction message={reply} />
-            </div>
-          ))}
+          <PostMapping post={reply} />
         </div>
       </div>
     </div>
