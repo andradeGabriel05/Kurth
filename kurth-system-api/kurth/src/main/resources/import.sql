@@ -46,4 +46,8 @@ INSERT INTO tb_post (message, posted_at, like_count, parent_id, user_id) VALUES 
 
 INSERT INTO tb_post (message, posted_at, like_count, parent_id, user_id) VALUES ('Interessante, vou acompanhar mais sobre isso.', TIMESTAMP WITH TIME ZONE '2024-07-26T22:00:00Z', 0, 8, 2);
 
+INSERT INTO tb_post (message, posted_at, like_count, parent_id, user_id) VALUES ('Interessante, vou acompanhar mais sobre isso.', TIMESTAMP WITH TIME ZONE '2025-07-14T12:00:00Z', 0, 8, 2);
+
+INSERT INTO tb_post (message, posted_at, like_count, parent_id, user_id) VALUES ('Interessante, vou acompanhar mais sobre isso.', TIMESTAMP WITH TIME ZONE '2025-07-14T16:00:00Z', 0, 8, 2);
+
 --INSERT INTO tb_like_count (user_id, post_id) VALUES (1, 3);
