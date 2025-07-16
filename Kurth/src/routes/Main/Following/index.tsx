@@ -4,8 +4,6 @@ import { useEffect, useState } from "react";
 
 import * as messageService from "../../../constants/message";
 import { PostDTO } from "../../../models/message";
-import MessagePosted from "../../../components/MessagePosted";
-import Reaction from "../../../components/Reaction";
 import MessagePost from "../../../components/MessagePost";
 import PostMapping from "../../../components/PostMapping";
 

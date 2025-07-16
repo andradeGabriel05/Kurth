@@ -1,6 +1,10 @@
 package com.kurth.kurth.entities;
 
 import jakarta.persistence.*;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.bind.DefaultValue;
+
+import java.time.Instant;
 
 @Entity
 @Table(name = "tb_like_count")
@@ -10,6 +14,8 @@ public class LikeCount {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private Instant likedAt;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -18,8 +24,9 @@ public class LikeCount {
     @JoinColumn(name = "post_id")
     private Post post;
 
-    public LikeCount(Long id, User user, Post post) {
+    public LikeCount(Long id, Instant likedAt, User user, Post post) {
         this.id = id;
+        this.likedAt = likedAt;
         this.user = user;
         this.post = post;
     }
@@ -50,5 +57,13 @@ public class LikeCount {
 
     public Long getId() {
         return id;
+    }
+
+    public Instant getLikedAt() {
+        return likedAt;
+    }
+
+    public void setLikedAt(Instant likedAt) {
+        this.likedAt = likedAt;
     }
 }

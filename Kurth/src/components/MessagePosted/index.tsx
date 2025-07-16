@@ -7,17 +7,23 @@ import { useEffect, useState } from "react";
 
 type Props = {
   post: PostDTO | ReplyDTO;
+  reply?: boolean;
 };
 
-export default function MessagePosted({ post }: Props) {
-  const showImage = post.image && post.image !== "";
+//reply in that parameter, verify if this will be a reply or not
+export default function MessagePosted({ post, reply = false }: Props) {
+  const [showImage, setShowImage] = useState<boolean>(false)
+
+  useEffect(() => {
+    setShowImage(post?.image !== undefined && post?.image !== null && post?.image !== '');
+  }, [post?.image]);
 
   const [date, setDate] = useState<string>("");
 
   useEffect(() => {
-    const formattedDate = formatDate(post.postedAt);
+    const formattedDate = formatDate(post?.postedAt);
     setDate(formattedDate);
-  }, [post.postedAt]);
+  }, [post?.postedAt]);
 
   function formatDate(dateString: string): string {
     const date = new Date(dateString);
@@ -37,7 +43,7 @@ export default function MessagePosted({ post }: Props) {
       }
     }
 
-    if( date.getFullYear() !== actualDate.getFullYear()) {
+    if (date.getFullYear() !== actualDate.getFullYear()) {
       return date.toLocaleDateString('en-US', { month: "short", day: "numeric", year: "numeric" });
     }
 
@@ -45,17 +51,17 @@ export default function MessagePosted({ post }: Props) {
   }
 
   return (
-    <div className="form__message__posted p18">
+    <div className={`${reply ? 'reply ' : ''}form__message__posted p18`}>
       <div className="user-wrapper">
         <div className="user__image">
-          <Link to={`/profile/${post.user.username}`}>
+          <Link to={`/profile/${post?.user.username}`}>
             <img
               src={
-                post.user.avatar === null
+                post?.user.avatar === null
                   ? "https://cdn-icons-png.freepik.com/512/8742/8742495.png"
-                  : post.user.avatar
+                  : post?.user.avatar
               }
-              alt={post.user.name}
+              alt={post?.user.name}
               className="icon"
             />
           </Link>
@@ -64,18 +70,18 @@ export default function MessagePosted({ post }: Props) {
           <div className="routes__profile">
             <div className="post__details">
               <Link
-                to={`/profile/${post.user.username}`}
+                to={`/profile/${post?.user.username}`}
                 className="route__element"
               >
-                <span>{post.user.name}</span>
+                <span>{post?.user.name}</span>
               </Link>
             </div>
             <div className="post__details">
               <Link
-                to={`/profile/${post.user.username}`}
+                to={`/profile/${post?.user.username}`}
                 className="route__element"
               >
-                <span className="username">@{post.user.username}</span>
+                <span className="username">@{post?.user.username}</span>
               </Link>
             </div>
             <div className="post__details">
@@ -83,11 +89,11 @@ export default function MessagePosted({ post }: Props) {
             </div>
           </div>
           <div className="message">
-            <span>{post.message}</span>
+            <span>{post?.message}</span>
           </div>
           {showImage && (
             <div className="image-posted">
-              <img src={post.image} alt={`${post.id}`} />
+              <img src={post?.image} alt={`${post?.id}`} />
             </div>
           )}
         </div>

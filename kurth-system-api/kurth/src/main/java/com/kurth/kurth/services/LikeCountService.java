@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Instant;
 import java.util.Optional;
 
 @Service
@@ -76,8 +77,10 @@ public class LikeCountService {
             User user = userRepository.getReferenceById(userId);
             Post post = postRepository.getReferenceById(postId);
 
+
             likeCount.setUser(user);
             likeCount.setPost(post);
+            likeCount.setLikedAt(Instant.now());
 
 
             likeCount = likeCountRepository.save(likeCount);

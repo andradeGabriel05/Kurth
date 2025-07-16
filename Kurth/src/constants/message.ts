@@ -19,9 +19,9 @@ export function findAllMessagesWithImage() {
 }
 
 export function findAllUserFollowingMessages(followerId: number) {
-  return axios.get(`${BASE_URL}/message/user-following-messages/${followerId}`);
+  return axios.get(`${BASE_URL}/message/user-following-messages/${followerId}?sort=postedAt,desc`);
 }
 
 export function findReplies(id: number) {
-  return axios.get(`${BASE_URL}/message/find-replies/${id}?page=0&size=6&sort=id,asc`);
+  return axios.get(`${BASE_URL}/message/find-replies/${id}?page=0&size=6&sort=id,desc`);
 }

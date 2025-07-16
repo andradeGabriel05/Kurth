@@ -7,5 +7,5 @@ export type PostDTO = {
     likeCount?: number;
     image?: string;
     user: UserDTO;
-
+    parent: PostDTO;
 }
