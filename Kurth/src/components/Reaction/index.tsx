@@ -44,7 +44,8 @@ export default function Reaction({ message }: Props) {
   }, [isLiked, messageId]);
 
   //levar para constants => move this to constants
-  async function handleLikeSubmit() {
+  async function handleLikeSubmit(event: React.MouseEvent<HTMLDivElement>) {
+    event?.preventDefault();
     console.log("handleLikeSubmit called");
     console.log("User ID:", userId);
     console.log("Message ID:", message.id);
@@ -106,13 +107,10 @@ export default function Reaction({ message }: Props) {
     axios
       .get(`${BASE_URL}/likecount/user/${userId}/message/${messageId}`)
       .then((response) => {
-        console.log("Response data:", response.data);
         if (response.data == null) {
           setIsLiked(false);
-          console.log("User has not liked this message yet.");
         } else {
           setIsLiked(true);
-          console.log("User has liked this message.");
         }
       })
       .catch((e) => {

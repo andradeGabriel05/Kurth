@@ -36,7 +36,7 @@ export default function Likes({ user }: Props) {
       <div className="profile-content">
         {user && <ProfileContentDetails user={user} />}
       </div>
-      <PostMapping post={post} />
+      <PostMapping post={post} messagePage={false} />
     </div>
   );
 }

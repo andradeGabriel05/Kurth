@@ -36,7 +36,7 @@ export default function Home() {
       </header>
       <MessagePost message="Write anything" />
 
-      <PostMapping post={message} reply={verifyReply} />
+      <PostMapping post={message} reply={verifyReply} messagePage={false} />
 
       {/* <p>______</p>
       <button onClick={nextPageOfMessages}>[DEV] Carregar proxima página</button>

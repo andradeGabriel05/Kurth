@@ -664,38 +664,43 @@
 			]
 		},
 		{
-			"name": "New Request",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n  \"message\": \"Olá, tudo bem?\",\r\n  \"sentByUser\": {\r\n    \"id\": 2\r\n  },\r\n  \"sentToUser\": {\r\n    \"id\": 1\r\n  }\r\n}\r\n",
-					"options": {
-						"raw": {
-							"language": "json"
+			"name": "Messages (initial)",
+			"item": [
+				{
+					"name": "send message",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"message\": \"Olá, tudo bem?\",\r\n  \"sentByUser\": {\r\n    \"id\": 2\r\n  },\r\n  \"sentToUser\": {\r\n    \"id\": 1\r\n  }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/message-chat",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"message-chat"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "{{host}}/message-chat",
-					"host": [
-						"{{host}}"
-					],
-					"path": [
-						"message-chat"
-					]
+				{
+					"name": "get message",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
 				}
-			},
-			"response": []
-		},
-		{
-			"name": "New Request",
-			"request": {
-				"method": "GET",
-				"header": []
-			},
-			"response": []
+			]
 		}
 	]
 }

@@ -2,16 +2,29 @@
 
 .message-posted {
   transition: all 0.3s;
-
+  
   .form__message__posted {
     transition: all 0.3s;
-    border-radius: 1px;
-    margin: 15px;
+    border-radius: 8px;
     &:hover {
-      background-color: #d3d3d3;
+      // background-color: #d3d3d3;
       transition: all 0.3s;
       cursor: pointer;
       border-radius: 5px;
+    }
+  }
+
+  .message-link {
+    display: flex;
+    flex-direction: column;
+    &:hover {
+      background-color: #e6e6e6d7;
+    }
+
+    .reply-message {
+      width: fit-content;
+      margin: auto;
+      margin-bottom: 15px;
     }
   }
 }

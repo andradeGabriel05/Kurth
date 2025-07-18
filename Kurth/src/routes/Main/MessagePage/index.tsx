@@ -19,6 +19,8 @@ export default function MessagePage() {
 
   const [reply, setReply] = useState<ReplyDTO[]>([]);
 
+  const [parent, setParent] = useState<PostDTO>();
+
   useEffect(() => {
     const messageId = Number(params.messageId);
     if (isNaN(messageId)) {
@@ -30,6 +32,7 @@ export default function MessagePage() {
       .then((response) => {
         console.log(response.data);
         setPostDTO(response.data);
+        setParent(response.data.parent);
       })
       .catch((error) => {
         console.error("Error:", error.response.data);
@@ -50,6 +53,7 @@ export default function MessagePage() {
     <div className="wrapper-message">
       <div className="reaction-message-page">
         {PostDTO && <MessagePosted post={PostDTO} />}
+        {parent && <MessagePosted post={parent} reply={true} />}
       </div>
       {PostDTO && <Reaction message={PostDTO} />}
 
@@ -59,7 +63,7 @@ export default function MessagePage() {
 
       <div className="replies-list-message-page">
         <div className="reply-item">
-          <PostMapping post={reply} />
+          <PostMapping post={reply} messagePage={true} />
         </div>
       </div>
     </div>

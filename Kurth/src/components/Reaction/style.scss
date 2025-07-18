@@ -18,6 +18,7 @@
   }
 
   .reaction__like {
+    z-index: 100;
     &:hover {
       cursor: pointer;
       color: #ff6565;

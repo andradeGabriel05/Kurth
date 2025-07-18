@@ -47,6 +47,14 @@
 }
 
 .reply {
-  border: 1px solid #e0e0e0;
-  border-radius: 6px;
+  border: 1px solid #cecece;
+  border-radius: 8px;
+  transition: all 0.3s;
+  margin: auto;
+  width: 30vw;
+
+  &:hover {
+    background-color: #dddddd !important;
+    cursor: pointer;
+  }
 }

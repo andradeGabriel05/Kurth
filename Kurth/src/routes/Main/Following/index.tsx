@@ -42,7 +42,7 @@ export default function Following({ user }: Props) {
         <Link to="/following">Following</Link>
       </header>
       <MessagePost message="Write anything" />
-      <PostMapping post={message} />
+      <PostMapping post={message} messagePage={false} />
     </div>
   );
 }
