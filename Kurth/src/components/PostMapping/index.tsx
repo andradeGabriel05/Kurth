@@ -22,7 +22,7 @@ export default function PostMapping({ post, messagePage }: Props, reply: boolean
   return (
     <>
       {post.map((post: PostDTO) => (
-        <div key={post.id} className="message-posted">
+        <div key={`post-${post.id}`} className="message-posted">
           <Link
             to={`/${post.user.username}/posts/${post.id}`}
             className="message-link"
@@ -32,6 +32,7 @@ export default function PostMapping({ post, messagePage }: Props, reply: boolean
               <Link
                 to={`/${post.user.username}/posts/${post.parent.id}`}
                 className="reply-message"
+                key={`parent-${post.parent.id}`}
               >
                 <MessagePosted post={post.parent} reply={reply} />
               </Link>

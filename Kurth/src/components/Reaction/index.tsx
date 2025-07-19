@@ -28,8 +28,6 @@ export default function Reaction({ message }: Props) {
   useEffect(() => {
     ReplyService.countReplyMessages(messageId)
       .then((response) => {
-        console.log(response.data);
-
         setReplyCount(response.data);
       })
       .catch((e) => {

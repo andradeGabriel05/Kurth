@@ -1,8 +1,8 @@
 import axios from "axios";
 import { BASE_URL } from "../utils/system";
 
-export function findAll() {
-  return axios.get(`${BASE_URL}/message?page=0&size=20&sort=id,desc`);
+export function findAll(actualPage: number) {
+  return axios.get(`${BASE_URL}/message?page=${actualPage}&size=6&sort=postedAt,desc`);
 }
 
 export function findById(id: number) {
