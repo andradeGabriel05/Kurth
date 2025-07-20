@@ -15,7 +15,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/message?page=0&size=10&sort=id,asc",
+							"raw": "{{host}}/message?page=2&size=10&sort=postedAt,desc",
 							"host": [
 								"{{host}}"
 							],
@@ -25,20 +25,20 @@
 							"query": [
 								{
 									"key": "page",
-									"value": "0"
+									"value": "2"
 								},
 								{
 									"key": "size",
 									"value": "10"
 								},
 								{
-									"key": "sort",
-									"value": "id,asc"
-								},
-								{
 									"key": "id",
 									"value": "7",
 									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "postedAt,desc"
 								}
 							]
 						}
@@ -51,7 +51,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/message/find-replies/1?page=0&size=6&sort=id,asc",
+							"raw": "{{host}}/message/find-replies/1?page=0&size=6&sort=postedAt,desc",
 							"host": [
 								"{{host}}"
 							],
@@ -71,7 +71,7 @@
 								},
 								{
 									"key": "sort",
-									"value": "id,asc"
+									"value": "postedAt,desc"
 								}
 							]
 						}
@@ -102,7 +102,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/message/user_messages/thispersondoesnotexist?page=0&size=6&sort=id,asc",
+							"raw": "http://localhost:8080/message/user_messages/thispersondoesnotexist?page=0&size=7&sort=postedAt,desc",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -120,11 +120,11 @@
 								},
 								{
 									"key": "size",
-									"value": "6"
+									"value": "7"
 								},
 								{
 									"key": "sort",
-									"value": "id,asc"
+									"value": "postedAt,desc"
 								}
 							]
 						}
@@ -148,6 +148,39 @@
 								"reply",
 								"message-count",
 								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Follow user messages",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/message/user-following-messages/1?page=0&size=6&sort=postedAt,desc",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"message",
+								"user-following-messages",
+								"1"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "6"
+								},
+								{
+									"key": "sort",
+									"value": "postedAt,desc"
+								}
 							]
 						}
 					},
@@ -251,25 +284,6 @@
 							"path": [
 								"message",
 								"4"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Follow user messages",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{host}}/message/user-following-messages/1",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"message",
-								"user-following-messages",
-								"1"
 							]
 						}
 					},
@@ -697,6 +711,54 @@
 					"request": {
 						"method": "GET",
 						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Notification",
+			"item": [
+				{
+					"name": "Send notification",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"notificationTitle\": \"Você recebeu uma nova mensagem!\",\r\n  \"sentAt\": \"2025-07-20T22:00:00Z\",\r\n  \"isRead\": false,\r\n  \"type\": \"MESSAGE\",\r\n  \"fromUser\": {\r\n    \"id\": 1\r\n  },\r\n  \"toUser\": {\r\n    \"id\": 2\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/notification",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"notification"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all notifications",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/notification",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"notification"
+							]
+						}
 					},
 					"response": []
 				}

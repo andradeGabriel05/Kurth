@@ -6,6 +6,19 @@
   background-color: #f9f9f9;
   color: #000 !important;
 
+  .reaction-message-page {
+    display: flex;
+    flex-direction: column;
+    .reply {
+      width: 30vw;
+    }
+
+    a:nth-child(2) {
+      width: 30vw;
+      margin: auto;
+    }
+  }
+
   .reply-message-page {
     padding: 16px;
     .comments-message-page {
@@ -37,5 +50,4 @@
       }
     }
   }
-
 }

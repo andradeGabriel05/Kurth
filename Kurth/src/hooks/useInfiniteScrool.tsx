@@ -14,7 +14,6 @@ export function useInfiniteScroll<T = any>(
   const [isLoading, setIsLoading] = useState(false);
   const [verifyReply, setVerifyReply] = useState(false);
 
-  // Função para carregar uma página específica
   function loadPage(page = actualPage) {
     apiCall(page)
       .then((response) => {
@@ -33,7 +32,6 @@ export function useInfiniteScroll<T = any>(
       });
   }
 
-  // Função de scroll
   function handleScroll() {
     const scrollTop = window.scrollY;
     const windowHeight = window.innerHeight;
@@ -46,12 +44,10 @@ export function useInfiniteScroll<T = any>(
     }
   }
 
-  // Carrega a primeira página
   useEffect(() => {
     loadPage(0);
   }, []);
 
-  // Adiciona o listener de scroll
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
 
@@ -60,7 +56,6 @@ export function useInfiniteScroll<T = any>(
     };
   }, [isLoading]);
 
-  // Carrega próxima página quando actualPage muda
   useEffect(() => {
     if (actualPage > 0) {
       loadPage(actualPage);

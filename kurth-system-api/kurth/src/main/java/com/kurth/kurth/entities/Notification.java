@@ -26,6 +26,11 @@ public class Notification {
     private NotificationType type;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "post_id")
+    private Post post;
+
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "from_user_id")
     private User fromUser;
 
@@ -33,12 +38,13 @@ public class Notification {
     @JoinColumn(name = "to_user_id")
     private User toUser;
 
-    public Notification(Long id, String notificationTitle, Instant sentAt, Boolean isRead, NotificationType type, User fromUser, User toUser) {
+    public Notification(Long id, String notificationTitle, Instant sentAt, Boolean isRead, NotificationType type, Post post, User fromUser, User toUser) {
         this.id = id;
         this.notificationTitle = notificationTitle;
         this.sentAt = sentAt;
         this.isRead = isRead;
         this.type = type;
+        this.post = post;
         this.fromUser = fromUser;
         this.toUser = toUser;
     }
@@ -83,6 +89,14 @@ public class Notification {
 
     public void setType(NotificationType type) {
         this.type = type;
+    }
+
+    public Post getPost() {
+        return post;
+    }
+
+    public void setPost(Post post) {
+        this.post = post;
     }
 
     public User getFromUser() {

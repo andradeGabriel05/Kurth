@@ -12,13 +12,16 @@ type Props = {
 
 export default function PostMapping({ post, messagePage }: Props, reply: boolean) {
   console.log(messagePage)
+  console.log(post)
   const [verifyReply, setVerifyReply] = useState<boolean>(false);
+
   useEffect(() => {
     if(messagePage) {
       setVerifyReply(true);
     }
     console.log(verifyReply)
-  }, [messagePage]);
+  }, []);
+  
   return (
     <>
       {post.map((post: PostDTO) => (

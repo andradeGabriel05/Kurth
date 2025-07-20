@@ -7,6 +7,7 @@ import { PostDTO } from "../../../../models/message";
 import { BASE_URL } from "../../../../utils/system";
 import axios from "axios";
 import PostMapping from "../../../../components/PostMapping";
+import * as User from "../../../../constants/user";
 
 type Props = {
   user: UserDTO;
@@ -15,26 +16,36 @@ type Props = {
 export default function Likes({ user }: Props) {
   const params = useParams();
 
-  // const [user, setUser] = useState<UserDTO>();
+  const [userPage, setUserPage] = useState<UserDTO>();
 
   const [post, setPost] = useState<PostDTO[]>([]);
 
+  const username = params.username;
+
   useEffect(() => {
     axios
-      .get(`${BASE_URL}/likecount/user/${params.username}?sort=likedAt,desc`)
+      .get(`${BASE_URL}/likecount/user/${username}?sort=likedAt,desc`)
       .then((response) => {
         console.log(response.data);
         type LikeResponse = { post: PostDTO };
         const msgs = response.data.content.map((msg: LikeResponse) => msg.post);
         setPost(msgs);
       });
-  }, [params.username, user?.following]);
+  }, [username]);
+
+
+  useEffect(() => {
+    User.findByUsername(username as string).then((response) => {
+      setUserPage(response.data);
+    });
+    console.log(userPage);
+  }, []);
 
   return (
     <div className="profile-container">
-      {user && <ProfileHeader user={user} />}
+      {userPage && <ProfileHeader user={userPage} />}
       <div className="profile-content">
-        {user && <ProfileContentDetails user={user} />}
+        {userPage && <ProfileContentDetails user={userPage} />}
       </div>
       <PostMapping post={post} messagePage={false} />
     </div>

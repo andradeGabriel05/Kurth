@@ -9,6 +9,8 @@ import { useEffect, useState } from "react";
 import { PostDTO } from "../../../models/message";
 import MessagePosted from "../../../components/MessagePosted";
 import Reaction from "../../../components/Reaction";
+import { useInfiniteScroll } from "../../../hooks/useInfiniteScrool";
+import PostMapping from "../../../components/PostMapping";
 // import { user } from "../../constants/";
 
 export default function Profile() {
@@ -16,25 +18,7 @@ export default function Profile() {
 
   const [user, setUser] = useState<UserDTO>();
 
-  const [message, setMessage] = useState<PostDTO[]>([]);
-
-  const [actualPage, setActualPage] = useState<number>(0);
-
-  const [isLoading, setIsLoading] = useState<boolean>(false);
   //initially load the first page of messages
-
-  function handleScroll() {
-    const scrollTop = window.scrollY;
-    const windowHeight = window.innerHeight;
-    const fullHeight = document.documentElement.scrollHeight;
-    const isNearBottom = scrollTop + windowHeight >= fullHeight - 100;
-
-    if (isNearBottom && !isLoading) {
-      setIsLoading(true);
-      setActualPage((prev) => prev + 1);
-    }
-  }
-
   useEffect(() => {
     UserService.findByUsername(params.username as string)
       .then((response) => {
@@ -44,40 +28,15 @@ export default function Profile() {
       .catch((error) => {
         console.error("Error:", error.response.data);
       });
+  }, [params.username, user]);
 
-    MessageService.findUserMessages(params.username as string)
-      .then((response) => {
-        console.log(response.data);
-        setMessage(response.data.content);
-      })
-
-      .catch((error) => {
-        console.error("Error:", error.response.data);
-      });
-  }, [params.username, user?.following]);
-
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [isLoading]);
-
-  useEffect(() => {
-    if (actualPage > 0) {
-      MessageService.findUserMessages(params.username as string, actualPage)
-        .then((response) => {
-          console.log(response.data);
-          setMessage((prev) => [...prev, ...response.data.content]);
-        })
-        .catch((error) => {
-          console.error("Error:", error.response.data);
-        });
-    }
-  }, [actualPage]);
-
-  console.log("message:", message);
+  const {
+    items: posts,
+    isLoading,
+    verifyReply,
+  } = useInfiniteScroll<PostDTO>((page: number) =>
+    MessageService.findUserMessages(params.username || "", page)
+  );
 
   return (
     <div className="profile-container">
@@ -86,17 +45,13 @@ export default function Profile() {
         {user && <ProfileContentDetails user={user} />}
         {/* {user && <ProfileContentActions user={user}/>} */}
       </div>
-      {message && message.length === 0 && (
+      {posts && posts.length === 0 && (
         <div className="no-message">No messages found for this user.</div>
       )}
-      {message.map((message) => (
-        <div key={message.id} className="message-posted profile-message-posted">
-          <Link to={`/${message.user.username}/posts/${message.id}`}>
-            <MessagePosted post={message} />
-          </Link>
-          <Reaction message={message} />
-        </div>
-      ))}
+      
+      <PostMapping post={posts} reply={verifyReply} messagePage={false} />
+
+      {isLoading && <div>Carregando mais posts...</div>}
     </div>
   );
 }

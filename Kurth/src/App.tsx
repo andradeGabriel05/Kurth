@@ -1,4 +1,10 @@
-import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
+import {
+  BrowserRouter,
+  Route,
+  Routes,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
 import Profile from "./routes/Main/Profile/index.tsx";
 
 import Home from "./routes/Main/Home/index.tsx";
@@ -15,22 +21,26 @@ import Following from "./routes/Main/Following/index.tsx";
 import { UserDTO } from "./models/user.ts";
 import { useEffect, useState } from "react";
 
-import * as User from "./constants/user.ts"
+import * as User from "./constants/user.ts";
 
 export default function App() {
   //tomorrow: improve the use of findById on aside and messagePost... Try to get only here and pass as props?
+
+  const params = useParams();
+
   const user_id = localStorage.getItem("user_id");
+  const username = params.username;
 
   const [userDTO, setUserDTO] = useState<UserDTO>();
+  // const [user, setUser] = useState<UserDTO>();
 
   // const navigate = useNavigate();
 
   useEffect(() => {
-    User.findById(user_id) 
-      .then((response) => {
-        setUserDTO(response.data);
-      })
-  }, [user_id]);
+    User.findById(Number(user_id)).then((response) => {
+      setUserDTO(response.data);
+    });
+  }, [username, user_id]);
 
   return (
     <div className="container">
@@ -39,7 +49,10 @@ export default function App() {
           <Route path="/" element={<Main />}>
             <Route index element={<Home />} />
             <Route path="home" element={<Home />} />
-            <Route path="following" element={userDTO ? <Following user={userDTO} /> : null} />
+            <Route
+              path="following"
+              element={userDTO ? <Following user={userDTO} /> : null}
+            />
             <Route path="search" element={<Search />} />
             <Route path="explore" element={<Explore />} />
             <Route
