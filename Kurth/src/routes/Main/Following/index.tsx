@@ -6,6 +6,7 @@ import * as messageService from "../../../constants/message";
 import { PostDTO } from "../../../models/message";
 import MessagePost from "../../../components/MessagePost";
 import PostMapping from "../../../components/PostMapping";
+import { useInfiniteScroll } from "../../../hooks/useInfiniteScrool";
 
 type Props = {
   user: UserDTO;
@@ -14,24 +15,24 @@ type Props = {
 export default function Following({ user }: Props) {
   const navigate = useNavigate();
 
-  const [message, setMessage] = useState<PostDTO[]>([]);
+  // Using the custom hook for infinite scroll
+  // must change in others components
+  // like Main/Home, Main/Profile, Main/MessagePage
+
+  // it acttually works
+  const {
+    items: posts,
+    isLoading,
+    verifyReply,
+  } = useInfiniteScroll<PostDTO>((page: number) =>
+    messageService.findAllUserFollowingMessages(user.id, page)
+  );
 
   useEffect(() => {
     if (!user) {
       navigate("/login");
     }
-
-    messageService.findAllUserFollowingMessages(user.id).then((response) => {
-      console.log(response.data.content);
-      type PostResponse = { post: PostDTO };
-
-      const msgs = response.data.content.map(
-        (msg: PostResponse) => (console.log(msg), msg)
-      );
-
-      setMessage(msgs);
-    });
-  });
+  }, [user, navigate]);
 
   return (
     <div className="wrapper-message-user">
@@ -42,7 +43,8 @@ export default function Following({ user }: Props) {
         <Link to="/following">Following</Link>
       </header>
       <MessagePost message="Write anything" />
-      <PostMapping post={message} messagePage={false} />
+      <PostMapping post={posts} messagePage={false} />
+      {isLoading && <div>Carregando mais posts...</div>}
     </div>
   );
 }

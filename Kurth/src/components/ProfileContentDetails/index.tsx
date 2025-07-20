@@ -21,6 +21,7 @@ export default function ProfileContentDetails({ user }: Props) {
   const params = useParams();
   const [userId, setUserId] = useState<number>(user.id);
 
+  const [followers, setFollowers] = useState<number>(user.followers);
   useEffect(() => {
     UserService.findByUsername(params.username as string)
       .then((response) => {
@@ -31,7 +32,7 @@ export default function ProfileContentDetails({ user }: Props) {
       .catch((error) => {
         console.error("Error:", error.response.data);
       });
-  }, [params.username]);
+  }, [params.username, followers]);
 
   // check if user is following
   const [isFollowing, setIsFollowing] = useState(false);
@@ -57,13 +58,12 @@ export default function ProfileContentDetails({ user }: Props) {
     }
   }, [userLoggedIn, userId]);
 
-  const [followers, setFollowers] = useState<number>(user.followers);
 
   // this is for follow and unfollow users
   // if you double click, this will not work
   // jesus...
 
-  async function handleFollow(event: any) {
+  async function handleFollow(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!userLoggedIn) {
       return navigate("/login");

@@ -49,3 +49,23 @@ INSERT INTO tb_post (message, posted_at, like_count, parent_id, user_id) VALUES 
 INSERT INTO tb_post (message, posted_at, like_count, parent_id, user_id) VALUES ('Interessante, vou acompanhar mais sobre isso.', TIMESTAMP WITH TIME ZONE '2025-07-14T12:00:00Z', 0, 8, 2);
 
 INSERT INTO tb_post (message, posted_at, like_count, parent_id, user_id) VALUES ('Interessante, vou acompanhar mais sobre isso.', TIMESTAMP WITH TIME ZONE '2025-07-14T16:00:00Z', 0, 8, 2);
+
+INSERT INTO tb_post (message, posted_at, like_count, parent_id, user_id) VALUES ('Concordo totalmente com o ponto levantado.', TIMESTAMP WITH TIME ZONE '2025-07-19T10:15:00Z', 0, 1, 3);
+
+INSERT INTO tb_post (message, posted_at, like_count, parent_id, user_id) VALUES ('Isso realmente muda o jogo. Nunca tinha pensado assim.', TIMESTAMP WITH TIME ZONE '2025-07-19T12:42:00Z', 0, 1, 4);
+
+INSERT INTO tb_post (message, posted_at, like_count, parent_id, user_id) VALUES ('Faz sentido... vou refletir melhor sobre isso.', TIMESTAMP WITH TIME ZONE '2025-07-19T14:05:00Z', 0, 1, 5);
+
+INSERT INTO tb_post (message, posted_at, like_count, parent_id, user_id) VALUES ('Obrigado por compartilhar esse ponto de vista.', TIMESTAMP WITH TIME ZONE '2025-07-19T15:30:00Z', 0, 1, 2);
+
+INSERT INTO tb_post (message, posted_at, like_count, parent_id, user_id) VALUES ('Esse tipo de reflexão é o que precisamos mais hoje em dia.', TIMESTAMP WITH TIME ZONE '2025-07-19T18:20:00Z', 0, 1, 1);
+
+INSERT INTO tb_post (message, posted_at, like_count, parent_id, user_id) VALUES ('Alguém aí já leu sobre minimalismo digital? Mudou minha rotina.', TIMESTAMP WITH TIME ZONE '2025-07-19T09:00:00Z', 0, NULL, 3);
+
+INSERT INTO tb_post (message, posted_at, like_count, parent_id, user_id) VALUES ('Hoje acordei inspirado pra começar aquele projeto antigo.', TIMESTAMP WITH TIME ZONE '2025-07-19T11:30:00Z', 0, NULL, 1);
+
+INSERT INTO tb_post (message, posted_at, like_count, parent_id, user_id) VALUES ('Vocês acham que a inteligência artificial já tá mudando a forma como a gente pensa?', TIMESTAMP WITH TIME ZONE '2025-07-19T13:45:00Z', 0, NULL, 4);
+
+INSERT INTO tb_post (message, posted_at, like_count, parent_id, user_id) VALUES ('Tirei o dia pra estudar, mas o café acabou. Triste fim.', TIMESTAMP WITH TIME ZONE '2025-07-19T16:00:00Z', 0, NULL, 2);
+
+INSERT INTO tb_post (message, posted_at, like_count, parent_id, user_id) VALUES ('Qual foi o melhor livro que você leu esse ano?', TIMESTAMP WITH TIME ZONE '2025-07-19T17:50:00Z', 0, NULL, 5);

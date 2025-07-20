@@ -33,6 +33,7 @@ export default function Home() {
     }
   }, [actualPage]);
 
+  //i'm using this function in a lot of places...
   function handleScroll() {
     const scrollTop = window.scrollY;
     const windowHeight = window.innerHeight;

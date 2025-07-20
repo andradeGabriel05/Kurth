@@ -28,7 +28,7 @@ export default function Likes({ user }: Props) {
         const msgs = response.data.content.map((msg: LikeResponse) => msg.post);
         setPost(msgs);
       });
-  }, [params.username]);
+  }, [params.username, user?.following]);
 
   return (
     <div className="profile-container">

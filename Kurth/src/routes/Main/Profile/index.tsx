@@ -18,6 +18,23 @@ export default function Profile() {
 
   const [message, setMessage] = useState<PostDTO[]>([]);
 
+  const [actualPage, setActualPage] = useState<number>(0);
+
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  //initially load the first page of messages
+
+  function handleScroll() {
+    const scrollTop = window.scrollY;
+    const windowHeight = window.innerHeight;
+    const fullHeight = document.documentElement.scrollHeight;
+    const isNearBottom = scrollTop + windowHeight >= fullHeight - 100;
+
+    if (isNearBottom && !isLoading) {
+      setIsLoading(true);
+      setActualPage((prev) => prev + 1);
+    }
+  }
+
   useEffect(() => {
     UserService.findByUsername(params.username as string)
       .then((response) => {
@@ -37,7 +54,28 @@ export default function Profile() {
       .catch((error) => {
         console.error("Error:", error.response.data);
       });
-  }, [params.username]);
+  }, [params.username, user?.following]);
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [isLoading]);
+
+  useEffect(() => {
+    if (actualPage > 0) {
+      MessageService.findUserMessages(params.username as string, actualPage)
+        .then((response) => {
+          console.log(response.data);
+          setMessage((prev) => [...prev, ...response.data.content]);
+        })
+        .catch((error) => {
+          console.error("Error:", error.response.data);
+        });
+    }
+  }, [actualPage]);
 
   console.log("message:", message);
 
