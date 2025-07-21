@@ -193,7 +193,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"message\": \"Uma mensagem nova novanovanova\",\r\n    \"postedAt\": \"2022-12-21T15:00:00Z\",\r\n    \"image\": \"\",\r\n    \"user\": {\r\n        \"id\": 2\r\n    }\r\n}\r\n",
+							"raw": "{\r\n    \"message\": \"Uma mensagem nova novanovanova\",\r\n    \"image\": \"\",\r\n    \"user\": {\r\n        \"id\": 2\r\n    }\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -219,7 +219,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"message\": \"Uma mensagem nova novanovanova\",\r\n    \"postedAt\": \"2022-12-21T15:00:00Z\",\r\n    \"likeCount\": 0,\r\n    \"user\": {\r\n        \"id\": 2\r\n    }\r\n}\r\n",
+							"raw": "{\r\n    \"message\": \"Uma mensagem nova novanovanova\",\r\n    \"postedAt\": \"2022-12-21T15:00:00Z\",\r\n    \"likeCount\": 0,\r\n    \"user\": {\r\n        \"id\": 2\r\n    },\r\n    \"parent\": {\r\n        \"id\": 1\r\n    }\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -450,7 +450,7 @@
 			]
 		},
 		{
-			"name": "Reply",
+			"name": "Reply (obsolete)",
 			"item": [
 				{
 					"name": "Reply by id",
@@ -726,7 +726,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"notificationTitle\": \"Você recebeu uma nova mensagem!\",\r\n  \"sentAt\": \"2025-07-20T22:00:00Z\",\r\n  \"isRead\": false,\r\n  \"type\": \"MESSAGE\",\r\n  \"fromUser\": {\r\n    \"id\": 1\r\n  },\r\n  \"toUser\": {\r\n    \"id\": 2\r\n  }\r\n}",
+							"raw": "{\r\n  \"notificationTitle\": \"Você recebeu uma nova mensagem!\",\r\n  \"sentAt\": \"2025-07-20T22:00:00Z\",\r\n  \"isRead\": false,\r\n  \"type\": \"MESSAGE\",\r\n  \"fromUser\": {\r\n    \"id\": 2\r\n  },\r\n  \"toUser\": {\r\n    \"id\": 1\r\n  },\r\n  \"post\": {\r\n    \"id\": 1\r\n  }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -757,6 +757,24 @@
 							],
 							"path": [
 								"notification"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all user notifications",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/notification/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"notification",
+								"1"
 							]
 						}
 					},

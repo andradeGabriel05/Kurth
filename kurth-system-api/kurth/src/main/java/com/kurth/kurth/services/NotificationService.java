@@ -33,6 +33,12 @@ public class NotificationService {
         return notifications.map(NotificationDTO::new);
     }
 
+    @Transactional(readOnly = true)
+    public Page<NotificationDTO> findNotificationByUser(Pageable pageable, Long id) {
+        Page<Notification> notifications = notificationRepository.findAllByUserId(pageable, id);
+        return notifications.map(NotificationDTO::new);
+    }
+
     @Transactional
     public NotificationDTO sendNotification(NotificationDTO notificationDTO) {
         Notification notification = new Notification();

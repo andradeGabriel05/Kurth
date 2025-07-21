@@ -5,7 +5,6 @@ import "./style.scss";
 import MessagePost from "../../../components/MessagePost";
 import { useEffect, useState } from "react";
 import { PostDTO } from "../../../models/message";
-import { ReplyDTO } from "../../../models/reply";
 import Reaction from "../../../components/Reaction";
 import PostMapping from "../../../components/PostMapping";
 import { useInfiniteScroll } from "../../../hooks/useInfiniteScrool";
@@ -19,7 +18,13 @@ export default function MessagePage() {
 
   const [parent, setParent] = useState<PostDTO>();
 
-  const messageId = Number(params.messageId);
+  let messageId = Number(params.messageId);
+
+  useEffect(() => {
+    messageId = Number(params.messageId);
+    console.log("Message ID:", messageId);
+  }, [params.messageId, PostDTO]);
+
   useEffect(() => {
     if (isNaN(messageId)) {
       navigate(`/notfound`);
@@ -36,22 +41,22 @@ export default function MessagePage() {
         console.error("Error:", error.response.data);
         navigate(`/`);
       });
-
   }, [messageId]);
 
-    const {
-    items: posts,
-    isLoading,
-    verifyReply,
-  } = useInfiniteScroll<PostDTO>((page: number) =>
-    MessageService.findReplies(messageId, page)
+  const { items: posts, isLoading, verifyReply } = useInfiniteScroll<PostDTO>((page: number) =>
+    MessageService.findReplies(messageId, page), messageId
   );
+  console.log(posts);
 
   return (
     <div className="wrapper-message">
       <div className="reaction-message-page">
         {PostDTO && <MessagePosted post={PostDTO} />}
-        {parent && <Link to={`/${parent.user.username}/posts/${parent.id}`}><MessagePosted post={parent} reply={true} /></Link>}
+        {parent && (
+          <Link to={`/${parent.user.username}/posts/${parent.id}`}>
+            <MessagePosted post={parent} reply={true} />
+          </Link>
+        )}
       </div>
       {PostDTO && <Reaction message={PostDTO} />}
 
@@ -61,9 +66,11 @@ export default function MessagePage() {
 
       <div className="replies-list-message-page">
         <div className="reply-item">
-          <PostMapping post={posts} messagePage={true} />
+          <PostMapping post={posts} reply={verifyReply} messagePage={true} />
         </div>
       </div>
+
+      {isLoading && <div>Carregando mais respostas...</div>}
     </div>
   );
 }

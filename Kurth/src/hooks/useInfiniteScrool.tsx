@@ -6,8 +6,11 @@ import { useState, useEffect } from "react";
  * @returns An object containing the items, loading state, and functions to manage pagination.
  */
 
+
+// ta funcionando n mexe
 export function useInfiniteScroll<T = any>(
-  apiCall: (page: number) => Promise<any>
+  apiCall: (page: number) => Promise<any>,
+  messageId?: number
 ) {
   const [items, setItems] = useState<T[]>([]);
   const [actualPage, setActualPage] = useState(0);
@@ -18,7 +21,18 @@ export function useInfiniteScroll<T = any>(
     apiCall(page)
       .then((response) => {
         console.log(response.data.content);
-        setItems((prev) => [...prev, ...response.data.content]);
+        if (response.data.content.length === 0) {
+          setIsLoading(false);
+          return;
+        }
+        //prevent StrictMode duplicate this.
+        //so we filter the items to avoid duplicates in the list
+        setItems((prev) => [
+          ...prev,
+          ...response.data.content.filter(
+            (n) => !prev.some((p) => p.id === n.id)
+          ),
+        ]);
 
         if (response.data.content.parent != null) {
           setVerifyReply(true);
@@ -61,6 +75,22 @@ export function useInfiniteScroll<T = any>(
       loadPage(actualPage);
     }
   }, [actualPage]);
+
+  // Reset the state when messageId changes
+  // This is useful for reloading the data when navigating to a different post
+  useEffect(() => {
+    if (messageId) {
+      reset();
+      loadPage(0);
+    }
+  }, [messageId]);
+
+  function reset() {
+    setItems([]);
+    setActualPage(0);
+    setIsLoading(false);
+    setVerifyReply(false);
+  }
 
   return {
     items,

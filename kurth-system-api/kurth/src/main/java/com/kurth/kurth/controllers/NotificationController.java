@@ -28,6 +28,13 @@ public class NotificationController {
         return ResponseEntity.ok(notificationDTO);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Page<NotificationDTO>> findNotificationByUser(Pageable pageable, @PathVariable Long id) {
+        Page<NotificationDTO> notificationDTO = notificationService.findNotificationByUser(pageable, id);
+        return ResponseEntity.ok(notificationDTO);
+    }
+
+
     @PostMapping
     public ResponseEntity<NotificationDTO> insert(@Valid @RequestBody NotificationDTO notificationDTO) {
         notificationDTO = notificationService.sendNotification(notificationDTO);

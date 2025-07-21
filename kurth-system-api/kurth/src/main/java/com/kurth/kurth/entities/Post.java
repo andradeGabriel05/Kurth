@@ -1,6 +1,7 @@
 package com.kurth.kurth.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 import java.time.Instant;
 
@@ -13,6 +14,7 @@ public class Post {
     private Long id;
 
     @Column(columnDefinition = "TEXT")
+    @NotBlank
     private String message;
 
     private Instant postedAt;

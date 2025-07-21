@@ -34,14 +34,14 @@ public class NotificationDTO {
     }
 
     public NotificationDTO(Notification notification) {
-        this.id = notification.getId();
-        this.notificationTitle = notification.getNotificationTitle();
-        this.sentAt = notification.getSentAt();
-        this.isRead = notification.getRead();
-        this.type = notification.getType();
-        this.post = new PostDTO(notification.getPost());
-        this.fromUser = new UserDTO(notification.getFromUser());
-        this.toUser = new UserDTO(notification.getToUser());
+        id = notification.getId();
+        notificationTitle = notification.getNotificationTitle();
+        sentAt = notification.getSentAt();
+        isRead = notification.getRead();
+        type = notification.getType();
+        post = new PostDTO(notification.getPost());
+        fromUser = new UserDTO(notification.getFromUser());
+        toUser = new UserDTO(notification.getToUser());
     }
 
 

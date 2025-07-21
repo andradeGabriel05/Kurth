@@ -13,25 +13,21 @@ type Props = {
 export default function PostMapping({ post, messagePage }: Props, reply: boolean) {
   console.log(messagePage)
   console.log(post)
-  const [verifyReply, setVerifyReply] = useState<boolean>(false);
 
   useEffect(() => {
-    if(messagePage) {
-      setVerifyReply(true);
-    }
-    console.log(verifyReply)
-  }, []);
-  
+    console.log("PostMapping component mounted or updated");
+  }, [post, reply, messagePage]);
+
   return (
     <>
-      {post.map((post: PostDTO) => (
-        <div key={`post-${post.id}`} className="message-posted">
+      {post.map((post: PostDTO, idx: number) => (
+        <div key={`post-${post.id}-${idx}`} className="message-posted">
           <Link
             to={`/${post.user.username}/posts/${post.id}`}
             className="message-link"
           >
             <MessagePosted post={post} />
-            {post.parent && !verifyReply ? (
+            {post.parent && reply && !messagePage? (
               <Link
                 to={`/${post.user.username}/posts/${post.parent.id}`}
                 className="reply-message"

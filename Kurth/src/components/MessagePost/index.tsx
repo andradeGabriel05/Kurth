@@ -21,7 +21,7 @@ export default function MessagePost({ message }: Props) {
   const username = localStorage.getItem("username");
   const formattedUsername = username ? username.replace(/['"]+/g, "") : "";
 
-  function handleSubmit(event: any) {
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     axios
@@ -46,7 +46,7 @@ export default function MessagePost({ message }: Props) {
       });
   }
 
-  function handleReply(event: any) {
+  function handleReply(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     axios
       .post(`${BASE_URL}/message`, {
@@ -68,7 +68,7 @@ export default function MessagePost({ message }: Props) {
       });
   }
 
-  function handleInput(event: any) {
+  function handleInput(event: React.ChangeEvent<HTMLTextAreaElement>) {
     const value = event.target.value;
     setMessageForm(value);
     console.log("Message posted:", value);

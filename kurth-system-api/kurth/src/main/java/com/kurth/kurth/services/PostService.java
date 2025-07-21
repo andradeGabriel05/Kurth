@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Instant;
 import java.util.List;
 
 @Service
@@ -80,6 +81,7 @@ public class PostService {
             }
 
             post.setUser(user);
+            post.setPostedAt(Instant.now());
             post = postRepository.save(post);
             return new PostDTO(post);
         } catch (DataIntegrityViolationException e) {
