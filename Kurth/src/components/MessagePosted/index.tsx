@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { PostDTO } from "../../models/message";
 import { ReplyDTO } from "../../models/reply";
 import { useEffect, useState } from "react";
+import { BASE_URL } from "../../utils/system";
 
 type Props = {
   post: PostDTO | ReplyDTO;
@@ -94,7 +95,7 @@ export default function MessagePosted({ post, reply = false }: Props) {
             </div>
             {showImage && (
               <div className="image-posted">
-                <img src={post?.image} alt={`${post?.id}`} />
+                <img src={post?.image ? post?.image : `${BASE_URL}/${post?.image}`} alt={`${post?.id}`} />
               </div>
             )}
           </div>

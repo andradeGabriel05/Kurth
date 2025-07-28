@@ -13,6 +13,8 @@ type Props = {
 
 export default function MessagePost({ message }: Props) {
   const [messageForm, setMessageForm] = useState();
+  const [handleImageSubmit, setHandleImageSubmit] = useState("");
+
   const params = useParams();
   const navigate = useNavigate();
 
@@ -21,14 +23,20 @@ export default function MessagePost({ message }: Props) {
   const username = localStorage.getItem("username");
   const formattedUsername = username ? username.replace(/['"]+/g, "") : "";
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+
+    let imageUrl;
+    if (handleImage && messageForm.length > 0) {
+      imageUrl = await saveImageLocal(handleImage);
+      console.log("Image URL:", imageUrl);
+    }
 
     axios
       .post(`${BASE_URL}/message`, {
         message: messageForm,
         postedAt: currentDate,
-        image: null,
+        image: `http://localhost:8080/${imageUrl}`,
         likeCount: 0,
         user: {
           id: user_id,
@@ -42,6 +50,9 @@ export default function MessagePost({ message }: Props) {
         if (!user_id) {
           console.error("Error:", error);
           navigate("/login");
+        }
+        if (error.response && error.response.status === 422) {
+          alert("Please write a message before posting.");
         }
       });
   }
@@ -74,6 +85,18 @@ export default function MessagePost({ message }: Props) {
     console.log("Message posted:", value);
   }
 
+  async function saveImageLocal(file: File) {
+    const formData = new FormData();
+    formData.append("image", file);
+
+    const response = await axios.post(
+      `${BASE_URL}/message/upload-image`,
+      formData
+    );
+    console.log("Image uploaded:", response.data);
+    return response.data;
+  }
+
   const [userDTO, setUserDTO] = useState<UserDTO>();
 
   useEffect(() => {
@@ -85,6 +108,16 @@ export default function MessagePost({ message }: Props) {
         console.error("Error:", error.response.data);
       });
   }, [user_id]);
+
+  const [handleImage, setHandleImage] = useState<File | null>(null);
+
+  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+    if (event.target.files && event.target.files.length > 0) {
+      const file = event.target.files[0];
+      setHandleImage(file);
+      console.log("Selected file from target.files[0]:", file);
+    }
+  }
 
   return (
     <>
@@ -122,17 +155,26 @@ export default function MessagePost({ message }: Props) {
                 value={messageForm}
               ></textarea>
               <div className="bottom-submit-message">
-                <div className="add-media">
-                  <div className="media-upload">
-                    <input type="file" id="file" accept="image/*" />
-                    <label htmlFor="file" className="custom-file-upload">
-                      <FaImage />
-                    </label>
-                  </div>
+                <div className="media-upload">
+                  <input
+                    type="file"
+                    id="file"
+                    accept="image/*"
+                    onChange={handleChange}
+                  />
+                  <label htmlFor="file" className="custom-file-upload">
+                    <FaImage />
+                  </label>
                 </div>
-
                 <button type="submit">Post message</button>
               </div>
+              {handleImage && (
+                <img
+                  className="preview-image"
+                  src={URL.createObjectURL(handleImage)}
+                  alt={handleImage.name}
+                />
+              )}
             </form>
           </div>
         </div>

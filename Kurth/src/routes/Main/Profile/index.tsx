@@ -28,7 +28,7 @@ export default function Profile() {
       .catch((error) => {
         console.error("Error:", error.response.data);
       });
-  }, [params.username, user]);
+  }, [params.username]);
 
   const {
     items: posts,

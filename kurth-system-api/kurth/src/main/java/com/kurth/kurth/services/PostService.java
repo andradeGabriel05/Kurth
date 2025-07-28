@@ -15,9 +15,15 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.Instant;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class PostService {
@@ -87,6 +93,17 @@ public class PostService {
         } catch (DataIntegrityViolationException e) {
                 throw new DatabaseException("[Service] Integrity violation: User may not exist");
             }
+    }
+
+    @Transactional
+    public String saveImage(MultipartFile file) throws IOException {
+        String filename = UUID.randomUUID() + "-" + file.getOriginalFilename();
+        Path dir = Paths.get("uploads");
+        Files.createDirectories(dir);
+        Path path = dir.resolve(filename);
+        Files.copy(file.getInputStream(), path);
+        return filename;
+
     }
 
     @Transactional

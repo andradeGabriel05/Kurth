@@ -8,8 +8,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.io.IOException;
 import java.net.URI;
 import java.util.List;
 
@@ -65,6 +67,16 @@ public class PostController {
 
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(postDTO.getId()).toUri();
         return ResponseEntity.created(uri).body(postDTO);
+    }
+
+    @PostMapping("/upload-image")
+    public ResponseEntity<String> saveImage(@RequestPart("image") MultipartFile file) throws IOException {
+        System.out.println(file);
+        String filename = postService.saveImage(file);
+        String url = "uploads/" + filename;
+
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(url).toUri();
+        return ResponseEntity.created(uri).body(url);
     }
 
     @PutMapping(value = "/{id}")
