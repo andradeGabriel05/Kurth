@@ -2,6 +2,7 @@ package com.kurth.kurth.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import org.hibernate.type.descriptor.jdbc.TinyIntJdbcType;
 
 import java.time.Instant;
 
@@ -21,6 +22,8 @@ public class Post {
 
     private String image;
 
+    private Boolean isReply;
+
     @Column(name = "like_count")
     private Integer likeCount;
 
@@ -35,11 +38,12 @@ public class Post {
 
     public Post() {}
 
-    public Post(Long id, String message, Instant postedAt, String image, Integer likeCount, Post parent, User user) {
+    public Post(Long id, String message, Instant postedAt, String image, Boolean isReply, Integer likeCount, Post parent, User user) {
         this.id = id;
         this.message = message;
         this.postedAt = postedAt;
         this.image = image;
+        this.isReply = isReply;
         this.likeCount = likeCount;
         this.parent = parent;
         this.user = user;
@@ -71,6 +75,14 @@ public class Post {
 
     public void setPostedAt(Instant postedAt) {
         this.postedAt = postedAt;
+    }
+
+    public Boolean getReply() {
+        return isReply;
+    }
+
+    public void setReply(Boolean reply) {
+        isReply = reply;
     }
 
     public String getImage() {

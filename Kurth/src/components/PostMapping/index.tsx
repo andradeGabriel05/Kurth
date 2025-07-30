@@ -8,15 +8,25 @@ type Props = {
   post: PostDTO[];
   reply: boolean;
   messagePage: boolean;
+  onDelete?: (id: number) => void;
 };
 
-export default function PostMapping({ post, messagePage }: Props, reply: boolean) {
-  console.log(messagePage)
-  console.log(post)
+export default function PostMapping(
+  { post, messagePage, onDelete }: Props,
+  reply: boolean
+) {
+  console.log(messagePage);
+  console.log(post);
+
+  const [showDeleteMessage, setShowDeleteMessage] = useState<boolean>(false);
 
   useEffect(() => {
-    console.log("PostMapping component mounted or updated");
-  }, [post, reply, messagePage]);
+    if (post.parent === undefined && !reply) {
+      setShowDeleteMessage(true);
+      console.error("Post is undefined or null");
+      return;
+    }
+  }, [post, reply]);
 
   return (
     <>
@@ -26,14 +36,20 @@ export default function PostMapping({ post, messagePage }: Props, reply: boolean
             to={`/${post.user.username}/posts/${post.id}`}
             className="message-link"
           >
-            <MessagePosted post={post} />
-            {post.parent && reply && !messagePage? (
+            <MessagePosted post={post} onDelete={onDelete} />
+            {post.parent === undefined && post.reply ? (
+              <span className="reply-message reply-message-undefined">This post has been deleted</span>
+            ) : post.parent && reply && !messagePage ? (
               <Link
                 to={`/${post.user.username}/posts/${post.parent.id}`}
                 className="reply-message"
                 key={`parent-${post.parent.id}`}
               >
-                <MessagePosted post={post.parent} reply={reply} />
+                <MessagePosted
+                  post={post.parent}
+                  reply={reply}
+                  onDelete={onDelete}
+                />
               </Link>
             ) : null}
             <Reaction message={post} />

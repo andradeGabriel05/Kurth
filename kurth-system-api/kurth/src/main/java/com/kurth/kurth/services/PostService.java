@@ -125,8 +125,12 @@ public class PostService {
             throw new ResourceNotFoundException("Id message not found");
         }
         try {
+            List<Post> fks = postRepository.findByParentId(id);
+            fks.forEach(x -> x.setParent(null));
+            postRepository.saveAll(fks);
 
-        postRepository.deleteById(id);
+            //salva fk como null, dps deleta
+            postRepository.deleteById(id);
         return ResponseEntity.noContent().build();
         } catch (EntityNotFoundException e) {
             throw new ResourceNotFoundException("Resource not found");

@@ -26,6 +26,18 @@
       margin: auto;
       margin-bottom: 15px;
     }
+
+    .reply-message-undefined {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      
+      border-radius: 8px;
+      border: 1px solid #5e5e5e;
+      background-color: #afafaf;
+      width: 30vw;
+    }
   }
 }
 .wrapper-message-user {

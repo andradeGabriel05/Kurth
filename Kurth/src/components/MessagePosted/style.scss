@@ -17,8 +17,49 @@
       display: flex;
       flex-direction: column;
       width: 100%;
-      .routes__profile {
+      .wrapper__post__details {
         display: flex;
+        justify-content: space-between;
+
+        .options {
+          .edit__button {
+            transition: all 0.3s;
+            &:hover {
+              transition: all 0.3s;
+              cursor: pointer;
+              background-color: #525252 !important;
+            }
+          }
+          position: relative;
+          &__box {
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            right: 0;
+            background-color: rgb(255, 255, 255);
+            border: 1px solid #cecece;
+            border-radius: 8px;
+            width: 10vw;
+            z-index: 100;
+            span {
+              padding: 10px;
+              font-size: 0.95rem;
+              height: 7vh;
+              text-align: center;
+              display: flex;
+              align-items: center;
+              transition: all 0.3s;
+              &:hover {
+                transition: all 0.3s;
+                background-color: #dddddd !important;
+                cursor: pointer;
+              }
+            }
+          }
+        }
+        .routes__profile {
+          display: flex;
+        }
       }
     }
   }

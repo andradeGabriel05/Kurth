@@ -27,3 +27,7 @@ export function findAllUserFollowingMessages(followerId: number, actualPage: num
 export function findReplies(id: number, actualPage: number = 0) {
   return axios.get(`${BASE_URL}/message/find-replies/${id}?page=${actualPage}&size=${paginationSize}&sort=postedAt,desc`);
 }
+
+export function deleteMessage(id: number) {
+  return axios.delete(`${BASE_URL}/message/${id}`);
+}

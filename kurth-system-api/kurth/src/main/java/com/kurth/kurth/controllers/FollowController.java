@@ -8,6 +8,8 @@ import com.kurth.kurth.services.FollowService;
 import com.kurth.kurth.services.exceptions.ResourceNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -47,6 +49,12 @@ public class FollowController {
 
         return followDTO;
     }
+
+    @GetMapping(value = "/user-followers/{id}")
+    public Page<FollowDTO> followers(Pageable pageable, @PathVariable Long id) {
+        return followService.followers(pageable, id);
+    }
+
 
 
     @DeleteMapping(value = "/remove-follow/{id}")

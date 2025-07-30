@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { PostDTO } from "../models/message";
 
 /**
  * Custom hook for infinite scroll functionality.
@@ -6,13 +7,16 @@ import { useState, useEffect } from "react";
  * @returns An object containing the items, loading state, and functions to manage pagination.
  */
 
+type Props = {
+  posts: PostDTO[];
+};
 
 // ta funcionando n mexe
-export function useInfiniteScroll<T = any>(
+export function useInfiniteScroll(
   apiCall: (page: number) => Promise<any>,
   messageId?: number
 ) {
-  const [items, setItems] = useState<T[]>([]);
+  const [items, setItems] = useState<PostDTO[]>([]);
   const [actualPage, setActualPage] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [verifyReply, setVerifyReply] = useState(false);
@@ -92,10 +96,17 @@ export function useInfiniteScroll<T = any>(
     setVerifyReply(false);
   }
 
+  function removeItemById(id: number) {
+    setItems(prev => prev.filter(item => item.id !== id));
+    console.log(`Item with id ${id} removed`);
+    console.log(items);
+  }
+
   return {
     items,
     isLoading,
     verifyReply,
+    removeItemById,
     setItems,
     setActualPage,
   };

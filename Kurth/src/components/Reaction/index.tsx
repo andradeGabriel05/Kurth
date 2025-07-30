@@ -44,11 +44,6 @@ export default function Reaction({ message }: Props) {
   //levar para constants => move this to constants
   async function handleLikeSubmit(event: React.MouseEvent<HTMLDivElement>) {
     event?.preventDefault();
-    console.log("handleLikeSubmit called");
-    console.log("User ID:", userId);
-    console.log("Message ID:", message.id);
-    console.log("Message:", message);
-
     
     if (isLiking) return; // block multiple clicks
 

@@ -30,6 +30,10 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     @Query("SELECT obj FROM Post obj WHERE obj.parent.id = :id")
     Page<Post> findReplies(Pageable pageable, @Param("id") Long id);
 
+    // esse é lista
+    @Query("SELECT obj FROM Post obj WHERE obj.parent.id = :id")
+    List<Post> findByParentId(@Param("id")Long id);
+
     @Modifying
     @Query("UPDATE Post obj SET obj.likeCount = obj.likeCount + 1 WHERE obj.id = :id")
     Integer updateLikeCount(@Param("id") Long id);
@@ -37,6 +41,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     @Modifying
     @Query("UPDATE Post obj SET obj.likeCount = obj.likeCount - 1 WHERE obj.id = :id")
     Integer removeLike(@Param("id") Long id);
+
 
 
 }

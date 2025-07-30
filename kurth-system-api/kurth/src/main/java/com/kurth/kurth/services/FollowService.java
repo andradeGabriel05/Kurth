@@ -7,6 +7,8 @@ import com.kurth.kurth.services.exceptions.DatabaseException;
 import com.kurth.kurth.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -73,5 +75,12 @@ public class FollowService {
         } else {
             return null;
         }
+    }
+
+    @Transactional(readOnly = true)
+    public Page<FollowDTO> followers(Pageable pageable, Long id) {
+
+        Page<Follow> followPageable = followRepository.followers(pageable, id);
+        return followPageable.map(FollowDTO::new);
     }
 }

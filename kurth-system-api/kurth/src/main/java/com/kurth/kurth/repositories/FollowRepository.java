@@ -3,6 +3,8 @@ package com.kurth.kurth.repositories;
 import com.kurth.kurth.entities.Follow;
 import com.kurth.kurth.entities.LikeCount;
 import com.kurth.kurth.entities.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -18,6 +20,8 @@ public interface FollowRepository extends JpaRepository<Follow, Long> {
     @Query("SELECT obj FROM Follow obj WHERE obj.userFollowerId = :userFollowerId AND obj.userFollowingId = :userFollowingId")
     Optional<Follow> userAlreadyFollowing(Long userFollowerId, Long userFollowingId);
 
+    @Query("SELECT obj FROM Follow obj WHERE obj.userFollowingId = :id")
+    Page<Follow> followers(Pageable pageable, Long id);
 
 
 }

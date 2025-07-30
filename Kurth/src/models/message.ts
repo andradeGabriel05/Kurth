@@ -8,4 +8,5 @@ export type PostDTO = {
     image?: string;
     user: UserDTO;
     parent: PostDTO;
+    reply?: boolean;
 }
