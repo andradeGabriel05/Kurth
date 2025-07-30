@@ -84,13 +84,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/message/20",
+							"raw": "{{host}}/message/1",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"message",
-								"20"
+								"1"
 							]
 						}
 					},
@@ -219,7 +219,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"message\": \"Uma mensagem nova novanovanova\",\r\n    \"postedAt\": \"2022-12-21T15:00:00Z\",\r\n    \"likeCount\": 0,\r\n    \"user\": {\r\n        \"id\": 2\r\n    },\r\n    \"parent\": {\r\n        \"id\": 1\r\n    }\r\n}\r\n",
+							"raw": "{\r\n    \"message\": \"Uma mensagem nova novanovanova\",\r\n    \"postedAt\": \"2022-12-21T15:00:00Z\",\r\n    \"likeCount\": 0,\r\n    \"isReply\": true,\r\n    \"user\": {\r\n        \"id\": 2\r\n    },\r\n    \"parent\": {\r\n        \"id\": 1\r\n    }\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -227,14 +227,40 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/message",
-							"protocol": "http",
+							"raw": "{{host}}/message",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
 								"message"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upload image",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "postman-cloud:///1f06bd9b-7c65-48b0-998b-45f5a4b44336"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/message/upload-image",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"message",
+								"upload-image"
 							]
 						}
 					},
@@ -275,15 +301,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/message/4",
-							"protocol": "http",
+							"raw": "{{host}}/message/1",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
 								"message",
-								"4"
+								"1"
 							]
 						}
 					},
@@ -672,6 +696,33 @@
 								"1"
 							]
 						}
+					},
+					"response": []
+				},
+				{
+					"name": "Followers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/follow/user-followers/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"follow",
+								"user-followers",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "GET",
+						"header": []
 					},
 					"response": []
 				}

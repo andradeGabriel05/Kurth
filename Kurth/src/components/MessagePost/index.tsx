@@ -65,6 +65,7 @@ export default function MessagePost({ message }: Props) {
         postedAt: currentDate,
         likeCount: 0,
         parent: { id: params.messageId },
+        isReply: true,
         user: {
           id: user_id,
         },

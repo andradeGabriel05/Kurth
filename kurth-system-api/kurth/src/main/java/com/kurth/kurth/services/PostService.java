@@ -177,5 +177,6 @@ public class PostService {
         post.setPostedAt(postDTO.getPostedAt());
         post.setImage(postDTO.getImage());
         post.setLikeCount(postDTO.getLikeCount());
+        post.setReply(postDTO.getReply());
     }
 }
