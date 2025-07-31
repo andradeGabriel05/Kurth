@@ -9,20 +9,16 @@ type Props = {
   reply: boolean;
   messagePage: boolean;
   onDelete?: (id: number) => void;
+  like?: boolean;
 };
 
 export default function PostMapping(
-  { post, messagePage, onDelete }: Props,
+  { post, messagePage, onDelete, like = false }: Props,
   reply: boolean
 ) {
-  console.log(messagePage);
-  console.log(post);
-
-  const [showDeleteMessage, setShowDeleteMessage] = useState<boolean>(false);
 
   useEffect(() => {
     if (post.parent === undefined && !reply) {
-      setShowDeleteMessage(true);
       console.error("Post is undefined or null");
       return;
     }
@@ -38,7 +34,9 @@ export default function PostMapping(
           >
             <MessagePosted post={post} onDelete={onDelete} />
             {post.parent === undefined && post.reply ? (
-              <span className="reply-message reply-message-undefined">This post has been deleted</span>
+              <span className="reply-message reply-message-undefined">
+                This post has been deleted
+              </span>
             ) : post.parent && reply && !messagePage ? (
               <Link
                 to={`/${post.user.username}/posts/${post.parent.id}`}

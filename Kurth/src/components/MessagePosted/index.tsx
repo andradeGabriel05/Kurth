@@ -36,12 +36,10 @@ export default function MessagePosted({
     setDate(formattedDate);
   }, [post?.postedAt]);
 
-
-  
   const [showDeleteMessage, setShowDeleteMessage] = useState<boolean>(false);
 
   useEffect(() => {
-    if(post.parent === undefined && post.reply) {
+    if (post.parent === undefined && post.reply) {
       setShowDeleteMessage(true);
       console.error("Post is undefined or null");
       return;
@@ -145,28 +143,32 @@ export default function MessagePosted({
                   <span className="messagedate">{date}</span>
                 </div>
               </div>
-              <div className="options">
-                <span
-                  className="edit__button"
-                  onClick={(event) => handleOpenOptions(event)}
-                >
-                  ° ° °
-                </span>
-                {showOptions && (
-                  <div className="options__box">
-                    {post.user.id === userId ? (
-                      <>
-                        <span onClick={(event) => handleEdit(event)}>Edit</span>
-                        <span onClick={(event) => handleDelete(event)}>
-                          Delete
-                        </span>
-                      </>
-                    ) : (
-                      <span>Undefined</span>
-                    )}
-                  </div>
-                )}
-              </div>
+              {!reply && (
+                <div className="options">
+                  <span
+                    className="edit__button"
+                    onClick={(event) => handleOpenOptions(event)}
+                  >
+                    ° ° °
+                  </span>
+                  {showOptions && (
+                    <div className="options__box">
+                      {post.user.id === userId ? (
+                        <>
+                          <span onClick={(event) => handleEdit(event)}>
+                            Edit
+                          </span>
+                          <span onClick={(event) => handleDelete(event)}>
+                            Delete
+                          </span>
+                        </>
+                      ) : (
+                        <span>Undefined</span>
+                      )}
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
             <div className="message">
               <span>{post?.message}</span>
