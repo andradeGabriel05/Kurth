@@ -58,20 +58,20 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
-
-    @PostMapping(value = "/login")
-    public ResponseEntity<?> login(@RequestBody UserDTO userDTO) {
-        String username = userDTO.getUsername();
-        String password = userDTO.getPassword();
-
-        UserDTO userLogin = userService.login(username, password);
-
-        if (userLogin != null) {
-            return ResponseEntity.ok(userLogin);
-        } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Usuário ou senha inválidos");
-        }
-    }
+//
+//    @PostMapping(value = "/login")
+//    public ResponseEntity<?> login(@RequestBody UserDTO userDTO) {
+//        String username = userDTO.getUsername();
+//        String password = userDTO.getPassword();
+//
+//        UserDTO userLogin = userService.login(username, password);
+//
+//        if (userLogin != null) {
+//            return ResponseEntity.ok(userLogin);
+//        } else {
+//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Usuário ou senha inválidos");
+//        }
+//    }
 
     @PutMapping(value = "{id}/update-follower")
     public ResponseEntity<UserDTO> updateFollower(@PathVariable Long id) {

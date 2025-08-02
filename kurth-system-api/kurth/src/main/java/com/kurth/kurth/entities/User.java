@@ -3,11 +3,12 @@ package com.kurth.kurth.entities;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.kurth.kurth.dto.login.LoginRequest;
 import jakarta.persistence.*;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Table(name = "tb_user")
@@ -17,10 +18,11 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
     private String name;
+
     @Column(unique = true)
     private String username;
+
     @Column(unique = true)
     private String email;
 
@@ -45,18 +47,10 @@ public class User {
     @JsonIgnore
     private List<Message> messagesReceived = new ArrayList<>();
 
-//    @OneToMany(mappedBy = "user")
-//    private List<Message> message = new ArrayList<>();
-
-//    @OneToMany(mappedBy = "user")
-//    private List<LikeCount> likeCount;
-
-
-
     public User() {
     }
 
-    public User(Long id, String name, String username, String email, Instant createdAt, String password, String bio, String avatar, Integer followers, Integer following, Integer posts) {
+    public User(Long id, String name, String username, String email, Instant createdAt, String password, String bio, String avatar, Integer followers, Integer following, Integer posts, List<Reply> replies, List<Message> messagesSent, List<Message> messagesReceived) {
         this.id = id;
         this.name = name;
         this.username = username;
@@ -68,8 +62,10 @@ public class User {
         this.followers = followers;
         this.following = following;
         this.posts = posts;
+        this.replies = replies;
+        this.messagesSent = messagesSent;
+        this.messagesReceived = messagesReceived;
     }
-
 
     public Long getId() {
         return id;
@@ -166,5 +162,11 @@ public class User {
 
     public List<Message> getMessagesSent() {
         return messagesSent;
+    }
+
+
+    public boolean isLoginCorrect(LoginRequest loginRequest, PasswordEncoder passwordEncoder) {
+        // compara senha que está vindo com senha do banco que está criptografada
+        return passwordEncoder.matches(loginRequest.password(), this.password);
     }
 }

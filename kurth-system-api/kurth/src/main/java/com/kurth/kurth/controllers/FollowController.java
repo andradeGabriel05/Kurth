@@ -40,14 +40,14 @@ public class FollowController {
     }
 
     @GetMapping(value = "/checkfollow/{followerId}/{followingId}")
-    public FollowDTO userAlreadyFollowing(@PathVariable Long followerId, @PathVariable Long followingId) {
+    public ResponseEntity<FollowDTO> userAlreadyFollowing(@PathVariable Long followerId, @PathVariable Long followingId) {
         FollowDTO followDTO = followService.userAlreadyFollowing(followerId, followingId);
 
         if (followDTO == null) {
-            throw new ResourceNotFoundException("Relacionamento de follow não encontrado.");
+            return ResponseEntity.noContent().build();
         }
 
-        return followDTO;
+        return ResponseEntity.ok(followDTO);
     }
 
     @GetMapping(value = "/user-followers/{id}")

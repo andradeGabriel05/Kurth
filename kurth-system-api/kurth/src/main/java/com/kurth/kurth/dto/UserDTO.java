@@ -1,6 +1,5 @@
 package com.kurth.kurth.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.kurth.kurth.entities.User;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

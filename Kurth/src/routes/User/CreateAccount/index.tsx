@@ -19,6 +19,10 @@ async function handleSubmit(event: any) {
       followers: 0,
       following: 0,
       posts: 0,
+    }, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
     })
     .then((response) => {
       console.log("User created:", response.data);

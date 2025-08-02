@@ -81,7 +81,6 @@ public class PostService {
             copyDtoToEntity(postDTO, post);
             User user = userRepository.getReferenceById(postDTO.getUser().getId());
             if(postDTO.getParent() != null) {
-                System.out.printf("teste: ", postDTO);
                 Post parent = postRepository.getReferenceById(postDTO.getParent().getId());
                 post.setParent(parent);
             }

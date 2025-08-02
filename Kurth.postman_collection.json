@@ -7,320 +7,127 @@
 	},
 	"item": [
 		{
-			"name": "Post",
-			"item": [
-				{
-					"name": "Messages",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{host}}/message?page=2&size=10&sort=postedAt,desc",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"message"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "2"
-								},
-								{
-									"key": "size",
-									"value": "10"
-								},
-								{
-									"key": "id",
-									"value": "7",
-									"disabled": true
-								},
-								{
-									"key": "sort",
-									"value": "postedAt,desc"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Find message replies",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{host}}/message/find-replies/1?page=0&size=6&sort=postedAt,desc",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"message",
-								"find-replies",
-								"1"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "0"
-								},
-								{
-									"key": "size",
-									"value": "6"
-								},
-								{
-									"key": "sort",
-									"value": "postedAt,desc"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Message by id",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{host}}/message/1",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"message",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Messages by User",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/message/user_messages/thispersondoesnotexist?page=0&size=7&sort=postedAt,desc",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"message",
-								"user_messages",
-								"thispersondoesnotexist"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "0"
-								},
-								{
-									"key": "size",
-									"value": "7"
-								},
-								{
-									"key": "sort",
-									"value": "postedAt,desc"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Count message replies",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/message/reply/message-count/2",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"message",
-								"reply",
-								"message-count",
-								"2"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Follow user messages",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{host}}/message/user-following-messages/1?page=0&size=6&sort=postedAt,desc",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"message",
-								"user-following-messages",
-								"1"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "0"
-								},
-								{
-									"key": "size",
-									"value": "6"
-								},
-								{
-									"key": "sort",
-									"value": "postedAt,desc"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "New message",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"message\": \"Uma mensagem nova novanovanova\",\r\n    \"image\": \"\",\r\n    \"user\": {\r\n        \"id\": 2\r\n    }\r\n}\r\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/message",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"message"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "New reply",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"message\": \"Uma mensagem nova novanovanova\",\r\n    \"postedAt\": \"2022-12-21T15:00:00Z\",\r\n    \"likeCount\": 0,\r\n    \"isReply\": true,\r\n    \"user\": {\r\n        \"id\": 2\r\n    },\r\n    \"parent\": {\r\n        \"id\": 1\r\n    }\r\n}\r\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/message",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"message"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Upload image",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "image",
-									"type": "file",
-									"src": "postman-cloud:///1f06bd9b-7c65-48b0-998b-45f5a4b44336"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{host}}/message/upload-image",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"message",
-								"upload-image"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Update message",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"message\": \"Uma mensagem novaaaaaa\",\r\n    \"postedAt\": \"2022-12-21T15:00:00Z\",\r\n    \"image\": \"\",\r\n    \"user\": {\r\n        \"id\": 5\r\n    }\r\n}\r\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/message/4",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"message",
-								"4"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete message by id",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{host}}/message/1",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"message",
-								"1"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
 			"name": "User",
 			"item": [
 				{
+					"name": "New user",
+					"request": {
+						"auth": {
+							"type": "jwt",
+							"jwt": [
+								{
+									"key": "algorithm",
+									"value": "HS256",
+									"type": "string"
+								},
+								{
+									"key": "isSecretBase64Encoded",
+									"value": false,
+									"type": "boolean"
+								},
+								{
+									"key": "payload",
+									"value": "{}",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "headerPrefix",
+									"value": "Bearer",
+									"type": "string"
+								},
+								{
+									"key": "queryParamKey",
+									"value": "token",
+									"type": "string"
+								},
+								{
+									"key": "header",
+									"value": "{}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Nova pessoa\",\r\n    \"username\": \"nova_pessoa\",\r\n    \"email\": \"novaa@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = pm.response.json();\r",
+									"\r",
+									"pm.environment.set(\"acess_token\", data.accessToken);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"nova_pessoa\",\r\n    \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/login",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Users",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{acess_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -358,19 +165,27 @@
 				{
 					"name": "Users by username",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{acess_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/user/username/@thispersondoesnotexist",
-							"protocol": "http",
+							"raw": "{{host}}/user/username/thispersondoesnotexist",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
 								"user",
 								"username",
-								"@thispersondoesnotexist"
+								"thispersondoesnotexist"
 							]
 						}
 					},
@@ -379,6 +194,16 @@
 				{
 					"name": "User by id",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{acess_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -395,36 +220,18 @@
 					"response": []
 				},
 				{
-					"name": "New user",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Nova pessoa\",\r\n    \"username\": \"@novaapessoa\",\r\n    \"email\": \"novaa@gmail.com\",\r\n    \"createdAt\": \"2022-12-21T15:00:00Z\",\r\n    \"password\": \"123456\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/user",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"user"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Update user",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{acess_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [],
 						"body": {
@@ -454,6 +261,16 @@
 				{
 					"name": "Delete user by id",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{acess_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"url": {
@@ -474,11 +291,712 @@
 			]
 		},
 		{
+			"name": "Post",
+			"item": [
+				{
+					"name": "Posts",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{acess_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/message?page=2&size=10&sort=postedAt,desc",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"message"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "2"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								},
+								{
+									"key": "id",
+									"value": "7",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "postedAt,desc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find posts replies",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{acess_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/message/find-replies/1?page=0&size=6&sort=postedAt,desc",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"message",
+								"find-replies",
+								"1"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "6"
+								},
+								{
+									"key": "sort",
+									"value": "postedAt,desc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{acess_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/message/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"message",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Posts by User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{acess_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/message/user_messages/thispersondoesnotexist?page=0&size=7&sort=postedAt,desc",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"message",
+								"user_messages",
+								"thispersondoesnotexist"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "7"
+								},
+								{
+									"key": "sort",
+									"value": "postedAt,desc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Count posts replies",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{acess_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/message/reply/message-count/2",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"message",
+								"reply",
+								"message-count",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Follow user posts",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{acess_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/message/user-following-messages/1?page=0&size=6&sort=postedAt,desc",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"message",
+								"user-following-messages",
+								"1"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "6"
+								},
+								{
+									"key": "sort",
+									"value": "postedAt,desc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{acess_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"message\": \"Uma mensagem nova novanovanova\",\r\n    \"image\": \"\",\r\n    \"user\": {\r\n        \"id\": 2\r\n    }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/message",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"message"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New reply",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{acess_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"message\": \"Uma mensagem nova novanovanova\",\r\n    \"postedAt\": \"2022-12-21T15:00:00Z\",\r\n    \"likeCount\": 0,\r\n    \"isReply\": true,\r\n    \"user\": {\r\n        \"id\": 2\r\n    },\r\n    \"parent\": {\r\n        \"id\": 1\r\n    }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/message",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"message"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upload image",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{acess_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "postman-cloud:///1f06bd9b-7c65-48b0-998b-45f5a4b44336"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/message/upload-image",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"message",
+								"upload-image"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{acess_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"message\": \"Uma mensagem novaaaaaa\",\r\n    \"postedAt\": \"2022-12-21T15:00:00Z\",\r\n    \"image\": \"\",\r\n    \"user\": {\r\n        \"id\": 5\r\n    }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/message/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"message",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete post by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{acess_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/message/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"message",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Likes",
+			"item": [
+				{
+					"name": "Like by userId and messageId",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{acess_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/likecount/user/1/message/6",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"likecount",
+								"user",
+								"1",
+								"message",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Like by user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{acess_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/likecount/user/thispersondoesnotexist?sort=id,desc&size=7",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"likecount",
+								"user",
+								"thispersondoesnotexist"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "id,desc"
+								},
+								{
+									"key": "size",
+									"value": "7"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Follow",
+			"item": [
+				{
+					"name": "Check follow",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{acess_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/follow/checkfollow/1/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"follow",
+								"checkfollow",
+								"1",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Followers",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{acess_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/follow/user-followers/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"follow",
+								"user-followers",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Messages (initial)",
+			"item": [
+				{
+					"name": "send message",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{acess_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"message\": \"Olá, tudo bem?\",\r\n  \"sentByUser\": {\r\n    \"id\": 2\r\n  },\r\n  \"sentToUser\": {\r\n    \"id\": 1\r\n  }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/message-chat",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"message-chat"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Notification",
+			"item": [
+				{
+					"name": "Send notification",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{acess_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"notificationTitle\": \"Você recebeu uma nova mensagem!\",\r\n  \"sentAt\": \"2025-07-20T22:00:00Z\",\r\n  \"isRead\": false,\r\n  \"type\": \"MESSAGE\",\r\n  \"fromUser\": {\r\n    \"id\": 2\r\n  },\r\n  \"toUser\": {\r\n    \"id\": 1\r\n  },\r\n  \"post\": {\r\n    \"id\": 11\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/notification",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"notification"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all notifications",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{acess_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/notification",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"notification"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all user notifications",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{acess_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/notification/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"notification",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Reply (obsolete)",
 			"item": [
 				{
 					"name": "Reply by id",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{acess_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -624,214 +1142,8 @@
 					},
 					"response": []
 				}
-			]
-		},
-		{
-			"name": "Likes",
-			"item": [
-				{
-					"name": "Like by userId and messageId",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{host}}/likecount/user/1/message/6",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"likecount",
-								"user",
-								"1",
-								"message",
-								"6"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Like by userId",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{host}}/likecount/user/thispersondoesnotexist?sort=id,desc",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"likecount",
-								"user",
-								"thispersondoesnotexist"
-							],
-							"query": [
-								{
-									"key": "sort",
-									"value": "id,desc"
-								}
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Follow",
-			"item": [
-				{
-					"name": "Check follow",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{host}}/checkfollow/1/1",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"checkfollow",
-								"1",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Followers",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{host}}/follow/user-followers/1",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"follow",
-								"user-followers",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "New Request",
-					"request": {
-						"method": "GET",
-						"header": []
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Messages (initial)",
-			"item": [
-				{
-					"name": "send message",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"message\": \"Olá, tudo bem?\",\r\n  \"sentByUser\": {\r\n    \"id\": 2\r\n  },\r\n  \"sentToUser\": {\r\n    \"id\": 1\r\n  }\r\n}\r\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/message-chat",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"message-chat"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get message",
-					"request": {
-						"method": "GET",
-						"header": []
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Notification",
-			"item": [
-				{
-					"name": "Send notification",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"notificationTitle\": \"Você recebeu uma nova mensagem!\",\r\n  \"sentAt\": \"2025-07-20T22:00:00Z\",\r\n  \"isRead\": false,\r\n  \"type\": \"MESSAGE\",\r\n  \"fromUser\": {\r\n    \"id\": 2\r\n  },\r\n  \"toUser\": {\r\n    \"id\": 1\r\n  },\r\n  \"post\": {\r\n    \"id\": 1\r\n  }\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/notification",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"notification"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get all notifications",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{host}}/notification",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"notification"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get all user notifications",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{host}}/notification/1",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"notification",
-								"1"
-							]
-						}
-					},
-					"response": []
-				}
-			]
+			],
+			"description": "i don't want to delete this right now. Maybe something in backend will need to be tested before deleting it.\n\nSo, tests will return 401, 404 or some other error."
 		}
 	]
 }

@@ -44,31 +44,50 @@ export default function Reaction({ message }: Props) {
   //levar para constants => move this to constants
   async function handleLikeSubmit(event: React.MouseEvent<HTMLDivElement>) {
     event?.preventDefault();
-    
+
     if (isLiking) return; // block multiple clicks
 
     setIsLiking(true);
     if (userId) {
       try {
-        await axios.post(`${BASE_URL}/likecount`, {
-          user: {
-            id: userId,
+        await axios.post(
+          `${BASE_URL}/likecount`,
+          {
+            user: { id: userId },
+            post: { id: message.id },
           },
-          post: {
-            id: message.id,
-          },
-        });
-        await axios.put(`${BASE_URL}/message/${message.id}/like-count`);
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
+        await axios.put(
+          `${BASE_URL}/message/${message.id}/like-count`,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
 
         setLikeCount((c) => c + 1);
         setIsLiked(true);
         console.log(likeCount);
       } catch {
-        console.error("Error: User already liked this message");
-        await axios.delete(`${BASE_URL}/likecount/remove/${message.id}`, {});
+        await axios.delete(`${BASE_URL}/likecount/remove/${message.id}`, {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        });
 
         await axios.put(
-          `${BASE_URL}/message/${message.id}/like-count-removing`
+          `${BASE_URL}/message/${message.id}/like-count-removing`,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
         );
 
         setLikeCount((c) => c - 1);
@@ -98,7 +117,9 @@ export default function Reaction({ message }: Props) {
   function checkMessageLike(messageId: number) {
     // Check if the user has already liked the message
     axios
-      .get(`${BASE_URL}/likecount/user/${userId}/message/${messageId}`)
+      .get(`${BASE_URL}/likecount/user/${userId}/message/${messageId}`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      })
       .then((response) => {
         if (response.data == null) {
           setIsLiked(false);

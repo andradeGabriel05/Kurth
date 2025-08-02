@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig } from "axios";
-import { BASE_URL } from "../utils/system";
+import { BASE_URL, TOKEN } from "../utils/system";
 
 export function findPageRequest(page: number, size = 6, sort = "name") {
   const config: AxiosRequestConfig = {
@@ -11,6 +11,7 @@ export function findPageRequest(page: number, size = 6, sort = "name") {
       size,
       sort,
     },
+    headers: { Authorization: `Bearer ${TOKEN}` },
   };
   return axios(config);
 }
@@ -24,10 +25,13 @@ export function findByMessageId(page: number, id: number, size = 6) {
       page,
       size,
     },
+    headers: { Authorization: `Bearer ${TOKEN}` },
   };
   return axios(config);
 }
 
 export function countReplyMessages(id: number) {
-  return axios.get(`${BASE_URL}/message/reply/message-count/${id}`);
+  return axios.get(`${BASE_URL}/message/reply/message-count/${id}`, {
+    headers: { Authorization: `Bearer ${TOKEN}` },
+  });
 }

@@ -1,7 +1,9 @@
 package com.kurth.kurth.services;
 
 import com.kurth.kurth.dto.UserDTO;
+import com.kurth.kurth.entities.Post;
 import com.kurth.kurth.entities.User;
+import com.kurth.kurth.repositories.PostRepository;
 import com.kurth.kurth.repositories.UserRepository;
 import com.kurth.kurth.services.exceptions.DatabaseException;
 import com.kurth.kurth.services.exceptions.ResourceNotFoundException;
@@ -10,16 +12,27 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
 public class UserService {
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private PostRepository postRepository;
+
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    public UserService(BCryptPasswordEncoder bCryptPasswordEncoder) {
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    }
 
     @Transactional(readOnly = true)
     public UserDTO findById(Long id) {
@@ -87,6 +100,10 @@ public class UserService {
             throw new ResourceNotFoundException("Id user not found");
         }
 
+        List<Post> post = postRepository.findAllByUserId(id);
+
+        postRepository.deleteAll(post);
+
         userRepository.deleteById(id);
         return ResponseEntity.noContent().build();
     }
@@ -151,7 +168,7 @@ public class UserService {
         user.setUsername(userDTO.getUsername());
 
         user.setEmail(userDTO.getEmail());
-        user.setPassword(userDTO.getPassword());
+        user.setPassword(bCryptPasswordEncoder.encode(userDTO.getPassword()));
 
         user.setCreatedAt(userDTO.getCreatedAt());
         user.setFollowers(userDTO.getFollowers());

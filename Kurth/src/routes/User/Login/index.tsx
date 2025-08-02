@@ -2,26 +2,34 @@ import { Link } from "react-router-dom";
 import "./style.scss";
 import axios from "axios";
 import { BASE_URL } from "../../../utils/system";
+import { useState } from "react";
+import { jwtDecode } from "jwt-decode";
 
-async function handleSubmit(event: any) {
-  event.preventDefault(event);
-
-  const username = userData.value;
-  const password = userPassword.value;
-
-  const response = await axios.post(`${BASE_URL}/user/login`, {
-    username: username,
-    password: password,
-  });
-
-  console.log(response);
-
-  localStorage.setItem("user_id", JSON.stringify(response.data.id));
-  localStorage.setItem("username", JSON.stringify(response.data.username));
-  // Redirect to home page
-  window.location.href = "/";
-}
 export default function Login() {
+  const [username, setUsername] = useState<string>("");
+
+  const [password, setPassword] = useState<string>("");
+
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    console.log("Username:", username);
+    await axios
+      .post(`${BASE_URL}/login`, {
+        username: username,
+        password: password,
+      })
+      .then((response) => {
+        const decodedToken = jwtDecode(response.data.accessToken);
+        if (response.status === 201) {
+          localStorage.setItem("username", username);
+          localStorage.setItem("token", response.data.accessToken);
+          localStorage.setItem("user_id", decodedToken.sub);
+          window.location.href = "/";
+        }
+      });
+  }
+
+
   return (
     <div className="account-wrapper">
       <div className="left-side">
@@ -42,12 +50,20 @@ export default function Login() {
             <div className="form-group">
               <div className="userData">
                 <label htmlFor="userData">Username</label>
-                <input type="text" id="userData" />
+                <input
+                  type="text"
+                  id="userData"
+                  onChange={(e) => setUsername(e.target.value)}
+                />
               </div>
 
               <div className="userPassword">
                 <label htmlFor="userPassword">Password</label>
-                <input type="password" id="userPassword" />
+                <input
+                  type="password"
+                  id="userPassword"
+                  onChange={(e) => setPassword(e.target.value)}
+                />
               </div>
             </div>
 

@@ -16,6 +16,8 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     @Query("SELECT obj FROM Post obj WHERE obj.user.username = :username")
     Page<Post> findAllUserMessages(String username, Pageable pageable);
 
+    List<Post> findAllByUserId(Long id);
+
     @Query("SELECT obj FROM Post obj WHERE obj.image IS NOT NULL")
     List<Post> findAllMessagesWithImage();
 

@@ -67,14 +67,12 @@ public class FollowService {
 
     @Transactional(readOnly = true)
     public FollowDTO userAlreadyFollowing(Long userFollowerId, Long userFollowingId) {
-
         Optional<Follow> followOptional = followRepository.userAlreadyFollowing(userFollowerId, userFollowingId);
         if (followOptional.isPresent()) {
             Follow follow = followOptional.get();
             return new FollowDTO(follow);
-        } else {
-            return null;
         }
+        return null;
     }
 
     @Transactional(readOnly = true)
