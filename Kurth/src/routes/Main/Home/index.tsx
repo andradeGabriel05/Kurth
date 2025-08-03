@@ -2,8 +2,6 @@ import { Link } from "react-router-dom";
 import MessagePost from "../../../components/MessagePost";
 import * as messageConst from "../../../constants/message";
 import "./style.scss";
-import { useEffect, useState } from "react";
-import { PostDTO } from "../../../models/message";
 import PostMapping from "../../../components/PostMapping";
 import { useInfiniteScroll } from "../../../hooks/useInfiniteScrool";
 

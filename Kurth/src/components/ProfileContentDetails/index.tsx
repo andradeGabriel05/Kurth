@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
 import { UserDTO } from "../../models/user";
-import { BASE_URL, TOKEN } from "../../utils/system";
 import "./style.scss";
-import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { FaEnvelope } from "react-icons/fa6";
 import * as UserService from "../../constants/user";
 import NavigationLink from "../NavigationLink";
+import * as Follow from "../../constants/follow";
 
 type Props = {
   user: UserDTO;
@@ -15,7 +14,6 @@ type Props = {
 // this freaked me out because
 export default function ProfileContentDetails({ user }: Props) {
   const userLoggedIn = localStorage.getItem("user_id") || "";
-  const userLoggedInUsername = localStorage.getItem("username") || "";
 
   const navigate = useNavigate();
   const params = useParams();
@@ -36,22 +34,17 @@ export default function ProfileContentDetails({ user }: Props) {
 
   // check if user is following
   const [isFollowing, setIsFollowing] = useState(false);
-  const [idFollow, setIdFollow] = useState();
   useEffect(() => {
     console.log(userLoggedIn);
     console.log(params.username);
     if (userId !== undefined && userLoggedIn !== userId) {
-      axios
-        .get(`${BASE_URL}/follow/checkfollow/${userLoggedIn}/${userId}`, {
-          headers: { Authorization: `Bearer ${TOKEN}` },
-        })
+      Follow.checkFollowStatus(userLoggedIn, userId)
         .then((response) => {
           const userFollowing = response.data.userFollowingId;
           const userFollower = response.data.userFollowerId;
           setIsFollowing(
             userFollowing === userId && userFollower === userLoggedIn
           );
-          setIdFollow(response.data.id);
           console.log(response.data);
         })
         .catch((error) => {
@@ -74,67 +67,24 @@ export default function ProfileContentDetails({ user }: Props) {
         // seguindo usuário -> following user
 
         console.log("62 ->", userLoggedIn, userId);
-        await axios.post(
-          `${BASE_URL}/follow`,
-          {
-            userFollowerId: userLoggedIn,
-            userFollowingId: userId,
-          },
-          {
-            headers: { Authorization: `Bearer ${TOKEN}` },
-          }
-        );
-        await axios.put(
-          `${BASE_URL}/user/${userId}/update-follower`,
-          {},
-          {
-            headers: { Authorization: `Bearer ${TOKEN}` },
-          }
-        );
-        await axios.put(
-          `${BASE_URL}/user/${userLoggedIn}/update-following`,
-          {},
-          {
-            headers: { Authorization: `Bearer ${TOKEN}` },
-          }
-        );
+        await Follow.followUser(userLoggedIn, userId);
+
+        await Follow.increaseUserFollower(userId);
+        await Follow.increaseUserFollowing(userLoggedIn);
 
         // atualizar o número de seguidores -> updtate numbers of followers
         setFollowers((prevFollowers) => prevFollowers + 1);
         setIsFollowing(true); // atualiza o texto do botao para 'parar de seguir' -> update button text to 'unfollow'
         console.log("Followed");
       } else {
-        const response = await axios.get(
-          `${BASE_URL}/follow/checkfollow/${userLoggedIn}/${userId}`,
-          {
-            headers: { Authorization: `Bearer ${TOKEN}` },
-          }
-        );
+        const response = await Follow.checkFollowStatus(userLoggedIn, userId);
 
         // Deixar de seguir usuário -> unfollow user
-        await axios.put(
-          `${BASE_URL}/user/${userId}/update-remove-follower`,
-          {},
-          {
-            headers: { Authorization: `Bearer ${TOKEN}` },
-          }
-        );
-
-        await axios.put(
-          `${BASE_URL}/user/${userLoggedIn}/update-remove-following`,
-          {},
-          {
-            headers: { Authorization: `Bearer ${TOKEN}` },
-          }
-        );
+        await Follow.decreaseUserFollower(userId);
+        await Follow.decreaseUserFollowing(userLoggedIn);
 
         if (response.data.id) {
-          await axios.delete(
-            `${BASE_URL}/follow/remove-follow/${response.data.id}`,
-            {
-              headers: { Authorization: `Bearer ${TOKEN}` },
-            }
-          );
+          await Follow.removeFollow(response.data.id);
           setFollowers((prevFollowers) => prevFollowers - 1);
           setIsFollowing(false); // atualizar o texto do botao para 'seguir' -> update button text to 'follow'
 

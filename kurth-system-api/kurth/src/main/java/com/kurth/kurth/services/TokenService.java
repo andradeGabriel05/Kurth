@@ -2,10 +2,9 @@ package com.kurth.kurth.services;
 
 import com.kurth.kurth.dto.UserDTO;
 import com.kurth.kurth.dto.login.LoginRequest;
-import com.kurth.kurth.dto.login.LoginResponse;
+import com.kurth.kurth.dto.login.TokenResponse;
 import com.kurth.kurth.entities.User;
 import com.kurth.kurth.repositories.UserRepository;
-import com.nimbusds.jwt.JWTClaimsSet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -15,7 +14,6 @@ import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
-import java.util.Date;
 import java.util.Optional;
 
 @Service
@@ -28,14 +26,12 @@ public class TokenService {
 
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    private Long refreshToken = 3600L;
-
     public TokenService(JwtEncoder jwtEncoder, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.jwtEncoder = jwtEncoder;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
-    public LoginResponse login(LoginRequest loginRequest) {
+    public TokenResponse login(LoginRequest loginRequest) {
         Optional<User> user = userRepository.findByUsername(loginRequest.username());
 
         if(user.isEmpty() || !user.get().isLoginCorrect(loginRequest, bCryptPasswordEncoder)) {
@@ -44,26 +40,25 @@ public class TokenService {
 
         String accessToken = jwtGenerate(user);
 
-        return new LoginResponse(accessToken, refreshToken);
+        return new TokenResponse(accessToken);
     }
 
 
-    public LoginResponse register(UserDTO userDTO) {
+    public TokenResponse register(UserDTO userDTO) {
         User user = new User();
         copyDtoToEntity(userDTO, user);
 
         userRepository.save(user);
         String accessToken = jwtGenerate(Optional.of(user));
 
-        return new LoginResponse(accessToken, refreshToken);
+        return new TokenResponse(accessToken);
     }
 
 
     protected String jwtGenerate(Optional<User> user) {
-
         Instant now = Instant.now();
-
-        Instant issuedAt = now.plusSeconds(refreshToken);
+        Long expiresIn = 3600L;
+        Instant issuedAt = now.plusSeconds(expiresIn);
 
         JwtClaimsSet claimsSet = JwtClaimsSet.builder()
                 .issuer("Kurth System")

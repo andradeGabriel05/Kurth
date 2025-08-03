@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
+import java.util.UUID;
 
 @Service
 public class NotificationService {
@@ -34,7 +35,7 @@ public class NotificationService {
     }
 
     @Transactional(readOnly = true)
-    public Page<NotificationDTO> findNotificationByUser(Pageable pageable, Long id) {
+    public Page<NotificationDTO> findNotificationByUser(Pageable pageable, UUID id) {
         Page<Notification> notifications = notificationRepository.findAllByUserId(pageable, id);
         return notifications.map(NotificationDTO::new);
     }

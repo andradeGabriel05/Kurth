@@ -11,7 +11,7 @@ export default function Search() {
 
   const [searchUser, setSearchUser] = useState("");
 
-  const userLoggedInId = localStorage.getItem("user_id");
+  const userLoggedInId: string = localStorage.getItem("user_id") || "";
 
   useEffect(() => {
     User.findPageRequest(0, searchUser).then((response) => {

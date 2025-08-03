@@ -26,20 +26,7 @@ export default function Likes({ user }: Props) {
     messageConst.findLikedMessages(username, page)
   );
 
-  const eachPost: PostDTO[] = posts.map(post => post.post);
-
-  // const [post, setPost] = useState<PostDTO[]>([]);
-
-  // useEffect(() => {
-  //   axios
-  //     .get(`${BASE_URL}/likecount/user/${username}?sort=likedAt,desc`)
-  //     .then((response) => {
-  //       console.log(response.data);
-  //       type LikeResponse = { post: PostDTO };
-  //       const msgs = response.data.content.map((msg: LikeResponse) => msg.post);
-  //       setPost(msgs);
-  //     });
-  // }, [username]);
+  const eachPost: PostDTO[] = posts.map((p) => p.post);
 
   function handlePostDeleted(id: number) {
     removeItemById(id);
@@ -65,6 +52,8 @@ export default function Likes({ user }: Props) {
         onDelete={handlePostDeleted}
         like={true}
       />
+
+      {isLoading && <div className="loading">Loading...</div>}
     </div>
   );
 }

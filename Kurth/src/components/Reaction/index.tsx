@@ -1,14 +1,13 @@
-import axios from "axios";
 import "./style.scss";
 
 import { FaShareSquare } from "react-icons/fa";
 import { FaComment, FaHeart } from "react-icons/fa6";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import { PostDTO } from "../../models/message";
 import { ReplyDTO } from "../../models/reply";
 import { useEffect, useState } from "react";
-import { BASE_URL } from "../../utils/system";
 import * as ReplyService from "../../constants/reply";
+import * as MessageService from "../../constants/message";
 
 type Props = {
   message: PostDTO | ReplyDTO;
@@ -24,7 +23,6 @@ export default function Reaction({ message }: Props) {
   const [replyCount, setReplyCount] = useState<number>(0);
 
   const [isLiking, setIsLiking] = useState(false);
-  const [likeButtonClicked, setLikeButtonClicked] = useState(false);
   useEffect(() => {
     ReplyService.countReplyMessages(messageId)
       .then((response) => {
@@ -50,45 +48,16 @@ export default function Reaction({ message }: Props) {
     setIsLiking(true);
     if (userId) {
       try {
-        await axios.post(
-          `${BASE_URL}/likecount`,
-          {
-            user: { id: userId },
-            post: { id: message.id },
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }
-        );
-        await axios.put(
-          `${BASE_URL}/message/${message.id}/like-count`,
-          {},
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }
-        );
+        await MessageService.likeMessageLikeCount(messageId, userId);
+        await MessageService.increaseLikeMessage(messageId);
 
         setLikeCount((c) => c + 1);
         setIsLiked(true);
         console.log(likeCount);
       } catch {
-        await axios.delete(`${BASE_URL}/likecount/remove/${message.id}`, {
-          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-        });
-
-        await axios.put(
-          `${BASE_URL}/message/${message.id}/like-count-removing`,
-          {},
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }
-        );
+        // If the user already liked the message, remove the like
+        await MessageService.removeLike(messageId);
+        await MessageService.removeLikeFromMessage(messageId);
 
         setLikeCount((c) => c - 1);
         setIsLiked(false);
@@ -116,10 +85,7 @@ export default function Reaction({ message }: Props) {
 
   function checkMessageLike(messageId: number) {
     // Check if the user has already liked the message
-    axios
-      .get(`${BASE_URL}/likecount/user/${userId}/message/${messageId}`, {
-        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-      })
+    MessageService.checkIfUserLikedMessage(userId, messageId)
       .then((response) => {
         if (response.data == null) {
           setIsLiked(false);

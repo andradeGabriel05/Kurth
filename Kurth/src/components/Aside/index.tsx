@@ -9,7 +9,6 @@ import {
   FaEnvelope,
   FaBell,
   FaUser,
-  FaSignOutAlt,
 } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import NavigationLink from "../NavigationLink";

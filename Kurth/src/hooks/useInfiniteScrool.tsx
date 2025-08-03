@@ -14,7 +14,8 @@ type Props = {
 // ta funcionando n mexe
 export function useInfiniteScroll(
   apiCall: (page: number) => Promise<any>,
-  messageId?: number
+  messageId?: number,
+  resetKey?: string
 ) {
   const [items, setItems] = useState<PostDTO[]>([]);
   const [actualPage, setActualPage] = useState(0);
@@ -89,6 +90,13 @@ export function useInfiniteScroll(
     }
   }, [messageId]);
 
+  //reset when resetKey changes
+  //this is useful for reloading the data when navigating to a different profile
+  useEffect(() => {
+    setItems([]);
+    setActualPage(0);
+  }, [resetKey]);
+
   function reset() {
     setItems([]);
     setActualPage(0);
@@ -97,7 +105,7 @@ export function useInfiniteScroll(
   }
 
   function removeItemById(id: number) {
-    setItems(prev => prev.filter(item => item.id !== id));
+    setItems((prev) => prev.filter((item) => item.id !== id));
     console.log(`Item with id ${id} removed`);
     console.log(items);
   }

@@ -1,11 +1,10 @@
 import { FaImage } from "react-icons/fa6";
 import "./style.scss";
-import axios from "axios";
-import { BASE_URL, currentDate } from "../../utils/system";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { UserDTO } from "../../models/user";
 import * as User from "../../constants/user";
+import * as Message from "../../constants/message";
 
 type Props = {
   message: string;
@@ -13,13 +12,12 @@ type Props = {
 
 export default function MessagePost({ message }: Props) {
   const [messageForm, setMessageForm] = useState<string>("");
-  const [handleImageSubmit, setHandleImageSubmit] = useState("");
 
   const params = useParams();
   const navigate = useNavigate();
 
   // must improve this in the future
-  const user_id = localStorage.getItem("user_id");
+  const user_id: string = localStorage.getItem("user_id") || "";
   const username = localStorage.getItem("username");
   const formattedUsername = username ? username.replace(/['"]+/g, "") : "";
 
@@ -32,18 +30,7 @@ export default function MessagePost({ message }: Props) {
       console.log("Image URL:", imageUrl);
     }
 
-    axios
-      .post(`${BASE_URL}/message`, {
-        message: messageForm,
-        postedAt: currentDate,
-        image: imageUrl ? `http://localhost:8080/${imageUrl}` : null,
-        likeCount: 0,
-        user: {
-          id: user_id,
-        },
-      }, {
-        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
-      })
+    Message.postMessage(messageForm, imageUrl, user_id)
       .then((response) => {
         console.log("Message posted:", response.data);
         window.location.reload(); // <- this
@@ -61,19 +48,11 @@ export default function MessagePost({ message }: Props) {
 
   function handleReply(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    axios
-      .post(`${BASE_URL}/message`, {
-        message: messageForm,
-        postedAt: currentDate,
-        likeCount: 0,
-        parent: { id: params.messageId },
-        isReply: true,
-        user: {
-          id: user_id,
-        },
-      }, {
-        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
-      })
+    Message.postReply(
+      messageForm,
+      Number(params.messageId),
+      user_id
+    )
       .then((response) => {
         console.log("Reply posted:", response);
         window.location.reload(); // <- this too
@@ -88,16 +67,7 @@ export default function MessagePost({ message }: Props) {
     const formData = new FormData();
     formData.append("image", file);
 
-    const response = await axios.post(
-      `${BASE_URL}/message/upload-image`,
-      formData,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      }
-    );
+    const response = await Message.saveImageLocal(formData);
     console.log("Image uploaded:", response.data);
     return response.data;
   }

@@ -1,9 +1,8 @@
 import { Link } from "react-router-dom";
 import "./style.scss";
-import axios from "axios";
-import { BASE_URL } from "../../../utils/system";
 import { useState } from "react";
 import { jwtDecode } from "jwt-decode";
+import * as User from "../../../constants/user";
 
 export default function Login() {
   const [username, setUsername] = useState<string>("");
@@ -12,24 +11,22 @@ export default function Login() {
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    console.log("Username:", username);
-    await axios
-      .post(`${BASE_URL}/login`, {
-        username: username,
-        password: password,
-      })
+    await User.loginUser(username, password)
       .then((response) => {
         const decodedToken = jwtDecode(response.data.accessToken);
-        if (response.status === 201) {
+        if (response.status === 200) {
           localStorage.setItem("username", username);
           localStorage.setItem("token", response.data.accessToken);
           localStorage.setItem("user_id", decodedToken.sub);
           window.location.href = "/";
         }
+      })
+      .catch((error) => {
+        if (error.response && error.response.status === 401) {
+          console.error("Invalid credentials");
+        }
       });
   }
-
-
   return (
     <div className="account-wrapper">
       <div className="left-side">

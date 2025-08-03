@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.UUID;
 
 @RestController
 @RequestMapping(value = "/notification")
@@ -29,7 +30,7 @@ public class NotificationController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Page<NotificationDTO>> findNotificationByUser(Pageable pageable, @PathVariable Long id) {
+    public ResponseEntity<Page<NotificationDTO>> findNotificationByUser(Pageable pageable, @PathVariable UUID id) {
         Page<NotificationDTO> notificationDTO = notificationService.findNotificationByUser(pageable, id);
         return ResponseEntity.ok(notificationDTO);
     }

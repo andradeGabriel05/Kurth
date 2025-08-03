@@ -56,7 +56,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Nova pessoa\",\r\n    \"username\": \"nova_pessoa\",\r\n    \"email\": \"novaa@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+							"raw": "{\r\n    \"name\": \"Nova pessoa\",\r\n    \"username\": \"nova_pessoa\",\r\n    \"email\": \"novaa@gmail.com\",\r\n    \"password\": \"123\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -64,12 +64,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/user",
+							"raw": "{{host}}/register",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
-								"user"
+								"register"
 							]
 						}
 					},
@@ -96,7 +96,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"nova_pessoa\",\r\n    \"password\": \"123456\"\r\n}",
+							"raw": "{\r\n    \"username\": \"nova_pessoa\",\r\n    \"password\": \"123\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -123,7 +123,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{acess_token}}",
+									"value": "{{access_token}}",
 									"type": "string"
 								}
 							]
@@ -170,7 +170,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{acess_token}}",
+									"value": "{{access_token}}",
 									"type": "string"
 								}
 							]
@@ -199,7 +199,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{acess_token}}",
+									"value": "{{access_token}}",
 									"type": "string"
 								}
 							]
@@ -207,13 +207,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/user/4",
+							"raw": "{{host}}/user/85195178-f5f3-4a09-9b43-7733f2ef7d46",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"user",
-								"4"
+								"85195178-f5f3-4a09-9b43-7733f2ef7d46"
 							]
 						}
 					},
@@ -227,7 +227,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{acess_token}}",
+									"value": "{{access_token}}",
 									"type": "string"
 								}
 							]
@@ -244,7 +244,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/user/5",
+							"raw": "http://localhost:8080/user/85195178-f5f3-4a09-9b43-7733f2ef7d46",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -252,7 +252,7 @@
 							"port": "8080",
 							"path": [
 								"user",
-								"5"
+								"85195178-f5f3-4a09-9b43-7733f2ef7d46"
 							]
 						}
 					},
@@ -266,7 +266,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{acess_token}}",
+									"value": "{{access_token}}",
 									"type": "string"
 								}
 							]
@@ -274,7 +274,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/user/4",
+							"raw": "http://localhost:8080/user/d338db70-7c79-4f91-9e5a-975c945e29ec",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -282,7 +282,7 @@
 							"port": "8080",
 							"path": [
 								"user",
-								"4"
+								"d338db70-7c79-4f91-9e5a-975c945e29ec"
 							]
 						}
 					},
@@ -301,7 +301,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{acess_token}}",
+									"value": "{{access_token}}",
 									"type": "string"
 								}
 							]
@@ -347,7 +347,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{acess_token}}",
+									"value": "{{access_token}}",
 									"type": "string"
 								}
 							]
@@ -390,7 +390,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{acess_token}}",
+									"value": "{{access_token}}",
 									"type": "string"
 								}
 							]
@@ -418,7 +418,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{acess_token}}",
+									"value": "{{access_token}}",
 									"type": "string"
 								}
 							]
@@ -461,7 +461,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{acess_token}}",
+									"value": "{{access_token}}",
 									"type": "string"
 								}
 							]
@@ -491,7 +491,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{acess_token}}",
+									"value": "{{access_token}}",
 									"type": "string"
 								}
 							]
@@ -499,14 +499,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/message/user-following-messages/1?page=0&size=6&sort=postedAt,desc",
+							"raw": "{{host}}/message/user-following-messages/85195178-f5f3-4a09-9b43-7733f2ef7d46?page=0&size=6&sort=postedAt,desc",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"message",
 								"user-following-messages",
-								"1"
+								"85195178-f5f3-4a09-9b43-7733f2ef7d46"
 							],
 							"query": [
 								{
@@ -534,7 +534,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{acess_token}}",
+									"value": "{{access_token}}",
 									"type": "string"
 								}
 							]
@@ -543,7 +543,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"message\": \"Uma mensagem nova novanovanova\",\r\n    \"image\": \"\",\r\n    \"user\": {\r\n        \"id\": 2\r\n    }\r\n}\r\n",
+							"raw": "{\r\n    \"message\": \"Uma mensagem nova novanovanova\",\r\n    \"image\": \"\",\r\n    \"user\": {\r\n        \"id\": \"85195178-f5f3-4a09-9b43-7733f2ef7d46\"\r\n    }\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -570,7 +570,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{acess_token}}",
+									"value": "{{access_token}}",
 									"type": "string"
 								}
 							]
@@ -579,7 +579,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"message\": \"Uma mensagem nova novanovanova\",\r\n    \"postedAt\": \"2022-12-21T15:00:00Z\",\r\n    \"likeCount\": 0,\r\n    \"isReply\": true,\r\n    \"user\": {\r\n        \"id\": 2\r\n    },\r\n    \"parent\": {\r\n        \"id\": 1\r\n    }\r\n}\r\n",
+							"raw": "{\r\n    \"message\": \"Uma mensagem nova novanovanova\",\r\n    \"postedAt\": \"2022-12-21T15:00:00Z\",\r\n    \"likeCount\": 0,\r\n    \"isReply\": true,\r\n    \"user\": {\r\n        \"id\": \"85195178-f5f3-4a09-9b43-7733f2ef7d46\"\r\n    },\r\n    \"parent\": {\r\n        \"id\": 1\r\n    }\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -606,7 +606,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{acess_token}}",
+									"value": "{{access_token}}",
 									"type": "string"
 								}
 							]
@@ -644,7 +644,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{acess_token}}",
+									"value": "{{access_token}}",
 									"type": "string"
 								}
 							]
@@ -653,7 +653,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"message\": \"Uma mensagem novaaaaaa\",\r\n    \"postedAt\": \"2022-12-21T15:00:00Z\",\r\n    \"image\": \"\",\r\n    \"user\": {\r\n        \"id\": 5\r\n    }\r\n}\r\n",
+							"raw": "{\r\n    \"message\": \"Uma mensagem novaaaaaa\",\r\n    \"postedAt\": \"2022-12-21T15:00:00Z\",\r\n    \"image\": \"\",\r\n    \"user\": {\r\n        \"id\": \"85195178-f5f3-4a09-9b43-7733f2ef7d46\"\r\n    }\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -683,7 +683,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{acess_token}}",
+									"value": "{{access_token}}",
 									"type": "string"
 								}
 							]
@@ -716,7 +716,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{acess_token}}",
+									"value": "{{access_token}}",
 									"type": "string"
 								}
 							]
@@ -724,14 +724,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/likecount/user/1/message/6",
+							"raw": "{{host}}/likecount/user/85195178-f5f3-4a09-9b43-7733f2ef7d46/message/6",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"likecount",
 								"user",
-								"1",
+								"85195178-f5f3-4a09-9b43-7733f2ef7d46",
 								"message",
 								"6"
 							]
@@ -747,7 +747,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{acess_token}}",
+									"value": "{{access_token}}",
 									"type": "string"
 								}
 							]
@@ -791,7 +791,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{acess_token}}",
+									"value": "{{access_token}}",
 									"type": "string"
 								}
 							]
@@ -799,15 +799,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/follow/checkfollow/1/1",
+							"raw": "{{host}}/follow/checkfollow/85195178-f5f3-4a09-9b43-7733f2ef7d46/b7801ae5-debf-4243-bb03-1d0b53293bb1",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"follow",
 								"checkfollow",
-								"1",
-								"1"
+								"85195178-f5f3-4a09-9b43-7733f2ef7d46",
+								"b7801ae5-debf-4243-bb03-1d0b53293bb1"
 							]
 						}
 					},
@@ -821,7 +821,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{acess_token}}",
+									"value": "{{access_token}}",
 									"type": "string"
 								}
 							]
@@ -829,14 +829,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/follow/user-followers/1",
+							"raw": "{{host}}/follow/user-followers/85195178-f5f3-4a09-9b43-7733f2ef7d46",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"follow",
 								"user-followers",
-								"1"
+								"85195178-f5f3-4a09-9b43-7733f2ef7d46"
 							]
 						}
 					},
@@ -855,7 +855,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{acess_token}}",
+									"value": "{{access_token}}",
 									"type": "string"
 								}
 							]
@@ -864,7 +864,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"message\": \"Olá, tudo bem?\",\r\n  \"sentByUser\": {\r\n    \"id\": 2\r\n  },\r\n  \"sentToUser\": {\r\n    \"id\": 1\r\n  }\r\n}\r\n",
+							"raw": "{\r\n  \"message\": \"Olá, tudo bem?\",\r\n  \"sentByUser\": {\r\n    \"id\": \"85195178-f5f3-4a09-9b43-7733f2ef7d46\"\r\n  },\r\n  \"sentToUser\": {\r\n    \"id\": \"b7801ae5-debf-4243-bb03-1d0b53293bb1\"\r\n  }\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -896,7 +896,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{acess_token}}",
+									"value": "{{access_token}}",
 									"type": "string"
 								}
 							]
@@ -905,7 +905,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"notificationTitle\": \"Você recebeu uma nova mensagem!\",\r\n  \"sentAt\": \"2025-07-20T22:00:00Z\",\r\n  \"isRead\": false,\r\n  \"type\": \"MESSAGE\",\r\n  \"fromUser\": {\r\n    \"id\": 2\r\n  },\r\n  \"toUser\": {\r\n    \"id\": 1\r\n  },\r\n  \"post\": {\r\n    \"id\": 11\r\n  }\r\n}",
+							"raw": "{\r\n  \"notificationTitle\": \"Você recebeu uma nova mensagem!\",\r\n  \"sentAt\": \"2025-07-20T22:00:00Z\",\r\n  \"isRead\": false,\r\n  \"type\": \"MESSAGE\",\r\n  \"fromUser\": {\r\n    \"id\": \"85195178-f5f3-4a09-9b43-7733f2ef7d46\"\r\n  },\r\n  \"toUser\": {\r\n    \"id\": \"b7801ae5-debf-4243-bb03-1d0b53293bb1\"\r\n  },\r\n  \"post\": {\r\n    \"id\": 11\r\n  }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -932,7 +932,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{acess_token}}",
+									"value": "{{access_token}}",
 									"type": "string"
 								}
 							]
@@ -959,7 +959,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{acess_token}}",
+									"value": "{{access_token}}",
 									"type": "string"
 								}
 							]
@@ -967,13 +967,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/notification/1",
+							"raw": "{{host}}/notification/b7801ae5-debf-4243-bb03-1d0b53293bb1",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"notification",
-								"1"
+								"b7801ae5-debf-4243-bb03-1d0b53293bb1"
 							]
 						}
 					},

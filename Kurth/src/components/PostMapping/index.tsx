@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import MessagePosted from "../MessagePosted";
 import Reaction from "../Reaction";
 import { PostDTO } from "../../models/message";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 type Props = {
   post: PostDTO[];
@@ -13,7 +13,7 @@ type Props = {
 };
 
 export default function PostMapping(
-  { post, messagePage, onDelete, like = false }: Props,
+  { post, messagePage, onDelete }: Props,
   reply: boolean
 ) {
 

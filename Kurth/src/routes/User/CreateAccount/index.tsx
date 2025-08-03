@@ -1,31 +1,30 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./style.scss";
-import axios from "axios";
-import { BASE_URL, currentDate } from "../../../utils/system";
+import { currentDate } from "../../../utils/system";
 import { jwtDecode } from "jwt-decode";
+import * as User from "../../../constants/user";
 
-async function handleSubmit(event: any) {
+async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
   event.preventDefault();
-  const name = document.getElementById("name") as HTMLInputElement;
 
-  const response = axios
-    .post(`${BASE_URL}/register`, {
-      name: name.value,
-      username: username.value,
-      email: email.value,
-      createdAt: currentDate,
-      password: password.value,
-      bio: null,
-      avatar: null,
-      followers: 0,
-      following: 0,
-      posts: 0,
-    })
-    .then((response) => {
-      console.log("User created:", response.data);
-      
-      const decodedToken = jwtDecode(response.data.accessToken);
-      
+  // i'm lazy right now, so i will use document.getElementById to get the values
+  // but in the future, i will use useState to manage the form state
+  const name = document.getElementById("name") as HTMLInputElement;
+  const username = document.getElementById("username") as HTMLInputElement;
+  const email = document.getElementById("email") as HTMLInputElement;
+  const password = document.getElementById("password") as HTMLInputElement;
+
+  await User.registerUser(
+    name.value,
+    username.value,
+    email.value,
+    currentDate,
+    password.value
+  ).then((response) => {
+    console.log("User created:", response.data);
+
+      const decodedToken: { sub: string } = jwtDecode(response.data.accessToken);
+
       localStorage.setItem("user_id", decodedToken.sub);
       localStorage.setItem("username", username.value);
       localStorage.setItem("token", response.data.accessToken);
@@ -49,10 +48,6 @@ export default function Account() {
           <Link to="/">
             <h1>Kurth</h1>
           </Link>
-        </div>
-        <div className="delete">
-          <p>For the future!!!!!!!!!!!!!!</p>
-          <p>Page not working!!!!!!!!!!!!</p>
         </div>
       </div>
       <div className="right-side">
