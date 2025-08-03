@@ -18,7 +18,7 @@ import { useEffect, useState } from "react";
 import { UserDTO } from "../../models/user";
 
 export default function Aside() {
-  const user_id: number = Number(localStorage.getItem("user_id"));
+  const user_id: string = localStorage.getItem("user_id") || "";
   const [userDTO, setUserDTO] = useState<UserDTO>();
 
   const navigate = useNavigate();
@@ -100,7 +100,7 @@ export default function Aside() {
           </li>
 
           <li>
-            {user_id && user_id !== null ? (
+            {user_id && user_id !== "" ? (
               <NavigationLink link="more">
                 <FaEllipsis className="reactIcon" /> More
               </NavigationLink>

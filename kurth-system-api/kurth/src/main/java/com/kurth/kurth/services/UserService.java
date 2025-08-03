@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class UserService {
@@ -35,7 +36,7 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public UserDTO findById(Long id) {
+    public UserDTO findById(UUID id) {
         if(!userRepository.existsById(id)) {
             throw new ResourceNotFoundException("Id user not found");
         }
@@ -58,26 +59,27 @@ public class UserService {
     }
 
 
+//    @Transactional
+//    public UserDTO newUser(UserDTO userDTO) {
+//
+//        try {
+//
+//        User user = new User();
+//
+//        copyDtoToEntity(userDTO, user);
+//
+//
+//        user = userRepository.save(user);
+//        return new UserDTO(user);
+//        } catch (DataIntegrityViolationException e) {
+//            throw new DatabaseException("[Service] Integrity violation. Username or email address already exists");
+//        }
+//
+//    }
+
+
     @Transactional
-    public UserDTO newUser(UserDTO userDTO) {
-
-        try {
-
-        User user = new User();
-
-        copyDtoToEntity(userDTO, user);
-
-        user = userRepository.save(user);
-        return new UserDTO(user);
-        } catch (DataIntegrityViolationException e) {
-            throw new DatabaseException("[Service] Integrity violation. Username or email address already exists");
-        }
-
-    }
-
-
-    @Transactional
-    public UserDTO update(Long id, UserDTO userDTO) {
+    public UserDTO update(UUID id, UserDTO userDTO) {
         if(!userRepository.existsById(id)) {
             throw new ResourceNotFoundException("Id user not found");
         }
@@ -95,7 +97,7 @@ public class UserService {
     }
 
     @Transactional (propagation = Propagation.SUPPORTS)
-    public ResponseEntity<Void> delete(Long id) {
+    public ResponseEntity<Void> delete(UUID id) {
         if(!userRepository.existsById(id)) {
             throw new ResourceNotFoundException("Id user not found");
         }
@@ -124,7 +126,7 @@ public class UserService {
     }
 
     @Transactional
-    public UserDTO updateFollower(Long id) {
+    public UserDTO updateFollower(UUID id) {
         if(!userRepository.existsById(id)) {
             throw new ResourceNotFoundException("Id user not found");
         }
@@ -134,7 +136,7 @@ public class UserService {
     }
 
     @Transactional
-    public UserDTO updateFollowing(Long id) {
+    public UserDTO updateFollowing(UUID id) {
         if(!userRepository.existsById(id)) {
             throw new ResourceNotFoundException("Id user not found");
         }
@@ -144,7 +146,7 @@ public class UserService {
     }
 
     @Transactional
-    public UserDTO updateRemoveFollower(Long id) {
+    public UserDTO updateRemoveFollower(UUID id) {
         if(!userRepository.existsById(id)) {
             throw new ResourceNotFoundException("Id user not found");
         }
@@ -154,7 +156,7 @@ public class UserService {
     }
 
     @Transactional
-    public UserDTO updateRemoveFollowing(Long id) {
+    public UserDTO updateRemoveFollowing(UUID id) {
         if(!userRepository.existsById(id)) {
             throw new ResourceNotFoundException("Id user not found");
         }

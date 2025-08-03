@@ -1,8 +1,10 @@
 package com.kurth.kurth.services;
 
 import com.kurth.kurth.dto.PostDTO;
+import com.kurth.kurth.entities.LikeCount;
 import com.kurth.kurth.entities.Post;
 import com.kurth.kurth.entities.User;
+import com.kurth.kurth.repositories.LikeCountRepository;
 import com.kurth.kurth.repositories.PostRepository;
 import com.kurth.kurth.repositories.UserRepository;
 import com.kurth.kurth.services.exceptions.DatabaseException;
@@ -33,6 +35,8 @@ public class PostService {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private LikeCountRepository likeCountRepository;
 
     @Transactional(readOnly = true)
     public Page<PostDTO> findAllUserMessages(String username, Pageable pageable) {
@@ -47,7 +51,7 @@ public class PostService {
     }
 
     @Transactional(readOnly = true)
-    public Page<PostDTO> findAllUserFollowingMessages(Pageable pageable, Long followerId) {
+    public Page<PostDTO> findAllUserFollowingMessages(Pageable pageable, UUID followerId) {
         Page<Post> messages = postRepository.findAllUserFollowingMessages(pageable, followerId);
         return messages.map(PostDTO::new);
     }
@@ -128,8 +132,14 @@ public class PostService {
             fks.forEach(x -> x.setParent(null));
             postRepository.saveAll(fks);
 
-            //salva fk como null, dps deleta
+            List<LikeCount> likesOnPost = likeCountRepository.findByPostId(id);
+            likesOnPost.forEach(x -> x.setPost(null));
+            likeCountRepository.deleteAll(likesOnPost);
+
+
+            //salva fk como null e deleta os likes, dps deleta o post
             postRepository.deleteById(id);
+
         return ResponseEntity.noContent().build();
         } catch (EntityNotFoundException e) {
             throw new ResourceNotFoundException("Resource not found");

@@ -13,7 +13,7 @@ export function findPageRequest(page: number, name: string, size = 10, sort = "n
   });
 }
 
-export function findById(id: number) {
+export function findById(id: string) {
   return axios.get(`${BASE_URL}/user/${id}`, {
     headers: { Authorization: `Bearer ${TOKEN}` },
   });

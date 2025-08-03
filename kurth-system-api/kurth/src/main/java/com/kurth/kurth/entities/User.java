@@ -15,8 +15,8 @@ import java.util.*;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
     private String name;
 
@@ -50,7 +50,7 @@ public class User {
     public User() {
     }
 
-    public User(Long id, String name, String username, String email, Instant createdAt, String password, String bio, String avatar, Integer followers, Integer following, Integer posts, List<Reply> replies, List<Message> messagesSent, List<Message> messagesReceived) {
+    public User(UUID id, String name, String username, String email, Instant createdAt, String password, String bio, String avatar, Integer followers, Integer following, Integer posts, List<Reply> replies, List<Message> messagesSent, List<Message> messagesReceived) {
         this.id = id;
         this.name = name;
         this.username = username;
@@ -67,7 +67,7 @@ public class User {
         this.messagesReceived = messagesReceived;
     }
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 

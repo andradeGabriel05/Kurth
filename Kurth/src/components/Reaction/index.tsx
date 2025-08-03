@@ -16,7 +16,7 @@ type Props = {
 
 export default function Reaction({ message }: Props) {
   const navigate = useNavigate();
-  const userId = Number(localStorage.getItem("user_id"));
+  const userId: string = localStorage.getItem("user_id") || "";
   const [likeCount, setLikeCount] = useState<number>(message.likeCount || 0);
   const messageId = Number(message.id);
   const [isLiked, setIsLiked] = useState<boolean>(false);

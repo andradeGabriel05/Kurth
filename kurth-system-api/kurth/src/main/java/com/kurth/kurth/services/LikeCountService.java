@@ -55,7 +55,7 @@ public class LikeCountService {
     }
 
     @Transactional(readOnly = true)
-    public Optional<LikeCountDTO> findByUserIdAndMessageId(Long userId, Long postId) {
+    public Optional<LikeCountDTO> findByUserIdAndMessageId(UUID userId, Long postId) {
         Optional<LikeCount> likeCount = likeCountRepository.findByUserIdAndPostId(userId, postId);
         return likeCount.map(LikeCountDTO::new);
     }
@@ -63,7 +63,7 @@ public class LikeCountService {
     @Transactional
     public LikeCountDTO insertLike(LikeCountDTO likeCountDTO) {
         try {
-            Long userId = likeCountDTO.getUser().getId();
+            UUID userId = likeCountDTO.getUser().getId();
             Long postId = likeCountDTO.getPost().getId();
 
             Optional<LikeCount> existingLike = likeCountRepository.findByUserIdAndPostId(userId, postId);

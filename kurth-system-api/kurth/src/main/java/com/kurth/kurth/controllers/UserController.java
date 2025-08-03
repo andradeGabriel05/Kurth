@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.UUID;
 
 @RestController
 @RequestMapping(value = "/user")
@@ -22,7 +23,7 @@ public class UserController {
 
 
     @GetMapping(value = "/{id}")
-    public UserDTO findById(@PathVariable Long id) {
+    public UserDTO findById(@PathVariable UUID id) {
         return userService.findById(id);
     }
 
@@ -39,21 +40,21 @@ public class UserController {
         return ResponseEntity.ok(userDTO);
     }
 
-    @PostMapping
-    public ResponseEntity<UserDTO> insert(@RequestBody UserDTO userDTO) {
-        userDTO = userService.newUser(userDTO);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(userDTO.getId()).toUri();
-        return ResponseEntity.created(uri).body(userDTO);
-    }
+//    @PostMapping
+//    public ResponseEntity<UserDTO> insert(@RequestBody UserDTO userDTO) {
+//        userDTO = userService.newUser(userDTO);
+//        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(userDTO.getId()).toUri();
+//        return ResponseEntity.created(uri).body(userDTO);
+//    }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<UserDTO> update(@PathVariable Long id,@RequestBody UserDTO userDTO) {
+    public ResponseEntity<UserDTO> update(@PathVariable UUID id,@RequestBody UserDTO userDTO) {
         userDTO = userService.update(id, userDTO);
         return ResponseEntity.ok(userDTO);
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable UUID id) {
         userService.delete(id);
         return ResponseEntity.noContent().build();
     }
@@ -74,25 +75,25 @@ public class UserController {
 //    }
 
     @PutMapping(value = "{id}/update-follower")
-    public ResponseEntity<UserDTO> updateFollower(@PathVariable Long id) {
+    public ResponseEntity<UserDTO> updateFollower(@PathVariable UUID id) {
         UserDTO userDTO = userService.updateFollower(id);
         return ResponseEntity.ok(userDTO);
     }
 
     @PutMapping(value = "{id}/update-following")
-    public ResponseEntity<UserDTO> updateFollowing(@PathVariable Long id) {
+    public ResponseEntity<UserDTO> updateFollowing(@PathVariable UUID id) {
         UserDTO userDTO = userService.updateFollowing(id);
         return ResponseEntity.ok(userDTO);
     }
 
     @PutMapping(value = "{id}/update-remove-follower")
-    public ResponseEntity<UserDTO> updateRemoveFollower(@PathVariable Long id) {
+    public ResponseEntity<UserDTO> updateRemoveFollower(@PathVariable UUID id) {
         UserDTO userDTO = userService.updateRemoveFollower(id);
         return ResponseEntity.ok(userDTO);
     }
 
     @PutMapping(value = "{id}/update-remove-following")
-    public ResponseEntity<UserDTO> updateRemoveFollowing(@PathVariable Long id) {
+    public ResponseEntity<UserDTO> updateRemoveFollowing(@PathVariable UUID id) {
         UserDTO userDTO = userService.updateRemoveFollowing(id);
         return ResponseEntity.ok(userDTO);
     }

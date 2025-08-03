@@ -12,7 +12,7 @@ type Props = {
 };
 
 export default function MessagePost({ message }: Props) {
-  const [messageForm, setMessageForm] = useState();
+  const [messageForm, setMessageForm] = useState<string>("");
   const [handleImageSubmit, setHandleImageSubmit] = useState("");
 
   const params = useParams();
@@ -36,11 +36,13 @@ export default function MessagePost({ message }: Props) {
       .post(`${BASE_URL}/message`, {
         message: messageForm,
         postedAt: currentDate,
-        image: `http://localhost:8080/${imageUrl}`,
+        image: imageUrl ? `http://localhost:8080/${imageUrl}` : null,
         likeCount: 0,
         user: {
           id: user_id,
         },
+      }, {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
       })
       .then((response) => {
         console.log("Message posted:", response.data);
@@ -69,6 +71,8 @@ export default function MessagePost({ message }: Props) {
         user: {
           id: user_id,
         },
+      }, {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
       })
       .then((response) => {
         console.log("Reply posted:", response);
@@ -80,19 +84,19 @@ export default function MessagePost({ message }: Props) {
       });
   }
 
-  function handleInput(event: React.ChangeEvent<HTMLTextAreaElement>) {
-    const value = event.target.value;
-    setMessageForm(value);
-    console.log("Message posted:", value);
-  }
-
   async function saveImageLocal(file: File) {
     const formData = new FormData();
     formData.append("image", file);
 
     const response = await axios.post(
       `${BASE_URL}/message/upload-image`,
-      formData
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
     );
     console.log("Image uploaded:", response.data);
     return response.data;
@@ -152,7 +156,7 @@ export default function MessagePost({ message }: Props) {
                 name="messageText"
                 id="messageText"
                 placeholder={`${message}`}
-                onChange={handleInput}
+                onChange={(e) => setMessageForm(e.target.value)}
                 value={messageForm}
               ></textarea>
               <div className="bottom-submit-message">

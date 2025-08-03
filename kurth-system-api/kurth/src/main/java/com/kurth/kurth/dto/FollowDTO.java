@@ -3,21 +3,22 @@ package com.kurth.kurth.dto;
 import com.kurth.kurth.entities.Follow;
 
 import java.util.Optional;
+import java.util.UUID;
 
 public class FollowDTO {
 
     private Long id;
 
     //  quem será seguido
-    private Long userFollowingId;
+    private UUID userFollowingId;
 
     //quem irá seguir
-    private Long userFollowerId;
+    private UUID userFollowerId;
 
     public FollowDTO() {
     }
 
-    public FollowDTO(Long id, Long userFollowingId, Long userFollowerId) {
+    public FollowDTO(Long id, UUID userFollowingId, UUID userFollowerId) {
         this.id = id;
         this.userFollowingId = userFollowingId;
         this.userFollowerId = userFollowerId;
@@ -33,23 +34,19 @@ public class FollowDTO {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getUserFollowingId() {
+    public UUID getUserFollowingId() {
         return userFollowingId;
     }
 
-    public void setUserFollowingId(Long userFollowingId) {
+    public void setUserFollowingId(UUID userFollowingId) {
         this.userFollowingId = userFollowingId;
     }
 
-    public Long getUserFollowerId() {
+    public UUID getUserFollowerId() {
         return userFollowerId;
     }
 
-    public void setUserFollowerId(Long userFollowerId) {
+    public void setUserFollowerId(UUID userFollowerId) {
         this.userFollowerId = userFollowerId;
     }
 }

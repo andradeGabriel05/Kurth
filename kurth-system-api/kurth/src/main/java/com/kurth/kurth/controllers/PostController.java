@@ -14,6 +14,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.io.IOException;
 import java.net.URI;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping(value = "/message")
@@ -46,7 +47,7 @@ public class PostController {
     }
 
     @GetMapping(value ="/user-following-messages/{followerId}")
-    public Page<PostDTO> findAllUserFollowingMessages(Pageable pageable, @PathVariable Long followerId) {
+    public Page<PostDTO> findAllUserFollowingMessages(Pageable pageable, @PathVariable UUID followerId) {
         return postService.findAllUserFollowingMessages(pageable, followerId);
     }
 

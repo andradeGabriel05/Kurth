@@ -22,7 +22,7 @@ export default function App() {
 
   const params = useParams();
 
-  const user_id = localStorage.getItem("user_id");
+  const user_id: string = localStorage.getItem("user_id") || "";
   const username = params.username;
 
   const [userDTO, setUserDTO] = useState<UserDTO>();
@@ -31,7 +31,7 @@ export default function App() {
   // const navigate = useNavigate();
 
   useEffect(() => {
-    User.findById(Number(user_id)).then((response) => {
+    User.findById(user_id).then((response) => {
       setUserDTO(response.data);
     });
   }, [username, user_id]);

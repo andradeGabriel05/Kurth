@@ -5,10 +5,11 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 import java.time.Instant;
+import java.util.UUID;
 
 public class UserDTO {
 
-    private Long id;
+    private UUID id;
 
     @NotBlank
     @Size(min = 3, max = 15)
@@ -30,7 +31,7 @@ public class UserDTO {
     private Integer following;
     private Integer posts;
 
-    public UserDTO(Long id, String name, String username, String email, Instant createdAt, String password, String bio, String avatar, Integer followers, Integer following, Integer posts) {
+    public UserDTO(UUID id, String name, String username, String email, Instant createdAt, String password, String bio, String avatar, Integer followers, Integer following, Integer posts) {
         this.id = id;
         this.name = name;
         this.username = username;
@@ -58,7 +59,8 @@ public class UserDTO {
         this.posts = user.getPosts();
     }
 
-    public Long getId() {
+
+    public UUID getId() {
         return id;
     }
 

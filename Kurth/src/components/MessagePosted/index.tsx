@@ -21,7 +21,7 @@ export default function MessagePosted({
   onDelete,
 }: Props) {
   const [showImage, setShowImage] = useState<boolean>(false);
-  const userId: number = Number(localStorage.getItem("user_id"));
+  const userId: string = localStorage.getItem("user_id") || "";
 
   useEffect(() => {
     setShowImage(
@@ -163,7 +163,7 @@ export default function MessagePosted({
                           </span>
                         </>
                       ) : (
-                        <span>Undefined</span>
+                        <span>Under Review</span>
                       )}
                     </div>
                   )}

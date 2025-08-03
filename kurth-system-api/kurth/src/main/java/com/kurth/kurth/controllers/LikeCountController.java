@@ -12,6 +12,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @RequestMapping(value = "/likecount")
@@ -37,7 +38,7 @@ public class LikeCountController {
     }
 
     @GetMapping("/user/{userId}/message/{postId}")
-    public Optional<LikeCountDTO> findByUserIdAndMessageId(@PathVariable Long userId, @PathVariable Long postId) {
+    public Optional<LikeCountDTO> findByUserIdAndMessageId(@PathVariable UUID userId, @PathVariable Long postId) {
         return likeCountService.findByUserIdAndMessageId(userId, postId);
     }
 

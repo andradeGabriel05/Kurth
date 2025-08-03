@@ -1,5 +1,6 @@
 package com.kurth.kurth.controllers;
 
+import com.kurth.kurth.dto.UserDTO;
 import com.kurth.kurth.dto.login.LoginRequest;
 import com.kurth.kurth.dto.login.LoginResponse;
 import com.kurth.kurth.entities.User;
@@ -7,6 +8,7 @@ import com.kurth.kurth.repositories.UserRepository;
 import com.kurth.kurth.services.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,6 +24,11 @@ public class TokenController {
     @Autowired
     private TokenService tokenService;
 
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    public TokenController(BCryptPasswordEncoder bCryptPasswordEncoder) {
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    }
 
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest) {
@@ -30,4 +37,16 @@ public class TokenController {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(loginResponse).toUri();
         return ResponseEntity.created(uri).body(loginResponse);
     }
+
+    @PostMapping("/register")
+    public ResponseEntity<LoginResponse> register(@RequestBody UserDTO userDTO) {
+        LoginResponse register = tokenService.register(userDTO);
+
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(register.accessToken()).toUri();
+        return ResponseEntity.created(uri).body(register);
+
+    }
+
+
+
 }

@@ -2,13 +2,14 @@ import { Link, useNavigate } from "react-router-dom";
 import "./style.scss";
 import axios from "axios";
 import { BASE_URL, currentDate } from "../../../utils/system";
+import { jwtDecode } from "jwt-decode";
 
 async function handleSubmit(event: any) {
   event.preventDefault();
   const name = document.getElementById("name") as HTMLInputElement;
 
   const response = axios
-    .post(`${BASE_URL}/user`, {
+    .post(`${BASE_URL}/register`, {
       name: name.value,
       username: username.value,
       email: email.value,
@@ -19,17 +20,16 @@ async function handleSubmit(event: any) {
       followers: 0,
       following: 0,
       posts: 0,
-    }, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
     })
     .then((response) => {
       console.log("User created:", response.data);
+      
+      const decodedToken = jwtDecode(response.data.accessToken);
+      
+      localStorage.setItem("user_id", decodedToken.sub);
+      localStorage.setItem("username", username.value);
+      localStorage.setItem("token", response.data.accessToken);
       window.location.href = "/";
-
-      localStorage.setItem("user_id", JSON.stringify(response.data.id));
-      localStorage.setItem("username", JSON.stringify(username.value));
     })
     .catch((error) => {
       console.error("Error:", error);

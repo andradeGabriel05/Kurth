@@ -4,6 +4,8 @@ import com.kurth.kurth.dto.FollowDTO;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
+import java.util.UUID;
+
 @Entity
 @Table(name = "tb_follow_user")
 public class Follow {
@@ -14,16 +16,16 @@ public class Follow {
 
     //  quem será seguido
     @NotNull
-    private Long userFollowingId;
+    private UUID userFollowingId;
 
     //quem irá seguir
     @NotNull
-    private Long userFollowerId;
+    private UUID userFollowerId;
 
     public Follow() {
     }
 
-    public Follow(Long id, Long userFollowingId, Long userFollowerId) {
+    public Follow(Long id, UUID userFollowingId, UUID userFollowerId) {
         this.id = id;
         this.userFollowingId = userFollowingId;
         this.userFollowerId = userFollowerId;
@@ -37,19 +39,19 @@ public class Follow {
         this.id = id;
     }
 
-    public Long getUserFollowingId() {
+    public UUID getUserFollowingId() {
         return userFollowingId;
     }
 
-    public void setUserFollowingId(Long userFollowingId) {
+    public void setUserFollowingId(UUID userFollowingId) {
         this.userFollowingId = userFollowingId;
     }
 
-    public Long getUserFollowerId() {
+    public UUID getUserFollowerId() {
         return userFollowerId;
     }
 
-    public void setUserFollowerId(Long userFollowerId) {
+    public void setUserFollowerId(UUID userFollowerId) {
         this.userFollowerId = userFollowerId;
     }
 

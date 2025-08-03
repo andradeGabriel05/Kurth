@@ -12,16 +12,17 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Repository
 public interface FollowRepository extends JpaRepository<Follow, Long> {
-    Optional<Follow> findByUserFollowerIdAndUserFollowingId(Long userFollowerId, Long userFollowingId);
+    Optional<Follow> findByUserFollowerIdAndUserFollowingId(UUID userFollowerId, UUID userFollowingId);
 
     @Query("SELECT obj FROM Follow obj WHERE obj.userFollowerId = :userFollowerId AND obj.userFollowingId = :userFollowingId")
-    Optional<Follow> userAlreadyFollowing(Long userFollowerId, Long userFollowingId);
+    Optional<Follow> userAlreadyFollowing(UUID userFollowerId, UUID userFollowingId);
 
     @Query("SELECT obj FROM Follow obj WHERE obj.userFollowingId = :id")
-    Page<Follow> followers(Pageable pageable, Long id);
+    Page<Follow> followers(Pageable pageable, UUID id);
 
 
 }

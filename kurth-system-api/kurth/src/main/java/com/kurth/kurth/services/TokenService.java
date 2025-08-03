@@ -1,5 +1,6 @@
 package com.kurth.kurth.services;
 
+import com.kurth.kurth.dto.UserDTO;
 import com.kurth.kurth.dto.login.LoginRequest;
 import com.kurth.kurth.dto.login.LoginResponse;
 import com.kurth.kurth.entities.User;
@@ -27,6 +28,8 @@ public class TokenService {
 
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    private Long refreshToken = 3600L;
+
     public TokenService(JwtEncoder jwtEncoder, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.jwtEncoder = jwtEncoder;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
@@ -39,10 +42,28 @@ public class TokenService {
             throw new BadCredentialsException("Invalid username or password");
         }
 
-        Instant now = Instant.now();
-        Long expiresIn = 300L;
+        String accessToken = jwtGenerate(user);
 
-        Instant issuedAt = now.plusSeconds(expiresIn);
+        return new LoginResponse(accessToken, refreshToken);
+    }
+
+
+    public LoginResponse register(UserDTO userDTO) {
+        User user = new User();
+        copyDtoToEntity(userDTO, user);
+
+        userRepository.save(user);
+        String accessToken = jwtGenerate(Optional.of(user));
+
+        return new LoginResponse(accessToken, refreshToken);
+    }
+
+
+    protected String jwtGenerate(Optional<User> user) {
+
+        Instant now = Instant.now();
+
+        Instant issuedAt = now.plusSeconds(refreshToken);
 
         JwtClaimsSet claimsSet = JwtClaimsSet.builder()
                 .issuer("Kurth System")
@@ -52,8 +73,22 @@ public class TokenService {
                 .build();
 
         //obter token jwt
-        String jwtValue = jwtEncoder.encode(JwtEncoderParameters.from(claimsSet)).getTokenValue();
+        return jwtEncoder.encode(JwtEncoderParameters.from(claimsSet)).getTokenValue();
+    }
 
-        return new LoginResponse(jwtValue, expiresIn);
+
+    private void copyDtoToEntity(UserDTO userDTO, User user) {
+        user.setName(userDTO.getName());
+        user.setUsername(userDTO.getUsername());
+
+        user.setEmail(userDTO.getEmail());
+        user.setPassword(bCryptPasswordEncoder.encode(userDTO.getPassword()));
+
+        user.setCreatedAt(userDTO.getCreatedAt());
+        user.setFollowers(userDTO.getFollowers());
+        user.setFollowing(userDTO.getFollowing());
+        user.setPosts(userDTO.getPosts());
+        user.setAvatar(userDTO.getAvatar());
+        user.setBio(userDTO.getBio());
     }
 }

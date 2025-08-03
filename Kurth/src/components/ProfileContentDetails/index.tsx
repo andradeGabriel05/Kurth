@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { UserDTO } from "../../models/user";
-import { BASE_URL } from "../../utils/system";
+import { BASE_URL, TOKEN } from "../../utils/system";
 import "./style.scss";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
@@ -14,12 +14,12 @@ type Props = {
 
 // this freaked me out because
 export default function ProfileContentDetails({ user }: Props) {
-  const userLoggedIn = parseInt(localStorage.getItem("user_id") || "0");
+  const userLoggedIn = localStorage.getItem("user_id") || "";
   const userLoggedInUsername = localStorage.getItem("username") || "";
 
   const navigate = useNavigate();
   const params = useParams();
-  const [userId, setUserId] = useState<number>(user.id);
+  const [userId, setUserId] = useState<string>(user.id);
 
   const [followers, setFollowers] = useState<number>(user.followers);
   useEffect(() => {
@@ -42,7 +42,9 @@ export default function ProfileContentDetails({ user }: Props) {
     console.log(params.username);
     if (userId !== undefined && userLoggedIn !== userId) {
       axios
-        .get(`${BASE_URL}/follow/checkfollow/${userLoggedIn}/${userId}`)
+        .get(`${BASE_URL}/follow/checkfollow/${userLoggedIn}/${userId}`, {
+          headers: { Authorization: `Bearer ${TOKEN}` },
+        })
         .then((response) => {
           const userFollowing = response.data.userFollowingId;
           const userFollower = response.data.userFollowerId;
@@ -58,7 +60,6 @@ export default function ProfileContentDetails({ user }: Props) {
     }
   }, [userLoggedIn, userId]);
 
-
   // this is for follow and unfollow users
   // if you double click, this will not work
   // jesus...
@@ -73,12 +74,30 @@ export default function ProfileContentDetails({ user }: Props) {
         // seguindo usuário -> following user
 
         console.log("62 ->", userLoggedIn, userId);
-        await axios.post(`${BASE_URL}/follow`, {
-          userFollowerId: userLoggedIn,
-          userFollowingId: userId,
-        });
-        await axios.put(`${BASE_URL}/user/${userId}/update-follower`);
-        await axios.put(`${BASE_URL}/user/${userLoggedIn}/update-following`);
+        await axios.post(
+          `${BASE_URL}/follow`,
+          {
+            userFollowerId: userLoggedIn,
+            userFollowingId: userId,
+          },
+          {
+            headers: { Authorization: `Bearer ${TOKEN}` },
+          }
+        );
+        await axios.put(
+          `${BASE_URL}/user/${userId}/update-follower`,
+          {},
+          {
+            headers: { Authorization: `Bearer ${TOKEN}` },
+          }
+        );
+        await axios.put(
+          `${BASE_URL}/user/${userLoggedIn}/update-following`,
+          {},
+          {
+            headers: { Authorization: `Bearer ${TOKEN}` },
+          }
+        );
 
         // atualizar o número de seguidores -> updtate numbers of followers
         setFollowers((prevFollowers) => prevFollowers + 1);
@@ -86,25 +105,41 @@ export default function ProfileContentDetails({ user }: Props) {
         console.log("Followed");
       } else {
         const response = await axios.get(
-          `${BASE_URL}/follow/checkfollow/${userLoggedIn}/${userId}`
+          `${BASE_URL}/follow/checkfollow/${userLoggedIn}/${userId}`,
+          {
+            headers: { Authorization: `Bearer ${TOKEN}` },
+          }
         );
 
         // Deixar de seguir usuário -> unfollow user
-        await axios.put(`${BASE_URL}/user/${userId}/update-remove-follower`);
         await axios.put(
-          `${BASE_URL}/user/${userLoggedIn}/update-remove-following`
+          `${BASE_URL}/user/${userId}/update-remove-follower`,
+          {},
+          {
+            headers: { Authorization: `Bearer ${TOKEN}` },
+          }
+        );
+
+        await axios.put(
+          `${BASE_URL}/user/${userLoggedIn}/update-remove-following`,
+          {},
+          {
+            headers: { Authorization: `Bearer ${TOKEN}` },
+          }
         );
 
         if (response.data.id) {
           await axios.delete(
-            `${BASE_URL}/follow/remove-follow/${response.data.id}`
+            `${BASE_URL}/follow/remove-follow/${response.data.id}`,
+            {
+              headers: { Authorization: `Bearer ${TOKEN}` },
+            }
           );
+          setFollowers((prevFollowers) => prevFollowers - 1);
+          setIsFollowing(false); // atualizar o texto do botao para 'seguir' -> update button text to 'follow'
+
+          console.log("Unfollowed");
         }
-
-        setFollowers((prevFollowers) => prevFollowers - 1);
-        setIsFollowing(false); // atualizar o texto do botao para 'seguir' -> update button text to 'follow'
-
-        console.log("Unfollowed");
       }
     } catch (error) {
       window.alert("Error in follow/unfollow request");

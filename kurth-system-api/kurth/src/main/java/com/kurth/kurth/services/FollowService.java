@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class FollowService {
@@ -28,8 +29,8 @@ public class FollowService {
         try {
             Follow follow = new Follow();
 
-            Long idFollower = followDTO.getUserFollowerId();
-            Long idFollowing = followDTO.getUserFollowingId();
+            UUID idFollower = followDTO.getUserFollowerId();
+            UUID idFollowing = followDTO.getUserFollowingId();
 
             Optional<Follow> alreadyFollow = followRepository.findByUserFollowerIdAndUserFollowingId(idFollower, idFollowing);
 
@@ -66,7 +67,7 @@ public class FollowService {
     }
 
     @Transactional(readOnly = true)
-    public FollowDTO userAlreadyFollowing(Long userFollowerId, Long userFollowingId) {
+    public FollowDTO userAlreadyFollowing(UUID userFollowerId, UUID userFollowingId) {
         Optional<Follow> followOptional = followRepository.userAlreadyFollowing(userFollowerId, userFollowingId);
         if (followOptional.isPresent()) {
             Follow follow = followOptional.get();
@@ -76,7 +77,7 @@ public class FollowService {
     }
 
     @Transactional(readOnly = true)
-    public Page<FollowDTO> followers(Pageable pageable, Long id) {
+    public Page<FollowDTO> followers(Pageable pageable, UUID id) {
 
         Page<Follow> followPageable = followRepository.followers(pageable, id);
         return followPageable.map(FollowDTO::new);

@@ -18,6 +18,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @RequestMapping(value = "/follow")
@@ -40,7 +41,7 @@ public class FollowController {
     }
 
     @GetMapping(value = "/checkfollow/{followerId}/{followingId}")
-    public ResponseEntity<FollowDTO> userAlreadyFollowing(@PathVariable Long followerId, @PathVariable Long followingId) {
+    public ResponseEntity<FollowDTO> userAlreadyFollowing(@PathVariable UUID followerId, @PathVariable UUID followingId) {
         FollowDTO followDTO = followService.userAlreadyFollowing(followerId, followingId);
 
         if (followDTO == null) {
@@ -51,7 +52,7 @@ public class FollowController {
     }
 
     @GetMapping(value = "/user-followers/{id}")
-    public Page<FollowDTO> followers(Pageable pageable, @PathVariable Long id) {
+    public Page<FollowDTO> followers(Pageable pageable, @PathVariable UUID id) {
         return followService.followers(pageable, id);
     }
 

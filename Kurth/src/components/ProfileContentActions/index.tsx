@@ -65,24 +65,45 @@ export default function ProfileContentActions(userLoggedInId) {
       `${BASE_URL}/follow/checkfollow/${userLoggedInId.userLoggedInId}/${userLoggedInId.userId}`
     );
     console.log(response.data.id);
-    await axios.put(`${BASE_URL}/user/${userLoggedInId.userId}/update-remove-follower`);
-    await axios.put(`${BASE_URL}/user/${userLoggedInId.userLoggedInId}/update-remove-following`);
+    await axios.put(
+      `${BASE_URL}/user/${userLoggedInId.userId}/update-remove-follower`
+    ),
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      };
+    await axios.put(
+      `${BASE_URL}/user/${userLoggedInId.userLoggedInId}/update-remove-following`
+    ),
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      };
 
     if (response.data.id) {
       await axios.delete(
-        `${BASE_URL}/follow/remove-follow/${response.data.id}`
+        `${BASE_URL}/follow/remove-follow/${response.data.id}`,
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        }
       );
     }
 
     window.location.reload();
-
   }
 
   const [isFollowing, setIsFollowing] = useState(false);
   useEffect(() => {
     axios
       .get(
-        `${BASE_URL}/follow/checkfollow/${userLoggedInId.userLoggedInId}/${userLoggedInId.userId}`
+        `${BASE_URL}/follow/checkfollow/${userLoggedInId.userLoggedInId}/${userLoggedInId.userId}`,
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        }
       )
       .then((response) => {
         console.log(response.data);
