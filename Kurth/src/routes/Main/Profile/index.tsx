@@ -38,7 +38,6 @@ export default function Profile() {
 
   return (
     <div className="profile-container">
-      {user && <ProfileHeader user={user} />}
       <div className="profile-content">
         {user && <ProfileContentDetails user={user} />}
       </div>

@@ -97,8 +97,105 @@ export default function ProfileContentDetails({ user }: Props) {
       window.location.reload();
     }
   }
+
+  const [editProfile, setEditProfile] = useState(false);
+  const [userData, setUserData] = useState({
+    username: user.username,
+    bio: user.bio,
+    avatar: user.avatar,
+  });
+
+  function handleEditProfile() {
+    setEditProfile(true);
+  }
+
+  async function handleSubmitUpdate(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    // Handle the form submission logic here
+
+    console.log("Form submitted with data:", userData);
+
+    setUserData({
+      avatar: event.target.avatar.value,
+      username: event.target.username.value,
+      bio: event.target.bio.value,
+    });
+
+    await UserService.updateUser(
+      userId,
+      userData.username,
+      userData.bio,
+      userData.avatar
+    );
+
+    if (userData.username !== user.username) {
+      navigate(`/profile/${userData.username}`);
+    }
+    setEditProfile(false);
+    user.username = userData.username;
+    user.bio = userData.bio;
+    console.log("Profile updated successfully");
+  }
+
   return (
     <>
+      {editProfile && (
+        <div className="edit-profile-modal">
+          <div className="edit-profile-content">
+            <div className="header">
+              <h2>Edit Profile</h2>
+              <button className="close" onClick={() => setEditProfile(false)}>
+                X
+              </button>
+            </div>
+            <div className="line-division"></div>
+            {/* Add form or content for editing profile here */}
+            <div className="form-edit-profile">
+              <form onSubmit={handleSubmitUpdate}>
+                <label htmlFor="name">Name</label>
+                <input
+                  type="text"
+                  id="username"
+                  placeholder="username"
+                  value={userData.username}
+                  
+                />
+                <label htmlFor="bio">Bio</label>
+                <textarea
+                  name="bio"
+                  id="bio"
+                  placeholder="Bio"
+                  value={userData.bio}
+                ></textarea>
+                <button type="submit">Save</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      )}
+      <div className="profile-header">
+        <div className="profile-image">
+          <img
+            src={
+              user.avatar === null
+                ? "https://cdn-icons-png.freepik.com/512/8742/8742495.png"
+                : user.avatar
+            }
+            alt={user.username}
+          />
+        </div>
+        <div className="profile-details">
+          <span className="profile-details-name">{user.name}</span>
+          <span className="profile-details-username">
+            @
+            {userData.username && !editProfile
+              ? userData.username
+              : user.username}
+          </span>
+          <span>{userData.bio && !editProfile ? userData.bio : user.bio}</span>
+        </div>
+      </div>
       <div className="profile-content-details">
         <span>
           {followers}
@@ -112,7 +209,7 @@ export default function ProfileContentDetails({ user }: Props) {
         <div className="profile-content-actions">
           {/* if in your profile */}
           {userId && userId == userLoggedIn ? (
-            <button>Edit profile</button>
+            <button onClick={handleEditProfile}>Edit profile</button>
           ) : (
             // follow and unfollow text
             <form method="post" onSubmit={handleFollow}>

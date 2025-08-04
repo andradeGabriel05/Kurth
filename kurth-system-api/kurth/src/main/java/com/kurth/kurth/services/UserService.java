@@ -86,7 +86,28 @@ public class UserService {
         try {
             User user = userRepository.findById(id).get();
 
-            copyDtoToEntity(userDTO, user);
+            if(userDTO.getPassword() != null) {
+                user.setPassword(bCryptPasswordEncoder.encode(userDTO.getPassword()));
+            }
+
+            if(userDTO.getName() != null) {
+                user.setName(userDTO.getName());
+            }
+            if(userDTO.getUsername() != null) {
+                user.setUsername(userDTO.getUsername());
+            }
+
+            if(userDTO.getEmail() != null) {
+                user.setEmail(userDTO.getEmail());
+            }
+            
+            if(userDTO.getAvatar() != null) {
+                user.setAvatar(userDTO.getAvatar());
+            }
+
+            if(userDTO.getBio() != null) {
+                user.setBio(userDTO.getBio());
+            }
 
             user = userRepository.save(user);
             return new UserDTO(user);

@@ -36,8 +36,8 @@ export function registerUser(
   email: string,
   createdAt: string,
   password: string,
-  bio: string | null = null,
-  avatar: string | null = null,
+  bio: string | null = "",
+  avatar: string | null = "https://cdn-icons-png.freepik.com/512/8742/8742495.png",
   followers = 0,
   following = 0,
   posts = 0
@@ -59,4 +59,20 @@ export function registerUser(
 
 export function loginUser(username: string, password: string) {
   return axios.post(`${BASE_URL}/login`, { username, password });
+}
+
+export function updateUser(
+  id: string,
+  username: string,
+  bio: string | null = null,
+  avatar: string | null = null
+) {
+  const userData = {
+    username,
+    bio,
+    avatar,
+  };
+  return axios.put(`${BASE_URL}/user/${id}`, userData, {
+    headers: { Authorization: `Bearer ${TOKEN}` },
+  });
 }

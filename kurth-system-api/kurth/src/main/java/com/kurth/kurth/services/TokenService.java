@@ -57,7 +57,7 @@ public class TokenService {
 
     protected String jwtGenerate(Optional<User> user) {
         Instant now = Instant.now();
-        Long expiresIn = 3600L;
+        Long expiresIn = 7200L;
         Instant issuedAt = now.plusSeconds(expiresIn);
 
         JwtClaimsSet claimsSet = JwtClaimsSet.builder()
