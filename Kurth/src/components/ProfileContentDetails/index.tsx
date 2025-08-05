@@ -116,11 +116,11 @@ export default function ProfileContentDetails({ user }: Props) {
 
     console.log("Form submitted with data:", userData);
 
-    setUserData({
-      avatar: event.target.avatar.value,
-      username: event.target.username.value,
-      bio: event.target.bio.value,
-    });
+    // setUserData({
+    //   avatar: event.target.avatar.value || userData.avatar,
+    //   username: event.target.username.value,
+    //   bio: event.target.bio.value,
+    // });
 
     await UserService.updateUser(
       userId,
@@ -137,6 +137,16 @@ export default function ProfileContentDetails({ user }: Props) {
     user.bio = userData.bio;
     console.log("Profile updated successfully");
   }
+
+  useEffect(() => {
+    if (!editProfile) {
+      setUserData({
+        username: user.username,
+        bio: user.bio,
+        avatar: user.avatar,
+      });
+    }
+  }, [editProfile]);
 
   return (
     <>
@@ -159,7 +169,9 @@ export default function ProfileContentDetails({ user }: Props) {
                   id="username"
                   placeholder="username"
                   value={userData.username}
-                  
+                  onChange={(e) =>
+                    setUserData({ ...userData, username: e.target.value })
+                  }
                 />
                 <label htmlFor="bio">Bio</label>
                 <textarea
@@ -167,6 +179,9 @@ export default function ProfileContentDetails({ user }: Props) {
                   id="bio"
                   placeholder="Bio"
                   value={userData.bio}
+                  onChange={(e) =>
+                    setUserData({ ...userData, bio: e.target.value })
+                  }
                 ></textarea>
                 <button type="submit">Save</button>
               </form>

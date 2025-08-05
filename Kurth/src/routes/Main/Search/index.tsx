@@ -12,16 +12,15 @@ export default function Search() {
   const [searchUser, setSearchUser] = useState("");
 
   const userLoggedInId: string = localStorage.getItem("user_id") || "";
+  const username: string = localStorage.getItem("username") || "";
 
   useEffect(() => {
     User.findPageRequest(0, searchUser).then((response) => {
-      console.log(response.data.content);
       setUser(response.data.content);
     });
   }, [searchUser]);
 
   function handleSearch(searchText: string) {
-    console.log(searchText);
     return setSearchUser(searchText);
   }
 
@@ -39,32 +38,47 @@ export default function Search() {
   //     console.error('There was a problem with the fetch operation:', error);
   //   });
 
+  console.log(user[0]?.username);
+
   return (
     <div className="container-search">
       <SearchBar onSearch={handleSearch} />
 
       <div className="wrapper-search">
         {user &&
-          user.map((user) => (
-            <div key={user.id} className="user-icon">
-              <Link to={`/profile/${user.username}`}>
-                <img src={user.avatar === null ? "https://cdn-icons-png.freepik.com/512/8742/8742495.png" : user.avatar} alt={user.username} className="icon" />
-                <div className="user-section">
-                  <div className="user-section-username">
-                    <p>{user.name}</p>
-                  </div>
+          user
+            .filter((user) => user.username !== username)
+            .map((user) => (
+              <div key={user.id} className="user-icon">
+                <Link to={`/profile/${user.username}`}>
+                  <img
+                    src={
+                      user.avatar === null
+                        ? "https://cdn-icons-png.freepik.com/512/8742/8742495.png"
+                        : user.avatar
+                    }
+                    alt={user.username}
+                    className="icon"
+                  />
+                  <div className="user-section">
+                    <div className="user-section-username">
+                      <p>{user.name}</p>
+                    </div>
 
-                  <div className="user-section-username">
-                    <p>@{user.username}</p>
+                    <div className="user-section-username">
+                      <p>@{user.username}</p>
+                    </div>
                   </div>
+                </Link>
+
+                <div className="follow-button">
+                  <ProfileContentActions
+                    userLoggedInId={userLoggedInId}
+                    userId={user.id}
+                  />
                 </div>
-              </Link>
-
-              <div className="follow-button">
-                <ProfileContentActions userLoggedInId={userLoggedInId} userId={user.id} />
               </div>
-            </div>
-          ))}
+            ))}
       </div>
     </div>
   );
