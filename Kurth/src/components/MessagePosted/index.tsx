@@ -110,14 +110,14 @@ export default function MessagePosted({
           <div className="user__image">
             <Link to={`/profile/${post?.user.username}`}>
               <img
-                src={
-                  post?.user.avatar === null
-                    ? "https://cdn-icons-png.freepik.com/512/8742/8742495.png"
-                    : post?.user.avatar
-                }
-                alt={post?.user.name}
-                className="icon"
-              />
+                    src={
+                      post?.user.avatar.includes("https")
+                        ? post?.user.avatar
+                        : `http://localhost:8080/${post.user.avatar}`
+                    }
+                    alt=""
+                    className="icon"
+                  />
             </Link>
           </div>
           <div className="user__details">

@@ -53,11 +53,11 @@ export default function Search() {
                 <Link to={`/profile/${user.username}`}>
                   <img
                     src={
-                      user.avatar === null
-                        ? "https://cdn-icons-png.freepik.com/512/8742/8742495.png"
-                        : user.avatar
+                      user?.avatar.startsWith("https")
+                        ? user?.avatar
+                        : `http://localhost:8080/${user.avatar}`
                     }
-                    alt={user.username}
+                    alt=""
                     className="icon"
                   />
                   <div className="user-section">

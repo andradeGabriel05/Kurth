@@ -24,6 +24,12 @@ export default function MessagePost({ message }: Props) {
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
+    if(!username) {
+      console.error("Username is not set in localStorage.");
+      navigate("/login");
+      return;
+    }
+
     let imageUrl;
     if (handleImage && messageForm.length > 0) {
       imageUrl = await saveImageLocal(handleImage);
@@ -48,11 +54,7 @@ export default function MessagePost({ message }: Props) {
 
   function handleReply(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    Message.postReply(
-      messageForm,
-      Number(params.messageId),
-      user_id
-    )
+    Message.postReply(messageForm, Number(params.messageId), user_id)
       .then((response) => {
         console.log("Reply posted:", response);
         window.location.reload(); // <- this too
@@ -102,15 +104,23 @@ export default function MessagePost({ message }: Props) {
             <Link
               to={user_id === null ? `/login` : `/profile/${formattedUsername}`}
             >
-              <img
-                src={
-                  userDTO?.avatar
-                    ? userDTO.avatar
-                    : "https://cdn-icons-png.freepik.com/512/8742/8742495.png"
-                }
-                alt=""
-                className="icon"
-              />
+              {userDTO && userDTO.avatar && userDTO.avatar !== "" ? (
+                <img
+                  src={
+                    userDTO.avatar.includes("https")
+                      ? userDTO.avatar
+                      : `http://localhost:8080/${userDTO.avatar}`
+                  }
+                  alt=""
+                  className="icon"
+                />
+              ) : (
+                <img
+                  src="https://cdn-icons-png.freepik.com/512/8742/8742495.png"
+                  alt="Default Avatar"
+                  className="icon"
+                />
+              )}
             </Link>
           </div>
           <div className="user-form-text">

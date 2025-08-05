@@ -4,6 +4,7 @@ import "./style.scss";
 import { useNavigate, useParams } from "react-router-dom";
 import { FaEnvelope } from "react-icons/fa6";
 import * as UserService from "../../constants/user";
+import * as Message from "../../constants/message";
 import NavigationLink from "../NavigationLink";
 import * as Follow from "../../constants/follow";
 
@@ -105,23 +106,31 @@ export default function ProfileContentDetails({ user }: Props) {
     avatar: user.avatar,
   });
 
+  const [userAvatar, setUserAvatar] = useState<FormData | null>(null);
+
+  const [handleImage, setHandleImage] = useState<File | null>(null);
+
+  async function saveImageLocal(file: File) {
+    const formData = new FormData();
+    formData.append("image", file);
+
+    const response = await Message.saveImageLocal(formData);
+    console.log("Image uploaded:", response.data);
+    return response.data;
+  }
+
   function handleEditProfile() {
     setEditProfile(true);
   }
 
   async function handleSubmitUpdate(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-
-    // Handle the form submission logic here
+    if (handleImage) {
+      userData.avatar = await saveImageLocal(handleImage);
+      console.log("Image URL:", userData.avatar);
+    }
 
     console.log("Form submitted with data:", userData);
-
-    // setUserData({
-    //   avatar: event.target.avatar.value || userData.avatar,
-    //   username: event.target.username.value,
-    //   bio: event.target.bio.value,
-    // });
-
     await UserService.updateUser(
       userId,
       userData.username,
@@ -130,11 +139,14 @@ export default function ProfileContentDetails({ user }: Props) {
     );
 
     if (userData.username !== user.username) {
+      localStorage.setItem("username", userData.username);
+      user.username = userData.username;
       navigate(`/profile/${userData.username}`);
     }
     setEditProfile(false);
-    user.username = userData.username;
+
     user.bio = userData.bio;
+    user.avatar = userData.avatar;
     console.log("Profile updated successfully");
   }
 
@@ -145,6 +157,8 @@ export default function ProfileContentDetails({ user }: Props) {
         bio: user.bio,
         avatar: user.avatar,
       });
+
+      setHandleImage(null);
     }
   }, [editProfile]);
 
@@ -163,16 +177,59 @@ export default function ProfileContentDetails({ user }: Props) {
             {/* Add form or content for editing profile here */}
             <div className="form-edit-profile">
               <form onSubmit={handleSubmitUpdate}>
-                <label htmlFor="name">Name</label>
-                <input
-                  type="text"
-                  id="username"
-                  placeholder="username"
-                  value={userData.username}
-                  onChange={(e) =>
-                    setUserData({ ...userData, username: e.target.value })
-                  }
-                />
+                <div className="change-first-row">
+                  <div className="change-avatar">
+                    <label htmlFor="avatar">
+                      {userData.avatar.includes("https") ? (
+                        <img
+                          src={
+                            handleImage
+                              ? URL.createObjectURL(handleImage)
+                              : userData.avatar
+                          }
+                          alt=""
+                          className="icon"
+                        />
+                      ) : (
+                        <img
+                          src={
+                            handleImage
+                              ? URL.createObjectURL(handleImage)
+                              : `http://localhost:8080/${userData.avatar}`
+                          }
+                          alt=""
+                          className="icon"
+                        />
+                      )}
+                    </label>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      id="avatar"
+                      name="avatar"
+                      onChange={(e) =>
+                        setHandleImage(
+                          e.target.files && e.target.files[0]
+                            ? e.target.files[0]
+                            : null
+                        )
+                      }
+                      style={{ display: "none" }}
+                    />
+                  </div>
+                  <div className="change-username">
+                    <label htmlFor="username">Username</label>
+                    <input
+                      type="text"
+                      id="username"
+                      placeholder="username"
+                      value={userData.username}
+                      onChange={(e) =>
+                        setUserData({ ...userData, username: e.target.value })
+                      }
+                    />
+                  </div>
+                </div>
                 <label htmlFor="bio">Bio</label>
                 <textarea
                   name="bio"
@@ -191,14 +248,18 @@ export default function ProfileContentDetails({ user }: Props) {
       )}
       <div className="profile-header">
         <div className="profile-image">
-          <img
-            src={
-              user.avatar === null
-                ? "https://cdn-icons-png.freepik.com/512/8742/8742495.png"
-                : user.avatar
-            }
-            alt={user.username}
-          />
+          {!userData.avatar.includes("https") ? (
+            <img
+              src={
+                userData.avatar && !editProfile
+                  ? `http://localhost:8080/${userData.avatar}`
+                  : `http://localhost:8080/${user.avatar}`
+              }
+              alt={user.username}
+            />
+          ) : (
+            <img src={`${user.avatar}`} alt={user.username} />
+          )}
         </div>
         <div className="profile-details">
           <span className="profile-details-name">{user.name}</span>

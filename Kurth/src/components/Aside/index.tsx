@@ -18,6 +18,7 @@ import { UserDTO } from "../../models/user";
 
 export default function Aside() {
   const user_id: string = localStorage.getItem("user_id") || "";
+  const username: string = localStorage.getItem("username") || "";
   const [userDTO, setUserDTO] = useState<UserDTO>();
 
   const navigate = useNavigate();
@@ -44,6 +45,8 @@ export default function Aside() {
 
   function handleLogout() {
     localStorage.removeItem("user_id");
+    localStorage.removeItem("username");
+    localStorage.removeItem("token");
     window.location.reload();
     navigate(`/`);
   }
@@ -88,7 +91,7 @@ export default function Aside() {
           </li>
           <li>
             {user_id && user_id !== null ? (
-              <NavigationLink link={`profile/${userDTO?.username}`}>
+              <NavigationLink link={`profile/${username}`}>
                 <FaUser className="reactIcon" /> Profile
               </NavigationLink>
             ) : (
@@ -117,10 +120,18 @@ export default function Aside() {
               <>
                 {[
                   <div className="user-profile-route" key={`${userDTO?.id}`}>
-                    <img src={userDTO?.avatar} alt="" />
+                    <img
+                      src={
+                        userDTO?.avatar.includes("https")
+                          ? userDTO?.avatar
+                          : `http://localhost:8080/${userDTO?.avatar}`
+                      }
+                      alt=""
+                      className="icon"
+                    />
                     <div className="user-profile-route-info">
                       <p className="info-name">{userDTO?.name}</p>
-                      <p className="info-username">@{userDTO?.username}</p>
+                      <p className="info-username">@{username}</p>
                     </div>
                     <FaEllipsis className="reactIcon" />
                   </div>,
@@ -129,13 +140,13 @@ export default function Aside() {
                   <div className="logout-card" onClick={handleProfileOptions}>
                     <button onClick={handleLogout}>
                       {/* <FaSignOutAlt className="reactIcon" /> */}
-                      <span>Log out @{userDTO?.username}</span>
+                      <span>Log out @{username}</span>
                     </button>
                   </div>
                 )}
               </>
             ) : (
-              ""
+              null
             )}
           </li>
         </ul>
