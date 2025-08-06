@@ -7,7 +7,9 @@ import org.springframework.boot.context.properties.bind.DefaultValue;
 import java.time.Instant;
 
 @Entity
-@Table(name = "tb_like_count")
+@Table(name = "tb_like_count", indexes = {
+        @Index(name = "idx_user_likedAt", columnList = "user_id, liked_at")
+})
 public class LikeCount {
 
     @Id

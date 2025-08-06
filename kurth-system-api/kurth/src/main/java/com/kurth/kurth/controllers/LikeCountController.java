@@ -33,8 +33,8 @@ public class LikeCountController {
     }
 
     @GetMapping("/user/{username}")
-    public Page<LikeCountDTO> findByUserId(@PathVariable String username,Pageable pageable) {
-        return likeCountService.findByUserId(username, pageable);
+    public Page<LikeCountDTO> findByUserUsername(@PathVariable String username,Pageable pageable) {
+        return likeCountService.findByUserUsername(username, pageable);
     }
 
     @GetMapping("/user/{userId}/message/{postId}")

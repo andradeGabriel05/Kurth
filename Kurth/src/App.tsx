@@ -16,7 +16,6 @@ import { UserDTO } from "./models/user.ts";
 import { useEffect, useState } from "react";
 
 import * as User from "./constants/user.ts";
-import EditProfile from "./routes/Main/Profile/Edit Profile/index.tsx";
 
 export default function App() {
   //tomorrow: improve the use of findById on aside and messagePost... Try to get only here and pass as props?

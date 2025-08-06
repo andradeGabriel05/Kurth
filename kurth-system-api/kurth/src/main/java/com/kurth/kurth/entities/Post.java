@@ -7,7 +7,10 @@ import org.hibernate.type.descriptor.jdbc.TinyIntJdbcType;
 import java.time.Instant;
 
 @Entity
-@Table(name = "tb_post")
+@Table(name = "tb_post", indexes = {
+        @Index(name = "idx_user_id", columnList = "user_id"),
+        @Index(name = "idx_parent_id", columnList = "parent_id")
+})
 public class Post {
 
     @Id

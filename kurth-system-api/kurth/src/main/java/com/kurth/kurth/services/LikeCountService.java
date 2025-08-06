@@ -49,8 +49,8 @@ public class LikeCountService {
     }
 
     @Transactional(readOnly = true)
-    public Page<LikeCountDTO> findByUserId(String username, Pageable pageable) {
-        Page<LikeCount> likeCounts = likeCountRepository.findByUserId(username, pageable);
+    public Page<LikeCountDTO> findByUserUsername(String username, Pageable pageable) {
+        Page<LikeCount> likeCounts = likeCountRepository.findByUserUsername(username, pageable);
         return likeCounts.map(LikeCountDTO::new);
     }
 
