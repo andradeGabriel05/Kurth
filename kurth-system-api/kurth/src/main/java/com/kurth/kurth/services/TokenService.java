@@ -63,6 +63,7 @@ public class TokenService {
         JwtClaimsSet claimsSet = JwtClaimsSet.builder()
                 .issuer("Kurth System")
                 .subject(user.get().getId().toString())
+                .claim("username", user.get().getUsername())
                 .issuedAt(now)
                 .expiresAt(issuedAt)
                 .build();

@@ -41,7 +41,6 @@ export default function Likes({ user }: Props) {
 
   return (
     <div className="profile-container">
-      {userPage && <ProfileHeader user={userPage} />}
       <div className="profile-content">
         {userPage && <ProfileContentDetails user={userPage} />}
       </div>

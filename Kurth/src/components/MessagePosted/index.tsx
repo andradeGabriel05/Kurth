@@ -2,8 +2,7 @@ import "./style.scss";
 
 import { Link } from "react-router-dom";
 import { PostDTO } from "../../models/message";
-import { ReplyDTO } from "../../models/reply";
-import { createElement, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { BASE_URL } from "../../utils/system";
 
 import * as messageService from "../../constants/message";
@@ -103,6 +102,21 @@ export default function MessagePosted({
       });
   }
 
+  const [showMaximizedImage, setShowMaximizedImage] = useState(false);
+
+  function handleMaximizeImage(event: React.MouseEvent<HTMLDivElement>) {
+    event.preventDefault();
+    setShowMaximizedImage(true); 
+  }
+
+  useEffect(() => {
+    if(showMaximizedImage) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+  }, [showMaximizedImage]);
+
   return (
     <>
       <div className={`${reply ? "reply " : ""}form__message__posted p18`}>
@@ -110,14 +124,14 @@ export default function MessagePosted({
           <div className="user__image">
             <Link to={`/profile/${post?.user.username}`}>
               <img
-                    src={
-                      post?.user.avatar.includes("https")
-                        ? post?.user.avatar
-                        : `http://localhost:8080/${post.user.avatar}`
-                    }
-                    alt=""
-                    className="icon"
-                  />
+                src={
+                  post?.user.avatar.includes("https")
+                    ? post?.user.avatar
+                    : `http://localhost:8080/${post.user.avatar}`
+                }
+                alt=""
+                className="icon"
+              />
             </Link>
           </div>
           <div className="user__details">
@@ -175,7 +189,16 @@ export default function MessagePosted({
               {/* <span style={{ color: "red" }}>{showDeleteMessage && "This post has been deleted"}</span> */}
             </div>
             {showImage && (
-              <div className="image-posted">
+              <div className="image-posted" onClick={handleMaximizeImage}>
+                <img
+                  src={post?.image ? post?.image : `${BASE_URL}/${post?.image}`}
+                  alt={`${post?.id}`}
+                />
+              </div>
+            )}
+
+            {showMaximizedImage && (
+              <div className="maximized-image" onClick={(event) => { event.preventDefault(); setShowMaximizedImage(false); }}>
                 <img
                   src={post?.image ? post?.image : `${BASE_URL}/${post?.image}`}
                   alt={`${post?.id}`}
