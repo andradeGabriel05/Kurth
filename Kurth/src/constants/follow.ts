@@ -5,8 +5,12 @@ export function followUser(userFollowerId: string, userFollowingId: string) {
   return axios.post(
     `${BASE_URL}/follow`,
     {
-      userFollowerId,
-      userFollowingId,
+      userFollowing: {
+        id: userFollowingId,
+      },
+      userFollower: {
+        id: userFollowerId,
+      },
     },
     {
       headers: { Authorization: `Bearer ${TOKEN}` },

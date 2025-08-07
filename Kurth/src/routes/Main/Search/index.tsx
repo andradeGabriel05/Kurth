@@ -53,7 +53,7 @@ export default function Search() {
                 <Link to={`/profile/${user.username}`}>
                   <img
                     src={
-                      user?.avatar.startsWith("https")
+                      user?.avatar && user.avatar.includes("https")
                         ? user?.avatar
                         : `http://localhost:8080/${user.avatar}`
                     }

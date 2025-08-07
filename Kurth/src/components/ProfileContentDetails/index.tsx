@@ -289,11 +289,7 @@ export default function ProfileContentDetails({ user }: Props) {
           ) : (
             // follow and unfollow text
             <form method="post" onSubmit={handleFollow}>
-              {isFollowing ? (
-                <button type="submit">Unfollow</button>
-              ) : (
-                <button type="submit">Follow</button>
-              )}
+              <button type="submit">{isFollowing ? ("Unfollow") : ("Follow")}</button>
             </form>
           )}
           <button>
