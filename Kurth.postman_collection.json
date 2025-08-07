@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "df5ae87b-2a9b-4712-929d-a26623e4394c",
+		"_postman_id": "094badb5-3780-4602-a1fd-46e307c18f7b",
 		"name": "Kurth",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "40398770"
+		"_exporter_id": "34678955"
 	},
 	"item": [
 		{
@@ -11,6 +11,20 @@
 			"item": [
 				{
 					"name": "New user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = pm.response.json();",
+									"",
+									"pm.environment.set(\"access_token\", data.accessToken);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "jwt",
@@ -84,7 +98,7 @@
 								"exec": [
 									"var data = pm.response.json();\r",
 									"\r",
-									"pm.environment.set(\"acess_token\", data.accessToken);"
+									"pm.environment.set(\"access_token\", data.accessToken);"
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -837,6 +851,42 @@
 								"follow",
 								"user-followers",
 								"85195178-f5f3-4a09-9b43-7733f2ef7d46"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New follow",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userFollowing\": {\n        \"id\": \"85195178-f5f3-4a09-9b43-7733f2ef7d46\"\n    },\n    \"userFollower\": {\n        \"id\": \"b7801ae5-debf-4243-bb03-1d0b53293bb1\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/follow",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"follow"
 							]
 						}
 					},

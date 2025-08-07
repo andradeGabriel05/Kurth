@@ -23,7 +23,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     @Query("SELECT obj FROM Post obj WHERE obj.image IS NOT NULL")
     List<Post> findAllMessagesWithImage();
 
-    @Query("SELECT m FROM Post m JOIN Follow f ON m.user.id = f.userFollowingId WHERE f.userFollowerId = :followerId")
+    @Query("SELECT m FROM Post m JOIN Follow f ON m.user.id = f.userFollowing.id WHERE f.userFollower.id = :followerId")
     Page<Post> findAllUserFollowingMessages(Pageable pageable, UUID followerId);
 
     //atenção!!! todo -> remove REPLY

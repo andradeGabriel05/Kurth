@@ -18,10 +18,10 @@ import java.util.UUID;
 public interface FollowRepository extends JpaRepository<Follow, Long> {
     Optional<Follow> findByUserFollowerIdAndUserFollowingId(UUID userFollowerId, UUID userFollowingId);
 
-    @Query("SELECT obj FROM Follow obj WHERE obj.userFollowerId = :userFollowerId AND obj.userFollowingId = :userFollowingId")
+    @Query("SELECT obj FROM Follow obj WHERE obj.userFollower.id = :userFollowerId AND obj.userFollowing.id = :userFollowingId")
     Optional<Follow> userAlreadyFollowing(UUID userFollowerId, UUID userFollowingId);
 
-    @Query("SELECT obj FROM Follow obj WHERE obj.userFollowingId = :id")
+    @Query("SELECT obj FROM Follow obj WHERE obj.userFollowing.id = :id")
     Page<Follow> followers(Pageable pageable, UUID id);
 
 

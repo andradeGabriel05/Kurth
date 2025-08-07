@@ -16,19 +16,23 @@ public class Follow {
 
     //  quem será seguido
     @NotNull
-    private UUID userFollowingId;
+    @ManyToOne
+    @JoinColumn(name = "user_following_id")
+    private User userFollowing;
 
     //quem irá seguir
     @NotNull
-    private UUID userFollowerId;
+    @ManyToOne
+    @JoinColumn(name = "user_follower_id")
+    private User userFollower;
 
     public Follow() {
     }
 
-    public Follow(Long id, UUID userFollowingId, UUID userFollowerId) {
+    public Follow(Long id, User userFollowing, User userFollower) {
         this.id = id;
-        this.userFollowingId = userFollowingId;
-        this.userFollowerId = userFollowerId;
+        this.userFollowing = userFollowing;
+        this.userFollower = userFollower;
     }
 
     public Long getId() {
@@ -39,20 +43,20 @@ public class Follow {
         this.id = id;
     }
 
-    public UUID getUserFollowingId() {
-        return userFollowingId;
+    public User getUserFollowing() {
+        return userFollowing;
     }
 
-    public void setUserFollowingId(UUID userFollowingId) {
-        this.userFollowingId = userFollowingId;
+    public void setUserFollowing(User userFollowing) {
+        this.userFollowing = userFollowing;
     }
 
-    public UUID getUserFollowerId() {
-        return userFollowerId;
+    public User getUserFollower() {
+        return userFollower;
     }
 
-    public void setUserFollowerId(UUID userFollowerId) {
-        this.userFollowerId = userFollowerId;
+    public void setUserFollower(User userFollower) {
+        this.userFollower = userFollower;
     }
 
 }

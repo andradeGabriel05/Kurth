@@ -2,7 +2,9 @@ package com.kurth.kurth.services;
 
 import com.kurth.kurth.dto.FollowDTO;
 import com.kurth.kurth.entities.Follow;
+import com.kurth.kurth.entities.User;
 import com.kurth.kurth.repositories.FollowRepository;
+import com.kurth.kurth.repositories.UserRepository;
 import com.kurth.kurth.services.exceptions.DatabaseException;
 import com.kurth.kurth.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,24 +25,28 @@ public class FollowService {
     @Autowired
     private FollowRepository followRepository;
 
-    @Transactional
+    @Autowired
+    private UserRepository userRepository;
+
     public FollowDTO newFollow(FollowDTO followDTO) {
 
         try {
-            Follow follow = new Follow();
-
-            UUID idFollower = followDTO.getUserFollowerId();
-            UUID idFollowing = followDTO.getUserFollowingId();
-
-            Optional<Follow> alreadyFollow = followRepository.findByUserFollowerIdAndUserFollowingId(idFollower, idFollowing);
-
-            if (alreadyFollow.isPresent()) {
-                removeFollow(alreadyFollow.get().getId());
+            if(followDTO == null) {
                 return null;
             }
 
-            follow.setUserFollowerId(idFollower);
-            follow.setUserFollowingId(idFollowing);
+            Follow follow = new Follow();
+            User userFollower = userRepository.findById(followDTO.getUserFollower().getId()).orElseThrow(() -> new ResourceNotFoundException("ID not found: " + followDTO.getUserFollower().getId()));
+            User userFollowing = userRepository.findById(followDTO.getUserFollowing().getId()).orElseThrow(() -> new ResourceNotFoundException("ID not found: " + followDTO.getUserFollower().getId()));
+
+            Optional<Follow> alreadyFollow = followRepository.findByUserFollowerIdAndUserFollowingId(userFollower.getId()   , userFollowing.getId());
+            if (alreadyFollow.isPresent()) { // is this really necessary? can't i just validate in front?
+                removeFollow(alreadyFollow.get().getId()); // todo: remove this and update code in front
+                return null;
+            }
+
+            follow.setUserFollower(userFollower);
+            follow.setUserFollowing(userFollowing);
 
             follow = followRepository.save(follow);
             return new FollowDTO(follow);

@@ -30,11 +30,12 @@ public class FollowController {
 
     @PostMapping
     public ResponseEntity<FollowDTO> newFollow(@Valid @RequestBody FollowDTO followDTO) {
-
-
             followDTO = followService.newFollow(followDTO);
 
-            URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(followDTO.getId()).toUri();
+            URI uri = null;
+            if(followDTO != null) {
+                uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(followDTO.getId()).toUri();
+            }
 
             return ResponseEntity.created(uri).body(followDTO);
 
