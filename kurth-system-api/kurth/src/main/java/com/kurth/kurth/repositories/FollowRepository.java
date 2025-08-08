@@ -21,9 +21,11 @@ public interface FollowRepository extends JpaRepository<Follow, Long> {
     @Query("SELECT obj FROM Follow obj WHERE obj.userFollower.id = :userFollowerId AND obj.userFollowing.id = :userFollowingId")
     Optional<Follow> userAlreadyFollowing(UUID userFollowerId, UUID userFollowingId);
 
-    @Query("SELECT obj FROM Follow obj WHERE obj.userFollowing.id = :id")
-    Page<Follow> followers(Pageable pageable, UUID id);
+    @Query("SELECT obj FROM Follow obj WHERE obj.userFollowing.username = :username")
+    Page<Follow> followers(Pageable pageable, String username);
 
+    @Query("SELECT obj FROM Follow obj WHERE obj.userFollower.username = :username")
+    Page<Follow> following(Pageable pageable, String username);
 
 }
 

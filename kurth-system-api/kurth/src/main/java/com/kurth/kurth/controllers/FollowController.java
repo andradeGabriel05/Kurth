@@ -52,12 +52,16 @@ public class FollowController {
         return ResponseEntity.ok(followDTO);
     }
 
-    @GetMapping(value = "/user-followers/{id}")
-    public Page<FollowDTO> followers(Pageable pageable, @PathVariable UUID id) {
-        return followService.followers(pageable, id);
+    @GetMapping(value = "/user-followers/{username}")
+    public Page<FollowDTO> followers(Pageable pageable, @PathVariable String username) {
+        return followService.followers(pageable, username);
     }
 
+    @GetMapping(value = "/user-following/{username}")
+    public Page<FollowDTO> following(Pageable pageable, @PathVariable String username) {
+        return followService.following(pageable, username);
 
+    }
 
     @DeleteMapping(value = "/remove-follow/{id}")
     public ResponseEntity<Void> removeFollow(@PathVariable Long id) {

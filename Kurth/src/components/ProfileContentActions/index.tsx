@@ -2,7 +2,12 @@ import { useEffect, useState } from "react";
 import * as Follow from "../../constants/follow";
 
 export default function ProfileContentActions(userLoggedInId: string) {
-  async function handleFollowOnSearchPage(event: React.FormEvent<HTMLFormElement>) {
+  console.log(userLoggedInId);
+
+  const [isFollowing, setIsFollowing] = useState(false);
+  async function handleFollowOnSearchPage(
+    event: React.FormEvent<HTMLFormElement>
+  ) {
     event.preventDefault();
 
     console.log("Followed", userLoggedInId.userId);
@@ -17,6 +22,9 @@ export default function ProfileContentActions(userLoggedInId: string) {
       .catch((error) => {
         console.error("Error:", error);
       });
+
+    await Follow.increaseUserFollower(userLoggedInId.userId);
+    await Follow.increaseUserFollowing(userLoggedInId.userLoggedInId);
   }
 
   async function handleUnfollowOnSearchPage(
@@ -39,7 +47,6 @@ export default function ProfileContentActions(userLoggedInId: string) {
     setIsFollowing(false);
   }
 
-  const [isFollowing, setIsFollowing] = useState(false);
   useEffect(() => {
     console.log(userLoggedInId);
     //userLoggedInId == eu
@@ -58,7 +65,7 @@ export default function ProfileContentActions(userLoggedInId: string) {
         console.log(isFollowing);
         console.error("Error:", error.response.data);
       });
-  }, [isFollowing]);
+  }, []);
 
   return (
     <div>

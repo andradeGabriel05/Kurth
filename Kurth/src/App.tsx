@@ -16,6 +16,8 @@ import { UserDTO } from "./models/user.ts";
 import { useEffect, useState } from "react";
 
 import * as User from "./constants/user.ts";
+import FollowingList from "./routes/Main/Profile/FollowingList/index.tsx";
+import FollowerList from "./routes/Main/Profile/FollowerList/index.tsx";
 
 export default function App() {
   //tomorrow: improve the use of findById on aside and messagePost... Try to get only here and pass as props?
@@ -59,6 +61,16 @@ export default function App() {
               path="profile/:username/likes"
               element={userDTO ? <Likes user={userDTO} /> : null}
             />
+            <Route
+              path="profile/:username/following"
+              element={<FollowingList />}
+            />
+
+            <Route
+              path="profile/:username/followers"
+              element={<FollowerList />}
+            />
+
             <Route path="more" element={<More />} />
           </Route>
           <Route path="login" element={<Login />} />

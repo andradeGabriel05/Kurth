@@ -11,15 +11,15 @@ public class FollowDTO {
     private Long id;
 
     //  quem será seguido
-    private User userFollowing;
+    private UserDTO userFollowing;
 
     //quem irá seguir
-    private User userFollower;
+    private UserDTO userFollower;
 
     public FollowDTO() {
     }
 
-    public FollowDTO(Long id, User userFollowing, User userFollower) {
+    public FollowDTO(Long id, UserDTO userFollowing, UserDTO userFollower) {
         this.id = id;
         this.userFollowing = userFollowing;
         this.userFollower = userFollower;
@@ -27,27 +27,27 @@ public class FollowDTO {
 
     public FollowDTO(Follow follow) {
         this.id = follow.getId();
-        this.userFollowing = follow.getUserFollowing();
-        this.userFollower = follow.getUserFollower();
+        this.userFollowing = new UserDTO(follow.getUserFollowing());
+        this.userFollower = new UserDTO(follow.getUserFollower());
     }
 
     public Long getId() {
         return id;
     }
 
-    public User getUserFollowing() {
+    public UserDTO getUserFollowing() {
         return userFollowing;
     }
 
-    public void setUserFollowing(User userFollowing) {
+    public void setUserFollowing(UserDTO userFollowing) {
         this.userFollowing = userFollowing;
     }
 
-    public User getUserFollower() {
+    public UserDTO getUserFollower() {
         return userFollower;
     }
 
-    public void setUserFollower(User userFollower) {
+    public void setUserFollower(UserDTO userFollower) {
         this.userFollower = userFollower;
     }
 }

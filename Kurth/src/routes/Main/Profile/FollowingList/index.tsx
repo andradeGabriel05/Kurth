@@ -1,0 +1,79 @@
+import "./style.scss";
+import { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import { UserDTO } from "../../../../models/user";
+import * as UserService from "../../../../constants/user";
+import ProfileContentActions from "../../../../components/ProfileContentActions";
+
+export default function FollowingList() {
+  const params = useParams();
+  const [user, setUser] = useState<UserDTO>();
+
+  const userLoggedIn = localStorage.getItem("user_id");
+
+  //initially load the first page of messages
+  useEffect(() => {
+    UserService.findByUsername(params.username as string)
+      .then(async (response) => {
+        setUser(response.data);
+      })
+      .catch((error) => {
+        console.error("Error:", error.response.data);
+      });
+  }, [params.username]);
+
+  const [following, setFollowing] = useState<UserDTO[]>([]);
+
+  useEffect(() => {
+    if (user) {
+      UserService.following(user.username)
+        .then((response) => {
+          console.log(response.data.content[0].userFollowing);
+          setFollowing(response.data.content.map((item) => item.userFollowing));
+        })
+        .catch((error) => {
+          console.error("Error:", error.response.data);
+        });
+    }
+  }, [params.username, user]);
+
+  function handleUnfollow() {}
+
+  return (
+    <div className="profile-container">
+      <div className="title">
+        <h2>{user?.name}'s Following</h2>
+        <h4>@{user?.username}</h4>
+      </div>
+      {following &&
+        following.map((following) => (
+          <Link to={`/profile/${following.username}`} key={following.id}>
+            <div className="following-item">
+              <div className="left">
+                <img src={following.avatar} alt={following.name} />
+                <div className="wrapper-name">
+                  <span>{following.name}</span>
+                  <span className="username">@{following.username}</span>
+                </div>
+              </div>
+
+              {userLoggedIn && userLoggedIn !== String(following.id) && (
+                <div
+                  className="button-follow"
+                  onClick={(event) => {
+                    event.stopPropagation();
+                  }}
+                >
+                  <ProfileContentActions
+                    userLoggedInId={userLoggedIn}
+                    userId={following.id as string}
+                  />
+                </div>
+              )}
+            </div>
+          </Link>
+        ))}
+      {following && following.length === 0 && <span>No following users</span>}
+    </div>
+  );
+}

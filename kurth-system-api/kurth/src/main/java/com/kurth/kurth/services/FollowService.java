@@ -42,6 +42,7 @@ public class FollowService {
             Optional<Follow> alreadyFollow = followRepository.findByUserFollowerIdAndUserFollowingId(userFollower.getId()   , userFollowing.getId());
             if (alreadyFollow.isPresent()) { // is this really necessary? can't i just validate in front?
                 removeFollow(alreadyFollow.get().getId()); // todo: remove this and update code in front
+                System.out.println("passou aquiiiIIIIIIIIII");
                 return null;
             }
 
@@ -83,9 +84,15 @@ public class FollowService {
     }
 
     @Transactional(readOnly = true)
-    public Page<FollowDTO> followers(Pageable pageable, UUID id) {
+    public Page<FollowDTO> followers(Pageable pageable, String username) {
 
-        Page<Follow> followPageable = followRepository.followers(pageable, id);
+        Page<Follow> followPageable = followRepository.followers(pageable, username);
+        return followPageable.map(FollowDTO::new);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<FollowDTO> following(Pageable pageable, String username) {
+        Page<Follow> followPageable = followRepository.following(pageable, username);
         return followPageable.map(FollowDTO::new);
     }
 }

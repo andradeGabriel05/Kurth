@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { UserDTO } from "../../models/user";
 import "./style.scss";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { FaEnvelope } from "react-icons/fa6";
 import * as UserService from "../../constants/user";
 import * as Message from "../../constants/message";
@@ -41,18 +41,13 @@ export default function ProfileContentDetails({ user }: Props) {
     if (userId !== undefined && userLoggedIn !== userId) {
       Follow.checkFollowStatus(userLoggedIn, userId)
         .then((response) => {
-          const userFollowing = response.data.userFollowingId;
-          const userFollower = response.data.userFollowerId;
-          setIsFollowing(
-            userFollowing === userId && userFollower === userLoggedIn
-          );
-          console.log(response.data);
+          setIsFollowing(response.status == 204 ? false : true);
         })
         .catch((error) => {
           console.error("Error:", error.response.data);
         });
     }
-  }, [userLoggedIn, userId]);
+  }, [userLoggedIn, userId, params.username]);
 
   // this is for follow and unfollow users
   // if you double click, this will not work
@@ -106,7 +101,13 @@ export default function ProfileContentDetails({ user }: Props) {
     avatar: user.avatar,
   });
 
-  const [userAvatar, setUserAvatar] = useState<FormData | null>(null);
+  useEffect(() => {
+    setUserData({
+      username: user.username,
+      bio: user.bio,
+      avatar: user.avatar,
+    });
+  }, [user, params.username]);
 
   const [handleImage, setHandleImage] = useState<File | null>(null);
 
@@ -274,12 +275,16 @@ export default function ProfileContentDetails({ user }: Props) {
       </div>
       <div className="profile-content-details">
         <span>
-          {followers}
-          <span className="profile-content-details-text"> Followers</span>
+          <Link to={`/profile/${params.username}/followers`}>
+            {followers}
+            <span className="profile-content-details-text"> Followers</span>
+          </Link>
         </span>
         <span>
-          {user.following}
-          <span className="profile-content-details-text"> Following</span>
+          <Link to={`/profile/${params.username}/following`}>
+            {user.following}
+            <span className="profile-content-details-text"> Following</span>
+          </Link>
         </span>
 
         <div className="profile-content-actions">
@@ -289,7 +294,9 @@ export default function ProfileContentDetails({ user }: Props) {
           ) : (
             // follow and unfollow text
             <form method="post" onSubmit={handleFollow}>
-              <button type="submit">{isFollowing ? ("Unfollow") : ("Follow")}</button>
+              <button type="submit">
+                {isFollowing ? "Unfollow" : "Follow"}
+              </button>
             </form>
           )}
           <button>

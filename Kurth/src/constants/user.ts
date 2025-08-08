@@ -76,3 +76,16 @@ export function updateUser(
     headers: { Authorization: `Bearer ${TOKEN}` },
   });
 }
+
+
+export function following(username: string) {
+  return axios.get(`${BASE_URL}/follow/user-following/${username}`, {
+    headers: { Authorization: `Bearer ${TOKEN}` },
+  });
+}
+
+export function followers(username: string) {
+  return axios.get(`${BASE_URL}/follow/user-followers/${username}`, {
+    headers: { Authorization: `Bearer ${TOKEN}` },
+  });
+}

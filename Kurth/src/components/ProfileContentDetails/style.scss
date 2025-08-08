@@ -3,6 +3,11 @@
 .profile-content-details {
   display: flex;
   align-items: center;
+  a {
+    &:hover {
+      text-decoration: underline;
+    }
+  }
   .profile-content-actions {
     display: flex;
     justify-content: space-between;
