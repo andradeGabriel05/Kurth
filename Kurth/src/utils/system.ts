@@ -4,5 +4,9 @@ export const currentDate = new Date().toISOString(); // actual date to iso 8601 
 
 export const TOKEN = localStorage.getItem("token");
 
-
-
+export function logout() {
+  localStorage.removeItem("user_id");
+  localStorage.removeItem("username");
+  localStorage.removeItem("token");
+  window.location.href = "/login";
+}

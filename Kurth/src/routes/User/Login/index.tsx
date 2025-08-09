@@ -36,9 +36,9 @@ export default function Login() {
         <div className="left-side-logo">
           <h2 className="left-side-logo-welcome-to">Welcome to</h2>
 
-          <Link to="/">
+          <div className="left-side-logo-name">
             <h1>Kurth</h1>
-          </Link>
+          </div>
         </div>
       </div>
       <div className="right-side">

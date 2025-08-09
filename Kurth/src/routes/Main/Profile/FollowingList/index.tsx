@@ -1,15 +1,18 @@
 import "./style.scss";
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { UserDTO } from "../../../../models/user";
 import * as UserService from "../../../../constants/user";
 import ProfileContentActions from "../../../../components/ProfileContentActions";
+import { BiArrowBack } from "react-icons/bi";
 
 export default function FollowingList() {
   const params = useParams();
   const [user, setUser] = useState<UserDTO>();
 
   const userLoggedIn = localStorage.getItem("user_id");
+
+  const navigate = useNavigate();
 
   //initially load the first page of messages
   useEffect(() => {
@@ -37,11 +40,13 @@ export default function FollowingList() {
     }
   }, [params.username, user]);
 
-  function handleUnfollow() {}
-
   return (
     <div className="profile-container">
       <div className="title">
+        <BiArrowBack
+          className="back-button"
+          onClick={() => navigate(`/profile/${user?.username}`)}
+        />
         <h2>{user?.name}'s Following</h2>
         <h4>@{user?.username}</h4>
       </div>

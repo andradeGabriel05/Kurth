@@ -1,4 +1,10 @@
-import { BrowserRouter, Route, Routes, useParams } from "react-router-dom";
+import {
+  BrowserRouter,
+  Navigate,
+  Route,
+  Routes,
+  useParams,
+} from "react-router-dom";
 import Profile from "./routes/Main/Profile/index.tsx";
 
 import Home from "./routes/Main/Home/index.tsx";
@@ -18,6 +24,7 @@ import { useEffect, useState } from "react";
 import * as User from "./constants/user.ts";
 import FollowingList from "./routes/Main/Profile/FollowingList/index.tsx";
 import FollowerList from "./routes/Main/Profile/FollowerList/index.tsx";
+import { logout } from "./utils/system.ts";
 
 export default function App() {
   //tomorrow: improve the use of findById on aside and messagePost... Try to get only here and pass as props?
@@ -32,10 +39,23 @@ export default function App() {
 
   // const navigate = useNavigate();
 
+  const ignoreRequest = ["/login", "/signup"];
+
   useEffect(() => {
-    User.findById(user_id).then((response) => {
-      setUserDTO(response.data);
-    });
+    User.findById(user_id)
+      .then((response) => {
+        setUserDTO(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching user data:", error);
+        if (
+          error.response &&
+          error.response.status === 401 &&
+          !ignoreRequest.includes(window.location.pathname)
+        ) {
+          logout();
+        }
+      });
   }, [username, user_id]);
 
   return (

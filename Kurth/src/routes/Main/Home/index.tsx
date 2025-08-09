@@ -6,9 +6,12 @@ import PostMapping from "../../../components/PostMapping";
 import { useInfiniteScroll } from "../../../hooks/useInfiniteScrool";
 
 export default function Home() {
-  const { items: posts, isLoading, verifyReply, removeItemById } = useInfiniteScroll(
-    (page: number) => messageConst.findAll(page)
-  );
+  const {
+    items: posts,
+    isLoading,
+    verifyReply,
+    removeItemById,
+  } = useInfiniteScroll((page: number) => messageConst.findAll(page));
 
   function handlePostDeleted(id: number) {
     removeItemById(id);
@@ -24,10 +27,13 @@ export default function Home() {
       </header>
       <MessagePost message="Write anything" />
 
-      <PostMapping post={posts} reply={verifyReply} messagePage={false} onDelete={handlePostDeleted} />
+      <PostMapping
+        post={posts}
+        reply={verifyReply}
+        messagePage={false}
+        onDelete={handlePostDeleted}
+      />
       {isLoading && <div>Carregando mais posts...</div>}
-
-      
     </div>
   );
 }
