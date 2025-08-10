@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "094badb5-3780-4602-a1fd-46e307c18f7b",
+		"_postman_id": "b30b5ed9-1d98-4b2d-a6ff-17dd3cad0e40",
 		"name": "Kurth",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "34678955"
+		"_exporter_id": "40398770"
 	},
 	"item": [
 		{
@@ -323,7 +323,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/message?page=2&size=10&sort=postedAt,desc",
+							"raw": "{{host}}/message?page=1&size=10&sort=postedAt,desc",
 							"host": [
 								"{{host}}"
 							],
@@ -333,7 +333,7 @@
 							"query": [
 								{
 									"key": "page",
-									"value": "2"
+									"value": "1"
 								},
 								{
 									"key": "size",
@@ -843,14 +843,57 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/follow/user-followers/85195178-f5f3-4a09-9b43-7733f2ef7d46",
+							"raw": "{{host}}/follow/user-followers/thispersondoesnotexist",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"follow",
 								"user-followers",
-								"85195178-f5f3-4a09-9b43-7733f2ef7d46"
+								"thispersondoesnotexist"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Following",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/follow/user-following/thispersondoesnotexist?page=1&size=10&sort=postedAt,desc",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"follow",
+								"user-following",
+								"thispersondoesnotexist"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								},
+								{
+									"key": "sort",
+									"value": "postedAt,desc"
+								}
 							]
 						}
 					},
@@ -873,7 +916,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"userFollowing\": {\n        \"id\": \"85195178-f5f3-4a09-9b43-7733f2ef7d46\"\n    },\n    \"userFollower\": {\n        \"id\": \"b7801ae5-debf-4243-bb03-1d0b53293bb1\"\n    }\n}",
+							"raw": "{\n    \"userFollower\": {\n        \"id\": \"b7801ae5-debf-4243-bb03-1d0b53293bb1\"\n    },\n    \"userFollowing\": {\n        \"id\": \"85195178-f5f3-4a09-9b43-7733f2ef7d46\"\n    }\n}",
 							"options": {
 								"raw": {
 									"language": "json"

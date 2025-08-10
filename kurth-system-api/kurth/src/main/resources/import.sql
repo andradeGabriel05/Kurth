@@ -8,6 +8,36 @@ INSERT INTO tb_user (id, name, username, email, created_at, password, bio, avata
 
 INSERT INTO tb_user (id, name, username, email, created_at, password, bio, avatar, followers, following, posts) VALUES ('d338db70-7c79-4f91-9e5a-975c945e29ec', 'Emily', 'emilyjones', 'emily@gmail.com', TIMESTAMP WITH TIME ZONE '2022-07-25T15:00:00Z', '123456', 'Lorem ipsum dolor sit amet consectetur adipisicing elit.', 'https://thispersondoesnotexist.com/', 0, 0, 234);
 
+INSERT INTO tb_user (id, name, username, email, created_at, password, bio, avatar, followers, following, posts) VALUES ('a1b2c3d4-e5f6-4789-a123-456789abcdef', 'Carlos', 'carlosdev', 'carlos@gmail.com', TIMESTAMP WITH TIME ZONE '2022-07-25T15:00:00Z', '123456', 'Lorem ipsum dolor sit amet consectetur adipisicing elit.', 'https://thispersondoesnotexist.com/', 0, 0, 345);
+
+INSERT INTO tb_user (id, name, username, email, created_at, password, bio, avatar, followers, following, posts) VALUES ('b2c3d4e5-f6a7-4890-b234-567890bcdef1', 'Maria', 'mariasantos', 'maria@gmail.com', TIMESTAMP WITH TIME ZONE '2022-07-25T15:00:00Z', '123456', 'Lorem ipsum dolor sit amet consectetur adipisicing elit.', 'https://thispersondoesnotexist.com/', 0, 0, 456);
+
+INSERT INTO tb_user (id, name, username, email, created_at, password, bio, avatar, followers, following, posts) VALUES ('c3d4e5f6-a7b8-4901-c345-67890abcdef2', 'Pedro', 'pedrolima', 'pedro@gmail.com', TIMESTAMP WITH TIME ZONE '2022-07-25T15:00:00Z', '123456', 'Lorem ipsum dolor sit amet consectetur adipisicing elit.', 'https://thispersondoesnotexist.com/', 0, 0, 567);
+
+INSERT INTO tb_user (id, name, username, email, created_at, password, bio, avatar, followers, following, posts) VALUES ('d4e5f6a7-b8c9-4012-d456-7890abcdef12', 'Ana', 'anasilva', 'ana@gmail.com', TIMESTAMP WITH TIME ZONE '2022-07-25T15:00:00Z', '123456', 'Lorem ipsum dolor sit amet consectetur adipisicing elit.', 'https://thispersondoesnotexist.com/', 0, 0, 678);
+
+INSERT INTO tb_user (id, name, username, email, created_at, password, bio, avatar, followers, following, posts) VALUES ('e5f6a7b8-c9d0-4123-e567-890abcdef123', 'Lucas', 'lucasoliveira', 'lucas@gmail.com', TIMESTAMP WITH TIME ZONE '2022-07-25T15:00:00Z', '123456', 'Lorem ipsum dolor sit amet consectetur adipisicing elit.', 'https://thispersondoesnotexist.com/', 0, 0, 789);
+
+INSERT INTO tb_user (id, name, username, email, created_at, password, bio, avatar, followers, following, posts) VALUES ('f6a7b8c9-d0e1-4234-f678-90abcdef1234', 'Julia', 'juliaferreira', 'julia@gmail.com', TIMESTAMP WITH TIME ZONE '2022-07-25T15:00:00Z', '123456', 'Lorem ipsum dolor sit amet consectetur adipisicing elit.', 'https://thispersondoesnotexist.com/', 0, 0, 890);
+
+INSERT INTO tb_user (id, name, username, email, created_at, password, bio, avatar, followers, following, posts) VALUES ('a7b8c9d0-e1f2-4345-a789-0abcdef12345', 'Rafael', 'rafaelcosta', 'rafael@gmail.com', TIMESTAMP WITH TIME ZONE '2022-07-25T15:00:00Z', '123456', 'Lorem ipsum dolor sit amet consectetur adipisicing elit.', 'https://thispersondoesnotexist.com/', 0, 0, 901);
+
+INSERT INTO tb_user (id, name, username, email, created_at, password, bio, avatar, followers, following, posts) VALUES ('b8c9d0e1-f2a3-4456-b890-abcdef123456', 'Beatriz', 'beatrizrodrigues', 'beatriz@gmail.com', TIMESTAMP WITH TIME ZONE '2022-07-25T15:00:00Z', '123456', 'Lorem ipsum dolor sit amet consectetur adipisicing elit.', 'https://thispersondoesnotexist.com/', 0, 0, 123);
+
+INSERT INTO tb_user (id, name, username, email, created_at, password, bio, avatar, followers, following, posts) VALUES ('c9d0e1f2-a3b4-4567-c901-bcdef1234567', 'Bruno', 'brunopereira', 'bruno@gmail.com', TIMESTAMP WITH TIME ZONE '2022-07-25T15:00:00Z', '123456', 'Lorem ipsum dolor sit amet consectetur adipisicing elit.', 'https://thispersondoesnotexist.com/', 0, 0, 234);
+
+INSERT INTO tb_user (id, name, username, email, created_at, password, bio, avatar, followers, following, posts) VALUES ('d0e1f2a3-b4c5-4678-d012-cdef12345678', 'Camila', 'camilaalves', 'camila@gmail.com', TIMESTAMP WITH TIME ZONE '2022-07-25T15:00:00Z', '123456', 'Lorem ipsum dolor sit amet consectetur adipisicing elit.', 'https://thispersondoesnotexist.com/', 0, 0, 345);
+
+INSERT INTO tb_user (id, name, username, email, created_at, password, bio, avatar, followers, following, posts) VALUES ('e1f2a3b4-c5d6-4789-e123-def123456789', 'Diego', 'diegomartins', 'diego@gmail.com', TIMESTAMP WITH TIME ZONE '2022-07-25T15:00:00Z', '123456', 'Lorem ipsum dolor sit amet consectetur adipisicing elit.', 'https://thispersondoesnotexist.com/', 0, 0, 456);
+
+INSERT INTO tb_user (id, name, username, email, created_at, password, bio, avatar, followers, following, posts) VALUES ('f2a3b4c5-d6e7-4890-f234-ef123456789a', 'Fernanda', 'fernandasouza', 'fernanda@gmail.com', TIMESTAMP WITH TIME ZONE '2022-07-25T15:00:00Z', '123456', 'Lorem ipsum dolor sit amet consectetur adipisicing elit.', 'https://thispersondoesnotexist.com/', 0, 0, 567);
+
+INSERT INTO tb_user (id, name, username, email, created_at, password, bio, avatar, followers, following, posts) VALUES ('a3b4c5d6-e7f8-4901-a345-f123456789ab', 'Gabriel', 'gabrielgomes', 'gabriel@gmail.com', TIMESTAMP WITH TIME ZONE '2022-07-25T15:00:00Z', '123456', 'Lorem ipsum dolor sit amet consectetur adipisicing elit.', 'https://thispersondoesnotexist.com/', 0, 0, 678);
+
+INSERT INTO tb_user (id, name, username, email, created_at, password, bio, avatar, followers, following, posts) VALUES ('b4c5d6e7-f8a9-4012-b456-123456789abc', 'Helena', 'helenacardoso', 'helena@gmail.com', TIMESTAMP WITH TIME ZONE '2022-07-25T15:00:00Z', '123456', 'Lorem ipsum dolor sit amet consectetur adipisicing elit.', 'https://thispersondoesnotexist.com/', 0, 0, 789);
+
+INSERT INTO tb_user (id, name, username, email, created_at, password, bio, avatar, followers, following, posts) VALUES ('c5d6e7f8-a9b0-4123-c567-23456789abcd', 'Igor', 'igornascimento', 'igor@gmail.com', TIMESTAMP WITH TIME ZONE '2022-07-25T15:00:00Z', '123456', 'Lorem ipsum dolor sit amet consectetur adipisicing elit.', 'https://thispersondoesnotexist.com/', 0, 0, 890);
+
 INSERT INTO tb_post (message, posted_at, image, like_count, user_id, is_reply) VALUES ('Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus placeat alias repellat quas eius nam obcaecati aspernatur nesciunt? Eaque ad architecto labore magnam illo. Deserunt!', TIMESTAMP WITH TIME ZONE '2021-12-22T15:00:00Z', 'https://www.gov.br/mma/pt-br/lula-e-macron-anunciam-investimentos-de-r-5-4-bi-em-bioeconomia-na-amazonia/lula-macron.jpeg', 0, '85195178-f5f3-4a09-9b43-7733f2ef7d46', 0);
 
 INSERT INTO tb_post (message, posted_at, image, like_count, user_id, is_reply) VALUES ('Lorem ipsum dolor sit amet quas eius nam obcaecati aspernatur nesciunt? Eaque ad architecto labore magnam illo. Deserunt!', TIMESTAMP WITH TIME ZONE '2022-12-21T15:00:00Z','https://s2-oglobo.glbimg.com/D8uAPz0F2zLxbPWEu_QcGbQdH2c=/0x450:1188x1281/888x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_da025474c0c44edd99332dddb09cabe8/internal_photos/bs/2024/F/k/V7S5DLT5iviyfbpYejYw/lula.jfif',0,'b7801ae5-debf-4243-bb03-1d0b53293bb1',0);
