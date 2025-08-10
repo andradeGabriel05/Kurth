@@ -45,7 +45,7 @@ export default function Account() {
         <div className="left-side-logo">
           <h2 className="left-side-logo-welcome-to">Welcome to</h2>
 
-          .<div className="left-side-logo-name">
+          <div className="left-side-logo-name">
             <h1>Kurth</h1>
           </div>
         </div>

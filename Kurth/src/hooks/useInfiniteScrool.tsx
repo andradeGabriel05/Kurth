@@ -7,17 +7,13 @@ import { PostDTO } from "../models/message";
  * @returns An object containing the items, loading state, and functions to manage pagination.
  */
 
-type Props = {
-  posts: PostDTO[];
-};
-
 // ta funcionando n mexe
 export function useInfiniteScroll(
   apiCall: (page: number) => Promise<any>,
   messageId?: number,
   resetKey?: string
 ) {
-  const [items, setItems] = useState<PostDTO[]>([]);
+  const [items, setItems] = useState<any[]>([]);
   const [actualPage, setActualPage] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [verifyReply, setVerifyReply] = useState(false);
@@ -46,7 +42,9 @@ export function useInfiniteScroll(
         }
         setIsLoading(false);
       })
-      .catch(() => {
+      .catch((error) => {
+        console.error("Error:", error);
+        
         setIsLoading(false);
       });
   }

@@ -78,14 +78,14 @@ export function updateUser(
 }
 
 
-export function following(username: string) {
-  return axios.get(`${BASE_URL}/follow/user-following/${username}`, {
+export function following(username: string, page: number) {
+  return axios.get(`${BASE_URL}/follow/user-following/${username}?page=${page}&size=7`, {
     headers: { Authorization: `Bearer ${TOKEN}` },
   });
 }
 
-export function followers(username: string) {
-  return axios.get(`${BASE_URL}/follow/user-followers/${username}`, {
+export function followers(username: string, page: number) {
+  return axios.get(`${BASE_URL}/follow/user-followers/${username}?page=${page}&size=7`, {
     headers: { Authorization: `Bearer ${TOKEN}` },
   });
 }
