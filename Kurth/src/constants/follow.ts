@@ -6,10 +6,10 @@ export function followUser(userFollowerId: string, userFollowingId: string) {
     `${BASE_URL}/follow`,
     {
       userFollower: { id: userFollowerId },
-      userFollowing: { id: userFollowingId }
+      userFollowing: { id: userFollowingId },
     },
     {
-      headers: { Authorization: `Bearer ${TOKEN}` },
+      withCredentials: true,
     }
   );
 }
@@ -21,14 +21,14 @@ export function checkFollowStatus(
   return axios.get(
     `${BASE_URL}/follow/checkfollow/${userFollowerId}/${userFollowingId}`,
     {
-      headers: { Authorization: `Bearer ${TOKEN}` },
+      withCredentials: true,
     }
   );
 }
 
 export function removeFollow(followId: string) {
   return axios.delete(`${BASE_URL}/follow/remove-follow/${followId}`, {
-    headers: { Authorization: `Bearer ${TOKEN}` },
+    withCredentials: true,
   });
 }
 

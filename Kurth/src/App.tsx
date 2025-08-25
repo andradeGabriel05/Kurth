@@ -58,6 +58,8 @@ export default function App() {
       });
   }, [username, user_id]);
 
+  
+
   return (
     <div className="container">
       <BrowserRouter>

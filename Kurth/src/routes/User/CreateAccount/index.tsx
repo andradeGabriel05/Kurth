@@ -21,7 +21,7 @@ async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     currentDate,
     password.value
   ).then((response) => {
-    console.log("User created:", response.data);
+    console.log("User created:", response);
 
       const decodedToken: { sub: string } = jwtDecode(response.data.accessToken);
 

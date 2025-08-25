@@ -14,19 +14,17 @@ export function findPageRequest(
       size,
       sort,
     },
-    headers: { Authorization: `Bearer ${TOKEN}` },
+    withCredentials: true
   });
 }
 
 export function findById(id: string) {
-  return axios.get(`${BASE_URL}/user/${id}`, {
-    headers: { Authorization: `Bearer ${TOKEN}` },
-  });
+  return axios.get(`${BASE_URL}/user/${id}`, {withCredentials: true});
 }
 
 export function findByUsername(username: string) {
   return axios.get(`${BASE_URL}/user/username/${username}`, {
-    headers: { Authorization: `Bearer ${TOKEN}` },
+    withCredentials: true
   });
 }
 
@@ -54,11 +52,11 @@ export function registerUser(
     following,
     posts,
   };
-  return axios.post(`${BASE_URL}/register`, userData);
+  return axios.post(`${BASE_URL}/register`, userData, {withCredentials: true});
 }
 
 export function loginUser(username: string, password: string) {
-  return axios.post(`${BASE_URL}/login`, { username, password });
+  return axios.post(`${BASE_URL}/login`, { username, password }, {withCredentials: true});
 }
 
 export function updateUser(
