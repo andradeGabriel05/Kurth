@@ -27,7 +27,6 @@ async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
 
       localStorage.setItem("user_id", decodedToken.sub);
       localStorage.setItem("username", username.value);
-      localStorage.setItem("token", response.data.accessToken);
       window.location.href = "/";
     })
     .catch((error) => {

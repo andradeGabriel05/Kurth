@@ -1,5 +1,5 @@
 import axios from "axios";
-import { BASE_URL, TOKEN } from "../utils/system";
+import { BASE_URL } from "../utils/system";
 
 export function followUser(userFollowerId: string, userFollowingId: string) {
   return axios.post(
@@ -37,7 +37,7 @@ export function increaseUserFollowing(userId: string) {
     `${BASE_URL}/user/${userId}/update-following`,
     {},
     {
-      headers: { Authorization: `Bearer ${TOKEN}` },
+      withCredentials: true,
     }
   );
 }
@@ -46,7 +46,7 @@ export function increaseUserFollower(userId: string) {
     `${BASE_URL}/user/${userId}/update-follower`,
     {},
     {
-      headers: { Authorization: `Bearer ${TOKEN}` },
+      withCredentials: true,
     }
   );
 }
@@ -56,7 +56,7 @@ export function decreaseUserFollowing(userId: string) {
     `${BASE_URL}/user/${userId}/update-remove-following`,
     {},
     {
-      headers: { Authorization: `Bearer ${TOKEN}` },
+      withCredentials: true,
     }
   );
 }
@@ -66,7 +66,7 @@ export function decreaseUserFollower(userId: string) {
     `${BASE_URL}/user/${userId}/update-remove-follower`,
     {},
     {
-      headers: { Authorization: `Bearer ${TOKEN}` },
+      withCredentials: true,
     }
   );
 }

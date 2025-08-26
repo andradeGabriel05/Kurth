@@ -13,10 +13,9 @@ export default function Login() {
     event.preventDefault();
     await User.loginUser(username, password)
       .then((response) => {
-        const decodedToken = jwtDecode(response.data.accessToken);
+        const decodedToken: { sub: string } = jwtDecode(response.data.accessToken);
         if (response.status === 200) {
           localStorage.setItem("username", username);
-          localStorage.setItem("token", response.data.accessToken);
           localStorage.setItem("user_id", decodedToken.sub);
           window.location.href = "/";
         }

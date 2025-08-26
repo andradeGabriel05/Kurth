@@ -1,6 +1,5 @@
 import "./style.scss";
 import ProfileContentDetails from "../../../components/ProfileContentDetails";
-import ProfileHeader from "../../../components/ProfileHeader";
 import { useParams } from "react-router-dom";
 import * as UserService from "../../../constants/user";
 import * as MessageService from "../../../constants/message";

@@ -116,7 +116,7 @@ export default function ProfileContentDetails({ user }: Props) {
     formData.append("image", file);
 
     const response = await Message.saveImageLocal(formData);
-    console.log("Image uploaded:", response.data);
+    console.log("Image uploaded:", response);
     return response.data;
   }
 
