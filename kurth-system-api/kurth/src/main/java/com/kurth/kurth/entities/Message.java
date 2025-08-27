@@ -37,6 +37,8 @@ public class Message {
         this.sentToUser = sentToUser;
     }
 
+
+
     public Long getId() {
         return id;
     }

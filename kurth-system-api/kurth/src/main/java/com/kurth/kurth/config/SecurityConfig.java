@@ -49,6 +49,7 @@ public class SecurityConfig {
         http.headers(headers -> headers.frameOptions(frame -> frame.sameOrigin()));
 
         http.authorizeHttpRequests(auth -> auth
+                .requestMatchers("/websocket/**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/login", "/register").permitAll()
                 .requestMatchers(HttpMethod.GET, "/uploads/**", "/message/**", "/user/**").permitAll()
                 .requestMatchers("/h2-console/**").permitAll()

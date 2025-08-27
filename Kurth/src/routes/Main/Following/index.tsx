@@ -3,7 +3,7 @@ import { UserDTO } from "../../../models/user";
 import { useEffect, useState } from "react";
 
 import * as messageService from "../../../constants/message";
-import { PostDTO } from "../../../models/message";
+import { PostDTO } from "../../../models/post";
 import MessagePost from "../../../components/MessagePost";
 import PostMapping from "../../../components/PostMapping";
 import { useInfiniteScroll } from "../../../hooks/useInfiniteScrool";

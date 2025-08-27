@@ -25,6 +25,7 @@ import * as User from "./constants/user.ts";
 import FollowingList from "./routes/Main/Profile/FollowingList/index.tsx";
 import FollowerList from "./routes/Main/Profile/FollowerList/index.tsx";
 import { logout } from "./utils/system.ts";
+import Message from "./routes/Message/index.tsx";
 
 export default function App() {
   //tomorrow: improve the use of findById on aside and messagePost... Try to get only here and pass as props?
@@ -91,6 +92,11 @@ export default function App() {
             <Route
               path="profile/:username/followers"
               element={<FollowerList />}
+            />
+
+            <Route
+              path="message"
+              element={<Message />}
             />
 
             <Route path="more" element={<More />} />

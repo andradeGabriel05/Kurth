@@ -28,7 +28,10 @@ public class MessageService {
         message.setMessage(messageDTO.getMessage());
         message.setSentAt(Instant.now());
 
+        System.out.println("passou antes do sentByUser");
+        System.out.println("só pra testar: " + message);
         User sentByUser = userRepository.getReferenceById(messageDTO.getSentByUser().getId());
+        System.out.println("passou depois do sentByUser");
         User sentToUser = userRepository.getReferenceById(messageDTO.getSentToUser().getId());
 
         message.setSentByUser(sentByUser);

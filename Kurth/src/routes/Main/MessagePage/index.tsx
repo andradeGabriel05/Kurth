@@ -4,7 +4,7 @@ import MessagePosted from "../../../components/MessagePosted";
 import "./style.scss";
 import MessagePost from "../../../components/MessagePost";
 import { useEffect, useState } from "react";
-import { PostDTO } from "../../../models/message";
+import { PostDTO } from "../../../models/post";
 import Reaction from "../../../components/Reaction";
 import PostMapping from "../../../components/PostMapping";
 import { useInfiniteScroll } from "../../../hooks/useInfiniteScrool";

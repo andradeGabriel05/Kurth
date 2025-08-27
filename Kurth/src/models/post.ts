@@ -1,12 +1,12 @@
-import { PostDTO } from "./post";
 import { UserDTO } from "./user";
 
-export type ReplyDTO = {
+export type PostDTO = {
     id: number;
     message: string;
     postedAt: string;
-    message_id: PostDTO;
     likeCount?: number;
     image?: string;
-    user: UserDTO,
+    user: UserDTO;
+    parent: PostDTO;
+    reply?: boolean;
 }

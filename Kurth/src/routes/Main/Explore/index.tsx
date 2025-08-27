@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { PostDTO } from "../../../models/message";
+import { PostDTO } from "../../../models/post";
 import * as MessageService from "../../../constants/message";
 import "./style.scss";
 import { Link } from "react-router-dom";

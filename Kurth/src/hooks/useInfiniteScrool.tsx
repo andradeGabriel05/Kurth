@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { PostDTO } from "../models/message";
+import { PostDTO } from "../models/post";
 
 /**
  * Custom hook for infinite scroll functionality.

@@ -1,4 +1,7 @@
 package com.kurth.kurth.entities.enums;
 
-public class MessageType {
+public enum MessageType {
+    CHAT,
+    JOIN,
+    LEAVE
 }

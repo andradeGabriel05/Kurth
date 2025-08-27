@@ -1,7 +1,7 @@
 import "./style.scss";
 
 import { Link } from "react-router-dom";
-import { PostDTO } from "../../models/message";
+import { PostDTO } from "../../models/post";
 import { useEffect, useState } from "react";
 import { BASE_URL } from "../../utils/system";
 

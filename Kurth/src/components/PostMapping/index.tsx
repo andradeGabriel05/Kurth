@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import MessagePosted from "../MessagePosted";
 import Reaction from "../Reaction";
-import { PostDTO } from "../../models/message";
+import { PostDTO } from "../../models/post";
 import { useEffect } from "react";
 
 type Props = {

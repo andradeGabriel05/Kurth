@@ -7,7 +7,7 @@ import PostMapping from "../../../../components/PostMapping";
 import * as User from "../../../../constants/user";
 import * as messageConst from "../../../../constants/message";
 import { useInfiniteScroll } from "../../../../hooks/useInfiniteScrool";
-import { PostDTO } from "../../../../models/message";
+import { PostDTO } from "../../../../models/post";
 
 type Props = {
   user: UserDTO;

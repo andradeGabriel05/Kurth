@@ -5,7 +5,7 @@ import * as UserService from "../../../constants/user";
 import * as MessageService from "../../../constants/message";
 import { UserDTO } from "../../../models/user";
 import { useEffect, useState } from "react";
-import { PostDTO } from "../../../models/message";
+import { PostDTO } from "../../../models/post";
 import { useInfiniteScroll } from "../../../hooks/useInfiniteScrool";
 import PostMapping from "../../../components/PostMapping";
 // import { user } from "../../constants/";

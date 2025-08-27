@@ -3,7 +3,7 @@ import "./style.scss";
 import { FaShareSquare } from "react-icons/fa";
 import { FaComment, FaHeart } from "react-icons/fa6";
 import { useNavigate} from "react-router-dom";
-import { PostDTO } from "../../models/message";
+import { PostDTO } from "../../models/post";
 import { ReplyDTO } from "../../models/reply";
 import { useEffect, useState } from "react";
 import * as ReplyService from "../../constants/reply";
