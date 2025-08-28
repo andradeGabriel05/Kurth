@@ -100,3 +100,12 @@ export function followers(username: string, page: number) {
     }
   );
 }
+
+export function followersById(id: string, page: number) {
+  return axios.get(
+    `${BASE_URL}/follow/user-followers/id/${id}?page=${page}&size=7`,
+    {
+      withCredentials: true,
+    }
+  );
+}

@@ -99,3 +99,4 @@ INSERT INTO tb_post (message, posted_at, like_count, user_id, is_reply) VALUES (
 INSERT INTO tb_post (message, posted_at, like_count, user_id, is_reply) VALUES ('Tirei o dia pra estudar, mas o café acabou. Triste fim.', TIMESTAMP WITH TIME ZONE '2025-07-19T16:00:00Z',0,'b7801ae5-debf-4243-bb03-1d0b53293bb1',0);
 
 INSERT INTO tb_post (message, posted_at, like_count, user_id, is_reply) VALUES ('Qual foi o melhor livro que você leu esse ano?', TIMESTAMP WITH TIME ZONE '2025-07-19T17:50:00Z',0,'d338db70-7c79-4f91-9e5a-975c945e29ec',0);
+

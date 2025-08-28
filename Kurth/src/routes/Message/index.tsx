@@ -4,6 +4,10 @@ import "./style.scss";
 import { BASE_URL } from "../../utils/system";
 import { Client } from "@stomp/stompjs";
 import { MessageDTO } from "../../models/message";
+import { UserDTO } from "../../models/user";
+import * as userService from "../../constants/user"
+import { Link, useParams } from "react-router-dom";
+import { useInfiniteScroll } from "../../hooks/useInfiniteScrool";
 
 //https://medium.com/@deshanipalliyaguruge2000/sending-broadcast-notifications-with-websocket-spring-boot-react-stomp-and-sockjs-50d99352c5bb
 export default function Message() {
@@ -55,40 +59,63 @@ export default function Message() {
         body: JSON.stringify({
           message: inputMessage,
           sentByUser: {
-            id: id,
+            id: "85195178-f5f3-4a09-9b43-7733f2ef7d46",
           },
           sentToUser: {
             id: "b7801ae5-debf-4243-bb03-1d0b53293bb1",
           },
         }),
       });
-      console.log(
-        "Message sent:",
-        JSON.stringify({
-          message: inputMessage,
-          sentByUser: {
-            id: id,
-          },
-          sentToUser: {
-            id: "b7801ae5-debf-4243-bb03-1d0b53293bb1",
-          },
-        })
-      );
+
       setInputMessage("");
     } else {
       console.error("WebSocket is not connected");
     }
   }
 
+  const params = useParams();
+
+  const { items: users, isLoading } = useInfiniteScroll((page: number) =>
+    userService.followersById(id as string, page)
+  );
+
+  console.log(users);
+  const [selectedUser, setSelectedUser] = useState<UserDTO | null>(null);
+  useEffect(() => {
+    if (params.username) {
+      const user = users.find((user) => user.userFollower.username === params.username);
+      if (user) {
+        setSelectedUser(user);
+        console.log(selectedUser);
+      }
+    }
+  }, [params.username, users]);
+
   return (
     <div className="message-container">
-      <input
-        type="text"
-        placeholder="message"
-        value={inputMessage}
-        onChange={(e) => setInputMessage(e.target.value)}
-      />
-      <button onClick={sendMessage}>Send</button>
+      <h2>Followers</h2>
+      <ul>
+        {users.map((user) => (
+          <li key={user.userFollower.id}>
+            <Link to={`/message/${user.userFollower.username}`}
+              style={{ color: 'white', textDecoration: 'none' }}>
+              {user.userFollower.username}
+            </Link>
+          </li>
+        ))}
+      </ul>
+      {params.username ?
+        <div><input
+          type="text"
+          placeholder="message"
+          value={inputMessage}
+          onChange={(e) => setInputMessage(e.target.value)}
+        />
+          <button onClick={sendMessage}>Send</button>
+        </div>
+        : null}
+
+
       {message.map((msg, index) => (
         <div key={index} className="message">
           {msg.sentByUser.id === id ? (
@@ -98,6 +125,9 @@ export default function Message() {
           )}
         </div>
       ))}
+
+      { }
+
     </div>
   );
 }

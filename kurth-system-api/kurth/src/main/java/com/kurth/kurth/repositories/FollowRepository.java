@@ -24,6 +24,9 @@ public interface FollowRepository extends JpaRepository<Follow, Long> {
     @Query("SELECT obj FROM Follow obj WHERE obj.userFollowing.username = :username")
     Page<Follow> followers(Pageable pageable, String username);
 
+    @Query("SELECT obj FROM Follow obj WHERE obj.userFollowing.id = :uuid")
+    Page<Follow> followersById(Pageable pageable, UUID uuid);
+
     @Query("SELECT obj FROM Follow obj WHERE obj.userFollower.username = :username")
     Page<Follow> following(Pageable pageable, String username);
 

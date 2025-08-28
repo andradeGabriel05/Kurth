@@ -293,15 +293,18 @@ export default function ProfileContentDetails({ user }: Props) {
             <button onClick={handleEditProfile}>Edit profile</button>
           ) : (
             // follow and unfollow text
-            <form method="post" onSubmit={handleFollow}>
-              <button type="submit">
-                {isFollowing ? "Unfollow" : "Follow"}
+            <>
+              <form method="post" onSubmit={handleFollow}>
+                <button type="submit">
+                  {isFollowing ? "Unfollow" : "Follow"}
+                </button>
+              </form>
+
+              <button>
+                <FaEnvelope className="reactIcon" />
               </button>
-            </form>
+            </>
           )}
-          <button>
-            <FaEnvelope className="reactIcon" />
-          </button>
         </div>
       </div>
 

@@ -1,16 +1,21 @@
 package com.kurth.kurth.services;
 
 import com.kurth.kurth.dto.MessageDTO;
+import com.kurth.kurth.dto.UserDTO;
 import com.kurth.kurth.entities.Message;
 import com.kurth.kurth.entities.User;
 import com.kurth.kurth.repositories.MessageRepository;
 import com.kurth.kurth.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
+import java.util.List;
+import java.util.UUID;
 
 @Service
 public class MessageService {
@@ -28,10 +33,8 @@ public class MessageService {
         message.setMessage(messageDTO.getMessage());
         message.setSentAt(Instant.now());
 
-        System.out.println("passou antes do sentByUser");
-        System.out.println("só pra testar: " + message);
         User sentByUser = userRepository.getReferenceById(messageDTO.getSentByUser().getId());
-        System.out.println("passou depois do sentByUser");
+
         User sentToUser = userRepository.getReferenceById(messageDTO.getSentToUser().getId());
 
         message.setSentByUser(sentByUser);
@@ -39,6 +42,11 @@ public class MessageService {
 
         messageRepository.save(message);
         return new MessageDTO(message);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<MessageDTO> getMessages(Pageable pageable, UUID uuid) {
+       return messageRepository.findBySentToUser(pageable, uuid);
     }
 }
 

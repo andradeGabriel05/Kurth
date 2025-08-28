@@ -79,7 +79,7 @@ export default function Aside() {
             </NavigationLink>
           </li>
           <li>
-            <NavigationLink link="notfound">
+            <NavigationLink link="message">
               <FaEnvelope className="reactIcon" />
               Messages
             </NavigationLink>

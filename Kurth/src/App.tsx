@@ -59,7 +59,7 @@ export default function App() {
       });
   }, [username, user_id]);
 
-  
+
 
   return (
     <div className="container">
@@ -94,11 +94,15 @@ export default function App() {
               element={<FollowerList />}
             />
 
+            <Route path="message" element={<Message />}>
+
+
+          
+            </Route>
             <Route
-              path="message"
+              path="message/:username"
               element={<Message />}
             />
-
             <Route path="more" element={<More />} />
           </Route>
           <Route path="login" element={<Login />} />
@@ -106,6 +110,6 @@ export default function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
-    </div>
+    </div >
   );
 }

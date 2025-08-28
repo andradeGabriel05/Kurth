@@ -91,6 +91,13 @@ public class FollowService {
     }
 
     @Transactional(readOnly = true)
+    public Page<FollowDTO> followersById(Pageable pageable, UUID uuid) {
+
+        Page<Follow> followPageable = followRepository.followersById(pageable, uuid);
+        return followPageable.map(FollowDTO::new);
+    }
+
+    @Transactional(readOnly = true)
     public Page<FollowDTO> following(Pageable pageable, String username) {
         Page<Follow> followPageable = followRepository.following(pageable, username);
         return followPageable.map(FollowDTO::new);

@@ -57,6 +57,13 @@ public class FollowController {
         return followService.followers(pageable, username);
     }
 
+
+    @GetMapping(value = "/user-followers/id/{uuid}")
+    public Page<FollowDTO> followersById(Pageable pageable, @PathVariable UUID uuid) {
+        return followService.followersById(pageable, uuid);
+    }
+
+
     @GetMapping(value = "/user-following/{username}")
     public Page<FollowDTO> following(Pageable pageable, @PathVariable String username) {
         return followService.following(pageable, username);
