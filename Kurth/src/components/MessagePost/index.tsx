@@ -5,14 +5,16 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { UserDTO } from "../../models/user";
 import * as User from "../../constants/user";
 import * as Message from "../../constants/message";
+import { PostDTO } from "../../models/message";
 
 type Props = {
   message: string;
+  posts: PostDTO[];
 };
 
-export default function MessagePost({ message }: Props) {
+export default function MessagePost({ message, posts }: Props) {
   const [messageForm, setMessageForm] = useState<string>("");
-
+  
   const params = useParams();
   const navigate = useNavigate();
 
@@ -36,10 +38,12 @@ export default function MessagePost({ message }: Props) {
       console.log("Image URL:", imageUrl);
     }
 
+
     Message.postMessage(messageForm, imageUrl, user_id)
       .then((response) => {
         console.log("Message posted:", response.data);
-        window.location.reload(); // <- this
+        posts.unshift({...response.data});
+        console.log("DEPOIS", posts)
       })
       .catch((error) => {
         if (!user_id) {
