@@ -9,10 +9,11 @@ import { PostDTO } from "../../models/message";
 
 type Props = {
   message: string;
-  posts: PostDTO[];
+  posts: React.Dispatch<React.SetStateAction<PostDTO[]>>;
+  setPosts?: React.Dispatch<React.SetStateAction<PostDTO[]>>;
 };
 
-export default function MessagePost({ message, posts }: Props) {
+export default function MessagePost({ message, posts, setPosts }: Props) {
   const [messageForm, setMessageForm] = useState<string>("");
   
   const params = useParams();
@@ -42,7 +43,8 @@ export default function MessagePost({ message, posts }: Props) {
     Message.postMessage(messageForm, imageUrl, user_id)
       .then((response) => {
         console.log("Message posted:", response.data);
-        posts.unshift({...response.data});
+        setPosts && setPosts((prevPosts) => [response.data, ...prevPosts]);
+
         console.log("DEPOIS", posts)
       })
       .catch((error) => {

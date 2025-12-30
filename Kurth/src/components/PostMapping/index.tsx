@@ -18,6 +18,12 @@ export default function PostMapping(
 ) {
 
   useEffect(() => {
+    console.log("PostMapping - post:", post);
+    console.log("PostMapping - reply:", reply);
+    console.log("PostMapping - messagePage:", messagePage);
+  }, [post, reply, messagePage]);
+
+  useEffect(() => {
     if (post.parent === undefined && !reply) {
       console.error("Post is undefined or null");
       return;

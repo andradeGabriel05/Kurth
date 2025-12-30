@@ -22,7 +22,7 @@ export default function Home() {
   const [postList, setPostList] = useState<PostDTO[]>(posts);
   useEffect(() => {
     setPostList(posts);
-    console.log("Posts atualizados:", posts);
+    console.log("Home - posts updated:", posts);
   }, [posts]);
 
   return (
@@ -33,7 +33,7 @@ export default function Home() {
         </Link>
         <Link to="/following">Following</Link>
       </header>
-      <MessagePost posts={posts} message="Write anything" />
+      <MessagePost setPosts={setPostList} posts={postList} message="Write anything" />
 
       <PostMapping
         post={postList}
