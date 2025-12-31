@@ -15,6 +15,7 @@ import NavigationLink from "../NavigationLink";
 import * as User from "../../constants/user";
 import { useEffect, useState } from "react";
 import { UserDTO } from "../../models/user";
+import * as user from "../../constants/user";
 
 export default function Aside() {
   const user_id: string = localStorage.getItem("user_id") || "";
@@ -49,6 +50,12 @@ export default function Aside() {
     localStorage.removeItem("token");
     window.location.reload();
     navigate(`/`);
+
+    console.log("Logging out user...");
+
+    user.logout().catch((error) => (
+      console.error("Error during logout:", error)
+    ));
   }
   return (
     <aside>

@@ -21,6 +21,8 @@ import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Cookie;
 
 import java.util.List;
 import java.util.Optional;
@@ -38,6 +40,23 @@ public class UserService {
 
     public UserService(BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    }
+
+
+    protected User authenticated() {
+        try {
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            Jwt jwt = (Jwt) auth.getPrincipal();
+
+            String username = jwt.getClaim("username");
+
+            Optional<User> user = userRepository.findByUsername(username);
+
+            return user.orElse(null);
+        }
+        catch (Exception e) {
+            throw new UsernameNotFoundException("User not found");
+        }
     }
 
     @Transactional(readOnly = true)
@@ -84,12 +103,10 @@ public class UserService {
 
 
     @Transactional
-    public UserDTO update(UUID id, UserDTO userDTO) {
-        if(!userRepository.existsById(id)) {
-            throw new ResourceNotFoundException("Id user not found");
-        }
+    public UserDTO update(UserDTO userDTO) {
+
         try {
-            User user = userRepository.findById(id).get();
+            User user = authenticated();
 
             if(userDTO.getPassword() != null) {
                 user.setPassword(bCryptPasswordEncoder.encode(userDTO.getPassword()));
@@ -162,12 +179,16 @@ public class UserService {
     }
 
     @Transactional
-    public UserDTO updateFollowing(UUID id) {
-        if(!userRepository.existsById(id)) {
-            throw new ResourceNotFoundException("Id user not found");
+    public UserDTO updateFollowing() {
+        User user = authenticated();
+        
+        if (user == null) {
+            throw new UsernameNotFoundException("User not authenticated");
         }
-        User user = userRepository.findById(id).get();
-        userRepository.updateFollowing(id);
+
+        UUID userId = user.getId();
+        userRepository.updateFollowing(userId);
+        
         return new UserDTO(user);
     }
 
@@ -182,30 +203,16 @@ public class UserService {
     }
 
     @Transactional
-    public UserDTO updateRemoveFollowing(UUID id) {
-        if(!userRepository.existsById(id)) {
-            throw new ResourceNotFoundException("Id user not found");
+    public UserDTO updateRemoveFollowing() {
+        User user = authenticated();
+        
+        if (user == null) {
+            throw new UsernameNotFoundException("User not authenticated");
         }
-        User user = userRepository.findById(id).get();
-        userRepository.updateRemoveFollowing(id);
+
+        UUID userId = user.getId();
+        userRepository.updateRemoveFollowing(userId);
         return new UserDTO(user);
-    }
-
-
-    protected User authenticated() {
-        try {
-            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-            Jwt jwt = (Jwt) auth.getPrincipal();
-
-            String username = jwt.getClaim("username");
-
-            Optional<User> user = userRepository.findByUsername(username);
-
-            return user.orElse(null);
-        }
-        catch (Exception e) {
-            throw new UsernameNotFoundException("User not found");
-        }
     }
 
     @Transactional(readOnly = true)
@@ -220,6 +227,15 @@ public class UserService {
         return auth != null &&
                 auth.isAuthenticated() &&
                 !(auth instanceof AnonymousAuthenticationToken);
+    }
+
+    public void logout(HttpServletResponse response) {
+        Cookie cookie = new Cookie("token", null);
+        cookie.setPath("/");
+        cookie.setMaxAge(0);
+
+        SecurityContextHolder.clearContext();
+        response.addCookie(cookie);
     }
 
     private void copyDtoToEntity(UserDTO userDTO, User user) {

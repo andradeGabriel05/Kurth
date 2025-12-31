@@ -68,7 +68,6 @@ export function loginUser(username: string, password: string) {
 }
 
 export function updateUser(
-  id: string,
   username: string,
   bio: string | null = null,
   avatar: string | null = null
@@ -78,7 +77,7 @@ export function updateUser(
     bio,
     avatar,
   };
-  return axios.put(`${BASE_URL}/user/${id}`, userData, {
+  return axios.put(`${BASE_URL}/user`, userData, {
     withCredentials: true,
   });
 }
@@ -95,6 +94,16 @@ export function following(username: string, page: number) {
 export function followers(username: string, page: number) {
   return axios.get(
     `${BASE_URL}/follow/user-followers/${username}?page=${page}&size=7`,
+    {
+      withCredentials: true,
+    }
+  );
+}
+
+export function logout() {
+  return axios.post(
+    `${BASE_URL}/user/logout`,
+    {},
     {
       withCredentials: true,
     }
