@@ -19,15 +19,20 @@
       width: 100%;
       .wrapper__post__details {
         display: flex;
+        align-items: center;
         justify-content: space-between;
 
         .options {
           .edit__button {
-            transition: all 0.3s;
-            &:hover {
+            svg {
               transition: all 0.3s;
-              cursor: pointer;
-              background-color: #525252 !important;
+              border-radius: 8px;
+              &:hover {
+                transition: all 0.3s;
+                cursor: pointer;
+                background-color: #929292 !important;
+                border-radius: 8px;
+              }
             }
           }
           position: relative;

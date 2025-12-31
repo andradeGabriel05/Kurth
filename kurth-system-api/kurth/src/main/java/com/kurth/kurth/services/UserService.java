@@ -12,7 +12,12 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -184,6 +189,37 @@ public class UserService {
         User user = userRepository.findById(id).get();
         userRepository.updateRemoveFollowing(id);
         return new UserDTO(user);
+    }
+
+
+    protected User authenticated() {
+        try {
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            Jwt jwt = (Jwt) auth.getPrincipal();
+
+            String username = jwt.getClaim("username");
+
+            Optional<User> user = userRepository.findByUsername(username);
+
+            return user.orElse(null);
+        }
+        catch (Exception e) {
+            throw new UsernameNotFoundException("User not found");
+        }
+    }
+
+    @Transactional(readOnly = true)
+    public UserDTO getCurrentUser() {
+        User user = authenticated();
+        return new UserDTO(user);
+    }
+
+    public Boolean isUserAuthenticated() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        return auth != null &&
+                auth.isAuthenticated() &&
+                !(auth instanceof AnonymousAuthenticationToken);
     }
 
     private void copyDtoToEntity(UserDTO userDTO, User user) {

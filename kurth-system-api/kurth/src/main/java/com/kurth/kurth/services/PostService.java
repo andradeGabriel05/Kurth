@@ -37,6 +37,8 @@ public class PostService {
     private UserRepository userRepository;
     @Autowired
     private LikeCountRepository likeCountRepository;
+    @Autowired
+    private UserService userService;
 
     @Transactional(readOnly = true)
     public Page<PostDTO> findAllUserMessages(String username, Pageable pageable) {
@@ -83,7 +85,9 @@ public class PostService {
             Post post = new Post();
 
             copyDtoToEntity(postDTO, post);
-            User user = userRepository.getReferenceById(postDTO.getUser().getId());
+            System.out.println("PASSOU AQUI");
+            User user = userService.authenticated();
+
             if(postDTO.getParent() != null) {
                 Post parent = postRepository.getReferenceById(postDTO.getParent().getId());
                 post.setParent(parent);

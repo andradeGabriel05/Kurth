@@ -6,7 +6,7 @@ const paginationSize: number = 7;
 export function postMessage(
   message: string,
   imageUrl: string | null,
-  userId: string
+  userId?: string
 ) {
   return axios.post(
     `${BASE_URL}/message`,
@@ -15,7 +15,6 @@ export function postMessage(
       postedAt: currentDate,
       image: imageUrl ? `http://localhost:8080/${imageUrl}` : null,
       likeCount: 0,
-      user: { id: userId },
     },
     {
       withCredentials: true,

@@ -40,7 +40,7 @@ export default function MessagePost({ message, posts, setPosts }: Props) {
     }
 
 
-    Message.postMessage(messageForm, imageUrl, user_id)
+    Message.postMessage(messageForm, imageUrl)
       .then((response) => {
         console.log("Message posted:", response.data);
         setPosts && setPosts((prevPosts) => [response.data, ...prevPosts]);

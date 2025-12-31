@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { BASE_URL } from "../../utils/system";
 
 import * as messageService from "../../constants/message";
+import { PiDotsThree } from "react-icons/pi";
 
 type Props = {
   post: PostDTO;
@@ -163,7 +164,7 @@ export default function MessagePosted({
                     className="edit__button"
                     onClick={(event) => handleOpenOptions(event)}
                   >
-                    ° ° °
+                    <PiDotsThree size={32} fontSizeAdjust={32}/>
                   </span>
                   {showOptions && (
                     <div className="options__box">
