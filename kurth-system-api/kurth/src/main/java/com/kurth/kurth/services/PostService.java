@@ -85,8 +85,11 @@ public class PostService {
             Post post = new Post();
 
             copyDtoToEntity(postDTO, post);
-            System.out.println("PASSOU AQUI");
             User user = userService.authenticated();
+
+            // if(user == null) {
+            //     throw new UsernameNotFoundException("User not authenticated");
+            // }
 
             if(postDTO.getParent() != null) {
                 Post parent = postRepository.getReferenceById(postDTO.getParent().getId());

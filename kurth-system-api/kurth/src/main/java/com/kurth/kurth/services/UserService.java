@@ -108,6 +108,10 @@ public class UserService {
         try {
             User user = authenticated();
 
+            if(user == null) {
+                throw new UsernameNotFoundException("User not authenticated");
+            }
+
             if(userDTO.getPassword() != null) {
                 user.setPassword(bCryptPasswordEncoder.encode(userDTO.getPassword()));
             }
@@ -231,11 +235,13 @@ public class UserService {
 
     public void logout(HttpServletResponse response) {
         Cookie cookie = new Cookie("token", null);
+        cookie.setHttpOnly(true);
+        cookie.setSecure(false);
         cookie.setPath("/");
         cookie.setMaxAge(0);
 
+        response.addCookie(cookie); 
         SecurityContextHolder.clearContext();
-        response.addCookie(cookie);
     }
 
     private void copyDtoToEntity(UserDTO userDTO, User user) {

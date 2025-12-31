@@ -108,11 +108,8 @@ public class UserController {
 
     @GetMapping(value = "/is-authenticated")
     public ResponseEntity<Boolean> isUserAuthenticated() {
-        if(userService.isUserAuthenticated()) {
-            return ResponseEntity.ok(true);
-        }
-
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(false);
+        Boolean authenticated = userService.isUserAuthenticated();
+        return ResponseEntity.ok(authenticated);
     }
 
     @PostMapping(value = "/logout")

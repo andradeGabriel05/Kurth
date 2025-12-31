@@ -18,6 +18,10 @@ export function findPageRequest(
   });
 }
 
+export function findMe() {
+  return axios.get(`${BASE_URL}/user/me`, { withCredentials: true });
+}
+
 export function findById(id: string) {
   return axios.get(`${BASE_URL}/user/${id}`, { withCredentials: true });
 }
@@ -107,5 +111,11 @@ export function logout() {
     {
       withCredentials: true,
     }
+  );
+}
+
+export function isAuthenticated() {
+  return axios.get(
+    `${BASE_URL}/user/is-authenticated`, { withCredentials: true }
   );
 }

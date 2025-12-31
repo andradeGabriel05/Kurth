@@ -25,46 +25,31 @@ import * as User from "./constants/user.ts";
 import FollowingList from "./routes/Main/Profile/FollowingList/index.tsx";
 import FollowerList from "./routes/Main/Profile/FollowerList/index.tsx";
 import { logout } from "./utils/system.ts";
+import PrivateRoute from "./routes/Main/PrivateRoute/index.tsx";
 
 export default function App() {
-  //tomorrow: improve the use of findById on aside and messagePost... Try to get only here and pass as props?
-
-  const params = useParams();
-
-  const user_id: string = localStorage.getItem("user_id") || "";
-  const username = params.username;
-
   const [userDTO, setUserDTO] = useState<UserDTO>();
-  // const [user, setUser] = useState<UserDTO>();
-
-  // const navigate = useNavigate();
-
-  const ignoreRequest = ["/login", "/signup"];
 
   useEffect(() => {
-    User.findById(user_id)
+    User.findMe()
       .then((response) => {
         setUserDTO(response.data);
       })
       .catch((error) => {
         console.error("Error fetching user data:", error);
-        if (
-          error.response &&
-          error.response.status === 401 &&
-          !ignoreRequest.includes(window.location.pathname)
-        ) {
-          logout();
-        }
       });
-  }, [username, user_id]);
+  }, []);
 
-  
+
 
   return (
     <div className="container">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Main />}>
+          <Route path="/" element={
+            <PrivateRoute>
+              <Main />
+            </PrivateRoute>}>
             <Route index element={<Home />} />
             <Route path="home" element={<Home />} />
             <Route
