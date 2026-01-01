@@ -19,19 +19,8 @@ export default function MessagePost({ message, posts, setPosts }: Props) {
   const params = useParams();
   const navigate = useNavigate();
 
-  // must improve this in the future
-  const user_id: string = localStorage.getItem("user_id") || "";
-  const username = localStorage.getItem("username");
-  const formattedUsername = username ? username.replace(/['"]+/g, "") : "";
-
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-
-    if(!username) {
-      console.error("Username is not set in localStorage.");
-      navigate("/login");
-      return;
-    }
 
     let imageUrl;
     if (handleImage && messageForm.length > 0) {
@@ -48,10 +37,6 @@ export default function MessagePost({ message, posts, setPosts }: Props) {
         console.log("DEPOIS", posts)
       })
       .catch((error) => {
-        if (!user_id) {
-          console.error("Error:", error);
-          navigate("/login");
-        }
         if (error.response && error.response.status === 422) {
           alert("Please write a message before posting.");
         }
@@ -60,7 +45,7 @@ export default function MessagePost({ message, posts, setPosts }: Props) {
 
   function handleReply(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    Message.postReply(messageForm, Number(params.messageId), user_id)
+    Message.postReply(messageForm, Number(params.messageId))
       .then((response) => {
         console.log("Reply posted:", response);
         window.location.reload(); // <- this too
@@ -81,17 +66,20 @@ export default function MessagePost({ message, posts, setPosts }: Props) {
   }
 
   const [userDTO, setUserDTO] = useState<UserDTO>();
-
+  const [formattedUsername, setFormattedUsername] = useState<string>("");
   useEffect(() => {
-    User.findById(user_id)
+    User.findMe()
       .then((response) => {
         setUserDTO(response.data);
+        const cleanUsername = response.data.username.replace(/['"]+/g, "");
+        setFormattedUsername(cleanUsername);
+        console.log("User data:", response.data);
       })
       .catch((error) => {
         console.error("Error:", error.response.data);
       });
-  }, [user_id]);
-
+  }, []);
+  
   const [handleImage, setHandleImage] = useState<File | null>(null);
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -108,7 +96,7 @@ export default function MessagePost({ message, posts, setPosts }: Props) {
         <div className="wrapper-form">
           <div className="user-avatar">
             <Link
-              to={user_id === null ? `/login` : `/profile/${formattedUsername}`}
+              to={`/profile/${formattedUsername}`}
             >
               {userDTO && userDTO.avatar && userDTO.avatar !== "" ? (
                 <img

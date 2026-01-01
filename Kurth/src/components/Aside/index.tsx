@@ -33,10 +33,6 @@ export default function Aside() {
         console.error("Error:", error.response.data);
       });
   }, [user_id]);
-  // const handleLogout = () => {
-  //   localStorage.removeItem("user_id");
-  //   navigate(`/`);
-  // };
 
   const [showLogout, setShowLogout] = useState(false);
 
@@ -45,14 +41,7 @@ export default function Aside() {
   }
 
   function handleLogout() {
-    // localStorage.removeItem("user_id");
-    // localStorage.removeItem("username");
-    // localStorage.removeItem("token");
-    // window.location.reload();
-    // navigate(`/`);
-
     console.log("Logging out user...");
-
     user.logout().then(e => {
       console.log("Logout successful:", e);
       navigate(`/login`);

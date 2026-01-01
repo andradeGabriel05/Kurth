@@ -2,7 +2,7 @@ import "./style.scss";
 
 import { FaShareSquare } from "react-icons/fa";
 import { FaComment, FaHeart } from "react-icons/fa6";
-import { useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { PostDTO } from "../../models/message";
 import { ReplyDTO } from "../../models/reply";
 import { useEffect, useState } from "react";
@@ -15,7 +15,6 @@ type Props = {
 
 export default function Reaction({ message }: Props) {
   const navigate = useNavigate();
-  const userId: string = localStorage.getItem("user_id") || "";
   const [likeCount, setLikeCount] = useState<number>(message.likeCount || 0);
   const messageId = Number(message.id);
   const [isLiked, setIsLiked] = useState<boolean>(false);
@@ -46,30 +45,26 @@ export default function Reaction({ message }: Props) {
     if (isLiking) return; // block multiple clicks
 
     setIsLiking(true);
-    if (userId) {
-      try {
-        await MessageService.likeMessageLikeCount(messageId, userId);
-        await MessageService.increaseLikeMessage(messageId);
+    try {
+      await MessageService.likeMessageLikeCount(messageId);
+      await MessageService.increaseLikeMessage(messageId);
 
-        setLikeCount((c) => c + 1);
-        setIsLiked(true);
-        console.log(likeCount);
-      } catch {
-        // If the user already liked the message, remove the like
-        await MessageService.removeLike(messageId);
-        await MessageService.removeLikeFromMessage(messageId);
+      setLikeCount((c) => c + 1);
+      setIsLiked(true);
+      console.log(likeCount);
+    } catch {
+      // If the user already liked the message, remove the like
+      await MessageService.removeLike(messageId);
+      await MessageService.removeLikeFromMessage(messageId);
 
-        setLikeCount((c) => c - 1);
-        setIsLiked(false);
-        console.log(likeCount);
-      } finally {
-        setIsLiking(false);
-      }
-
-      console.log("Like button clicked");
-    } else {
-      navigate(`/login`);
+      setLikeCount((c) => c - 1);
+      setIsLiked(false);
+      console.log(likeCount);
+    } finally {
+      setIsLiking(false);
     }
+
+    console.log("Like button clicked");
   }
 
   function handleReplyButton() {
@@ -85,7 +80,7 @@ export default function Reaction({ message }: Props) {
 
   function checkMessageLike(messageId: number) {
     // Check if the user has already liked the message
-    MessageService.checkIfUserLikedMessage(userId, messageId)
+    MessageService.checkIfUserLikedMessage(messageId)
       .then((response) => {
         if (response.data == null) {
           setIsLiked(false);

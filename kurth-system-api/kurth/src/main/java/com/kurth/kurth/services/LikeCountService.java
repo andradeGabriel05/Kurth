@@ -32,6 +32,8 @@ public class LikeCountService {
 
     @Autowired
     private PostRepository postRepository;
+    @Autowired
+    private UserService userService;
 
     @Transactional(readOnly = true)
     public LikeCountDTO findById(Long id) {
@@ -55,15 +57,19 @@ public class LikeCountService {
     }
 
     @Transactional(readOnly = true)
-    public Optional<LikeCountDTO> findByUserIdAndMessageId(UUID userId, Long postId) {
+    public Optional<LikeCountDTO> findByUserIdAndMessageId(Long postId) {
+        UUID userId = userService.authenticated().getId();
         Optional<LikeCount> likeCount = likeCountRepository.findByUserIdAndPostId(userId, postId);
+
         return likeCount.map(LikeCountDTO::new);
     }
 
     @Transactional
     public LikeCountDTO insertLike(LikeCountDTO likeCountDTO) {
         try {
-            UUID userId = likeCountDTO.getUser().getId();
+            User user = userService.authenticated();
+            UUID userId = user.getId();
+
             Long postId = likeCountDTO.getPost().getId();
 
             Optional<LikeCount> existingLike = likeCountRepository.findByUserIdAndPostId(userId, postId);
@@ -75,16 +81,14 @@ public class LikeCountService {
 
             LikeCount likeCount = new LikeCount();
 
-            User user = userRepository.getReferenceById(userId);
             Post post = postRepository.getReferenceById(postId);
-
 
             likeCount.setUser(user);
             likeCount.setPost(post);
             likeCount.setLikedAt(Instant.now());
 
-
             likeCount = likeCountRepository.save(likeCount);
+
             return new LikeCountDTO(likeCount);
         } catch (DataIntegrityViolationException e) {
             throw new DatabaseException("[Service] Integrity violation: User may not exist");

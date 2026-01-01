@@ -83,25 +83,6 @@ public class UserService {
     }
 
 
-//    @Transactional
-//    public UserDTO newUser(UserDTO userDTO) {
-//
-//        try {
-//
-//        User user = new User();
-//
-//        copyDtoToEntity(userDTO, user);
-//
-//
-//        user = userRepository.save(user);
-//        return new UserDTO(user);
-//        } catch (DataIntegrityViolationException e) {
-//            throw new DatabaseException("[Service] Integrity violation. Username or email address already exists");
-//        }
-//
-//    }
-
-
     @Transactional
     public UserDTO update(UserDTO userDTO) {
 
@@ -157,20 +138,6 @@ public class UserService {
         return ResponseEntity.noContent().build();
     }
 
-    @Transactional
-    public UserDTO login(String username, String password) {
-        Optional<User> userOptional = userRepository.login(username, password);
-
-        if (userOptional.isPresent()) {
-            User user = userOptional.get();
-            System.out.println("Usuario existe");
-            return new UserDTO(user);
-        } else {
-            System.out.println("Usuário não existe ou senha inválida");
-            return null;
-//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Usuário ou senha inválidos");
-        }
-    }
 
     @Transactional
     public UserDTO updateFollower(UUID id) {
