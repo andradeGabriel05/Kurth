@@ -20,22 +20,21 @@ public class PostDTO {
 
     private String image;
 
-    private Boolean isReply;
-
     private Integer likeCount;
 
-    private PostDTO parent;
+    private Long replyOfId;
+
+    private Long repostOfId;
 
     private UserDTO user;
 
-    public PostDTO(Long id, String message, Instant postedAt, String image, Boolean isReply, Integer likeCount, PostDTO parent, UserDTO user) {
-        this.id = id;
+    public PostDTO(String message, Instant postedAt, String image, Integer likeCount, Long replyOfId, Long repostOfId, UserDTO user) {
         this.message = message;
         this.postedAt = postedAt;
         this.image = image;
-        this.isReply = isReply;
         this.likeCount = likeCount;
-        this.parent = parent;
+        this.replyOfId = replyOfId;
+        this.repostOfId = repostOfId;
         this.user = user;
     }
 
@@ -45,10 +44,14 @@ public class PostDTO {
         this.postedAt = post.getPostedAt();
         this.image = post.getImage();
         this.likeCount = post.getLikeCount();
-        this.isReply = post.getReply();
         this.user = new UserDTO(post.getUser());
-        if (post.getParent() != null) {
-            this.parent = new PostDTO(post.getParent());
+
+        if (post.getReplyOfId() != null) {
+            this.replyOfId = post.getReplyOfId();
+        }
+
+        if (post.getRepostOfId() != null) {
+            this.repostOfId = post.getRepostOfId();
         }
     }
 
@@ -68,14 +71,6 @@ public class PostDTO {
         return image;
     }
 
-    public Boolean getReply() {
-        return isReply;
-    }
-
-    public PostDTO getParent() {
-        return parent;
-    }
-
     public UserDTO getUser() {
         return user;
     }
@@ -84,4 +79,11 @@ public class PostDTO {
         return likeCount;
     }
 
+    public Long getReplyOfId() {
+        return replyOfId;
+    }
+
+    public Long getRepostOfId() {
+        return repostOfId;
+    }
 }

@@ -25,30 +25,28 @@ public class Post {
 
     private String image;
 
-    private Boolean isReply;
-
-    @Column(name = "like_count")
     private Integer likeCount;
 
-    @ManyToOne
-    @JoinColumn(name = "parent_id")
-    private Post parent;
+    private Long replyOfId;
+
+    private Long repostOfId;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
 
+
     public Post() {}
 
-    public Post(Long id, String message, Instant postedAt, String image, Boolean isReply, Integer likeCount, Post parent, User user) {
+    public Post(Long id, String message, Instant postedAt, String image, Integer likeCount, Long replyOfId, Long repostOfId, User user) {
         this.id = id;
         this.message = message;
         this.postedAt = postedAt;
         this.image = image;
-        this.isReply = isReply;
         this.likeCount = likeCount;
-        this.parent = parent;
+        this.replyOfId = replyOfId;
+        this.repostOfId = repostOfId;
         this.user = user;
     }
 
@@ -80,14 +78,6 @@ public class Post {
         this.postedAt = postedAt;
     }
 
-    public Boolean getReply() {
-        return isReply;
-    }
-
-    public void setReply(Boolean reply) {
-        isReply = reply;
-    }
-
     public String getImage() {
         return image;
     }
@@ -104,11 +94,19 @@ public class Post {
         this.likeCount = likeCount;
     }
 
-    public Post getParent() {
-        return parent;
+    public Long getReplyOfId() {
+        return replyOfId;
     }
 
-    public void setParent(Post parent) {
-        this.parent = parent;
+    public void setReplyOfId(Long replyOfId) {
+        this.replyOfId = replyOfId;
+    }
+
+    public Long getRepostOfId() {
+        return repostOfId;
+    }
+
+    public void setRepostOfId(Long repostOfId) {
+        this.repostOfId = repostOfId;
     }
 }

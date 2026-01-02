@@ -1,5 +1,6 @@
 package com.kurth.kurth.services;
 
+import com.kurth.kurth.dto.feed.FeedPostDTO;
 import com.kurth.kurth.dto.PostDTO;
 import com.kurth.kurth.entities.LikeCount;
 import com.kurth.kurth.entities.Post;
@@ -72,9 +73,8 @@ public class PostService {
     }
 
     @Transactional(readOnly = true)
-    public Page<PostDTO> findAll(Pageable pageable) {
-        Page<Post> message = postRepository.findAll(pageable);
-        return message.map(x -> new PostDTO(x));
+    public Page<FeedPostDTO> findAll(Pageable pageable) {
+        return postRepository.getFeed(pageable);
     }
 
 
@@ -85,12 +85,14 @@ public class PostService {
             Post post = new Post();
 
             copyDtoToEntity(postDTO, post);
-            System.out.println("PASSOU AQUI");
             User user = userService.authenticated();
 
-            if(postDTO.getParent() != null) {
-                Post parent = postRepository.getReferenceById(postDTO.getParent().getId());
-                post.setParent(parent);
+            if(postDTO.getReplyOfId() != null) {
+                post.setReplyOfId(postDTO.getReplyOfId());
+            }
+
+            if(postDTO.getRepostOfId() != null) {
+                post.setRepostOfId(postDTO.getRepostOfId());
             }
 
             post.setUser(user);
@@ -133,7 +135,7 @@ public class PostService {
         }
         try {
             List<Post> fks = postRepository.findByParentId(id);
-            fks.forEach(x -> x.setParent(null));
+            fks.forEach(x -> x.setReplyOfId(null));
             postRepository.saveAll(fks);
 
             List<LikeCount> likesOnPost = likeCountRepository.findByPostId(id);
@@ -190,6 +192,5 @@ public class PostService {
         post.setPostedAt(postDTO.getPostedAt());
         post.setImage(postDTO.getImage());
         post.setLikeCount(postDTO.getLikeCount());
-        post.setReply(postDTO.getReply());      
     }
 }

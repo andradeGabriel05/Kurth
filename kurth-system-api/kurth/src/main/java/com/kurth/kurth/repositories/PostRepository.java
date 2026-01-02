@@ -1,5 +1,6 @@
 package com.kurth.kurth.repositories;
 
+import com.kurth.kurth.dto.feed.FeedPostDTO;
 import com.kurth.kurth.entities.LikeCount;
 import com.kurth.kurth.entities.Post;
 import org.springframework.data.domain.Page;
@@ -18,6 +19,38 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     @Query("SELECT obj FROM Post obj WHERE obj.user.username = :username")
     Page<Post> findAllUserMessages(String username, Pageable pageable);
 
+    @Query("""
+SELECT new com.kurth.kurth.dto.feed.FeedPostDTO(
+    p.id,
+    p.message,
+    p.postedAt,
+    p.likeCount,
+
+    new com.kurth.kurth.dto.feed.FeedUserDTO(u.name, u.username, u.avatar),
+    
+    new com.kurth.kurth.dto.feed.FeedReplyDTO(
+        reply.id,
+        reply.message,
+        new com.kurth.kurth.dto.feed.FeedUserDTO(replyUser.name, replyUser.username, replyUser.avatar)
+    ),
+
+    new com.kurth.kurth.dto.feed.FeedRepostDTO(
+        repost.id,
+        repost.message,
+        new com.kurth.kurth.dto.feed.FeedUserDTO(repostUser.name, repostUser.username, repostUser.avatar)
+    )
+)
+FROM Post p
+JOIN p.user u
+
+LEFT JOIN Post reply ON reply.id = p.replyOfId
+LEFT JOIN reply.user replyUser
+
+LEFT JOIN Post repost ON repost.id = p.repostOfId
+LEFT JOIN repost.user repostUser
+""")
+    Page<FeedPostDTO> getFeed(Pageable pageable);
+
     List<Post> findAllByUserId(UUID id);
 
     @Query("SELECT obj FROM Post obj WHERE obj.image IS NOT NULL")
@@ -28,14 +61,14 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 
     //atenção!!! todo -> remove REPLY
     @Query("SELECT COUNT(obj) FROM Post obj " +
-            "WHERE obj.parent.id = :id GROUP BY obj.parent.id")
+            "WHERE obj.replyOfId = :id GROUP BY obj.replyOfId")
     Integer countReplyMessages(@Param("id") Long id);
 
-    @Query("SELECT obj FROM Post obj WHERE obj.parent.id = :id")
+    @Query("SELECT obj FROM Post obj WHERE obj.replyOfId = :id")
     Page<Post> findReplies(Pageable pageable, @Param("id") Long id);
 
     // esse é lista
-    @Query("SELECT obj FROM Post obj WHERE obj.parent.id = :id")
+    @Query("SELECT obj FROM Post obj WHERE obj.replyOfId = :id")
     List<Post> findByParentId(@Param("id")Long id);
 
     @Modifying

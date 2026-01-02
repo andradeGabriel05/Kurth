@@ -1,5 +1,6 @@
 package com.kurth.kurth.controllers;
 
+import com.kurth.kurth.dto.feed.FeedPostDTO;
 import com.kurth.kurth.dto.PostDTO;
 import com.kurth.kurth.services.PostService;
 import jakarta.validation.Valid;
@@ -30,11 +31,10 @@ public class PostController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<PostDTO>> findAll(Pageable pageable) {
-        Page<PostDTO> messageDTO = postService.findAll(pageable);
+    public ResponseEntity<Page<FeedPostDTO>> findAll(Pageable pageable) {
+        Page<FeedPostDTO> messageDTO = postService.findAll(pageable);
         return ResponseEntity.ok(messageDTO);
     }
-
 
     @GetMapping(value = "/user_messages/{username}")
     public Page<PostDTO> findAllUserMessages(@PathVariable String username, Pageable pageable) {
