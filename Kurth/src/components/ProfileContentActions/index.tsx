@@ -38,7 +38,7 @@ export default function ProfileContentActions(userLoggedInId: string) {
     );
     console.log(response);
     await Follow.decreaseUserFollower(userLoggedInId.userId);
-    await Follow.decreaseUserFollowing(userLoggedInId.userLoggedInId);
+    await Follow.decreaseUserFollowing();
 
     if (response.data.id) {
       await Follow.removeFollow(response.data.id);

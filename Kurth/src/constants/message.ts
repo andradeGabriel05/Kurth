@@ -6,7 +6,6 @@ const paginationSize: number = 7;
 export function postMessage(
   message: string,
   imageUrl: string | null,
-  userId?: string
 ) {
   return axios.post(
     `${BASE_URL}/message`,
@@ -22,7 +21,7 @@ export function postMessage(
   );
 }
 
-export function postReply(message: string, parentId: number, userId: string) {
+export function postReply(message: string, parentId: number) {
   return axios.post(
     `${BASE_URL}/message`,
     {
@@ -31,7 +30,6 @@ export function postReply(message: string, parentId: number, userId: string) {
       likeCount: 0,
       parent: { id: parentId },
       isReply: true,
-      user: { id: userId },
     },
     {
       withCredentials: true,
@@ -102,11 +100,10 @@ export function findReplies(id: number, actualPage: number = 0) {
 
 //like section
 
-export function likeMessageLikeCount(messageId: number, userId: string) {
+export function likeMessageLikeCount(messageId: number) {
   return axios.post(
     `${BASE_URL}/likecount`,
     {
-      user: { id: userId },
       post: { id: messageId },
     },
     {
@@ -134,9 +131,9 @@ export function findLikedMessages(username: string, actualPage: number = 0) {
   );
 }
 
-export function checkIfUserLikedMessage(userId: string, messageId: number) {
+export function checkIfUserLikedMessage(messageId: number) {
   return axios.get(
-    `${BASE_URL}/likecount/user/${userId}/message/${messageId}`,
+    `${BASE_URL}/likecount/message/${messageId}`,
     {
       withCredentials: true,
     }

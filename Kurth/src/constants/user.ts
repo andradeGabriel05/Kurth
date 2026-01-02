@@ -18,6 +18,10 @@ export function findPageRequest(
   });
 }
 
+export function findMe() {
+  return axios.get(`${BASE_URL}/user/me`, { withCredentials: true });
+}
+
 export function findById(id: string) {
   return axios.get(`${BASE_URL}/user/${id}`, { withCredentials: true });
 }
@@ -68,7 +72,6 @@ export function loginUser(username: string, password: string) {
 }
 
 export function updateUser(
-  id: string,
   username: string,
   bio: string | null = null,
   avatar: string | null = null
@@ -78,7 +81,7 @@ export function updateUser(
     bio,
     avatar,
   };
-  return axios.put(`${BASE_URL}/user/${id}`, userData, {
+  return axios.put(`${BASE_URL}/user`, userData, {
     withCredentials: true,
   });
 }
@@ -98,5 +101,21 @@ export function followers(username: string, page: number) {
     {
       withCredentials: true,
     }
+  );
+}
+
+export function logout() {
+  return axios.post(
+    `${BASE_URL}/user/logout`,
+    {},
+    {
+      withCredentials: true,
+    }
+  );
+}
+
+export function isAuthenticated() {
+  return axios.get(
+    `${BASE_URL}/user/is-authenticated`, { withCredentials: true }
   );
 }

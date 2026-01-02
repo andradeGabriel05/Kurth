@@ -10,11 +10,12 @@ import {
   FaBell,
   FaUser,
 } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import NavigationLink from "../NavigationLink";
 import * as User from "../../constants/user";
 import { useEffect, useState } from "react";
 import { UserDTO } from "../../models/user";
+import * as user from "../../constants/user";
 
 export default function Aside() {
   const user_id: string = localStorage.getItem("user_id") || "";
@@ -32,10 +33,6 @@ export default function Aside() {
         console.error("Error:", error.response.data);
       });
   }, [user_id]);
-  // const handleLogout = () => {
-  //   localStorage.removeItem("user_id");
-  //   navigate(`/`);
-  // };
 
   const [showLogout, setShowLogout] = useState(false);
 
@@ -44,11 +41,13 @@ export default function Aside() {
   }
 
   function handleLogout() {
-    localStorage.removeItem("user_id");
-    localStorage.removeItem("username");
-    localStorage.removeItem("token");
-    window.location.reload();
-    navigate(`/`);
+    console.log("Logging out user...");
+    user.logout().then(e => {
+      console.log("Logout successful:", e);
+      navigate(`/login`);
+    }).catch((error) => (
+      console.error("Error during logout:", error)
+    ));
   }
   return (
     <aside>

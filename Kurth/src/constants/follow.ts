@@ -32,9 +32,9 @@ export function removeFollow(followId: string) {
   });
 }
 
-export function increaseUserFollowing(userId: string) {
+export function increaseUserFollowing() {
   return axios.put(
-    `${BASE_URL}/user/${userId}/update-following`,
+    `${BASE_URL}/user/update-following`,
     {},
     {
       withCredentials: true,
@@ -51,9 +51,9 @@ export function increaseUserFollower(userId: string) {
   );
 }
 
-export function decreaseUserFollowing(userId: string) {
+export function decreaseUserFollowing() {
   return axios.put(
-    `${BASE_URL}/user/${userId}/update-remove-following`,
+    `${BASE_URL}/user/update-remove-following`,
     {},
     {
       withCredentials: true,

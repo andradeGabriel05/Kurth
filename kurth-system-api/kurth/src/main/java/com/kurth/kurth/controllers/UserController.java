@@ -3,6 +3,7 @@ package com.kurth.kurth.controllers;
 
 import com.kurth.kurth.dto.UserDTO;
 import com.kurth.kurth.services.UserService;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -48,9 +49,9 @@ public class UserController {
 //        return ResponseEntity.created(uri).body(userDTO);
 //    }
 
-    @PutMapping(value = "/{id}")
-    public ResponseEntity<UserDTO> update(@PathVariable UUID id,@RequestBody UserDTO userDTO) {
-        userDTO = userService.update(id, userDTO);
+    @PutMapping
+    public ResponseEntity<UserDTO> update(@RequestBody UserDTO userDTO) {
+        userDTO = userService.update(userDTO);
         return ResponseEntity.ok(userDTO);
     }
 
@@ -81,9 +82,9 @@ public class UserController {
         return ResponseEntity.ok(userDTO);
     }
 
-    @PutMapping(value = "{id}/update-following")
-    public ResponseEntity<UserDTO> updateFollowing(@PathVariable UUID id) {
-        UserDTO userDTO = userService.updateFollowing(id);
+    @PutMapping(value = "/update-following")
+    public ResponseEntity<UserDTO> updateFollowing() {
+        UserDTO userDTO = userService.updateFollowing();
         return ResponseEntity.ok(userDTO);
     }
 
@@ -93,9 +94,9 @@ public class UserController {
         return ResponseEntity.ok(userDTO);
     }
 
-    @PutMapping(value = "{id}/update-remove-following")
-    public ResponseEntity<UserDTO> updateRemoveFollowing(@PathVariable UUID id) {
-        UserDTO userDTO = userService.updateRemoveFollowing(id);
+    @PutMapping(value = "/update-remove-following")
+    public ResponseEntity<UserDTO> updateRemoveFollowing() {
+        UserDTO userDTO = userService.updateRemoveFollowing();
         return ResponseEntity.ok(userDTO);
     }
 
@@ -107,10 +108,13 @@ public class UserController {
 
     @GetMapping(value = "/is-authenticated")
     public ResponseEntity<Boolean> isUserAuthenticated() {
-        if(userService.isUserAuthenticated()) {
-            return ResponseEntity.ok(true);
-        }
+        Boolean authenticated = userService.isUserAuthenticated();
+        return ResponseEntity.ok(authenticated);
+    }
 
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(false);
+    @PostMapping(value = "/logout")
+    public ResponseEntity<Void> logout(HttpServletResponse response) {
+        userService.logout(response);
+        return ResponseEntity.noContent().build();
     }
 }

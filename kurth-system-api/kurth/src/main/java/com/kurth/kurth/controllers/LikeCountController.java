@@ -37,9 +37,9 @@ public class LikeCountController {
         return likeCountService.findByUserUsername(username, pageable);
     }
 
-    @GetMapping("/user/{userId}/message/{postId}")
-    public Optional<LikeCountDTO> findByUserIdAndMessageId(@PathVariable UUID userId, @PathVariable Long postId) {
-        return likeCountService.findByUserIdAndMessageId(userId, postId);
+    @GetMapping("/message/{postId}")
+    public Optional<LikeCountDTO> findByUserIdAndMessageId(@PathVariable Long postId) {
+        return likeCountService.findByUserIdAndMessageId(postId);
     }
 
     @PostMapping

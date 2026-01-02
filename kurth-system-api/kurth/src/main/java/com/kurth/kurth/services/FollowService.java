@@ -40,9 +40,8 @@ public class FollowService {
             User userFollowing = userRepository.findById(followDTO.getUserFollowing().getId()).orElseThrow(() -> new ResourceNotFoundException("ID not found: " + followDTO.getUserFollower().getId()));
 
             Optional<Follow> alreadyFollow = followRepository.findByUserFollowerIdAndUserFollowingId(userFollower.getId()   , userFollowing.getId());
-            if (alreadyFollow.isPresent()) { // is this really necessary? can't i just validate in front?
-                removeFollow(alreadyFollow.get().getId()); // todo: remove this and update code in front
-                System.out.println("passou aquiiiIIIIIIIIII");
+            if (alreadyFollow.isPresent()) {
+                removeFollow(alreadyFollow.get().getId());
                 return null;
             }
 

@@ -66,7 +66,7 @@ export default function ProfileContentDetails({ user }: Props) {
         await Follow.followUser(userLoggedIn, userId);
 
         await Follow.increaseUserFollower(userId);
-        await Follow.increaseUserFollowing(userLoggedIn);
+        await Follow.increaseUserFollowing();
 
         // atualizar o número de seguidores -> updtate numbers of followers
         setFollowers((prevFollowers) => prevFollowers + 1);
@@ -77,7 +77,7 @@ export default function ProfileContentDetails({ user }: Props) {
 
         // Deixar de seguir usuário -> unfollow user
         await Follow.decreaseUserFollower(userId);
-        await Follow.decreaseUserFollowing(userLoggedIn);
+        await Follow.decreaseUserFollowing();
 
         if (response.data.id) {
           await Follow.removeFollow(response.data.id);
@@ -133,7 +133,6 @@ export default function ProfileContentDetails({ user }: Props) {
 
     console.log("Form submitted with data:", userData);
     await UserService.updateUser(
-      userId,
       userData.username,
       userData.bio,
       userData.avatar
