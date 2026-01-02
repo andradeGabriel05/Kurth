@@ -8,6 +8,7 @@ import java.time.Instant;
 public record FeedPostDTO(
         Long id,
         String message,
+        String image,
         Instant postedAt,
         Integer likeCount,
 

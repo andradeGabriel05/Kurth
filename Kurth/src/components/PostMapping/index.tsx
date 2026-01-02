@@ -23,13 +23,6 @@ export default function PostMapping(
     console.log("PostMapping - messagePage:", messagePage);
   }, [post, reply, messagePage]);
 
-  useEffect(() => {
-    if (post.parent === undefined && !reply) {
-      console.error("Post is undefined or null");
-      return;
-    }
-  }, [post, reply]);
-
   return (
     <>
       {post.map((post: PostDTO, idx: number) => (
@@ -39,18 +32,18 @@ export default function PostMapping(
             className="message-link"
           >
             <MessagePosted post={post} onDelete={onDelete} />
-            {post.parent === undefined && post.reply ? (
+            {post.reply && post.reply.replyId === null ? (
               <span className="reply-message reply-message-undefined">
                 This post has been deleted
               </span>
-            ) : post.parent && reply && !messagePage ? (
+            ) : post.message && post.reply?.message && !messagePage ? (
               <Link
-                to={`/${post.user.username}/posts/${post.parent.id}`}
+                to={`/${post.user.username}/posts/${post.reply?.replyId}`}
                 className="reply-message"
-                key={`parent-${post.parent.id}`}
+                key={`parent-${post.reply?.replyId}`}
               >
                 <MessagePosted
-                  post={post.parent}
+                  post={post.reply}
                   reply={reply}
                   onDelete={onDelete}
                 />

@@ -23,6 +23,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 SELECT new com.kurth.kurth.dto.feed.FeedPostDTO(
     p.id,
     p.message,
+    p.image,
     p.postedAt,
     p.likeCount,
 
@@ -31,6 +32,8 @@ SELECT new com.kurth.kurth.dto.feed.FeedPostDTO(
     new com.kurth.kurth.dto.feed.FeedReplyDTO(
         reply.id,
         reply.message,
+        reply.image,
+        reply.postedAt,
         new com.kurth.kurth.dto.feed.FeedUserDTO(replyUser.name, replyUser.username, replyUser.avatar)
     ),
 

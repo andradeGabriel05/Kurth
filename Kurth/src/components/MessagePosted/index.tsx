@@ -20,6 +20,7 @@ export default function MessagePosted({
   reply = false,
   onDelete,
 }: Props) {
+
   const [showImage, setShowImage] = useState<boolean>(false);
   const userId: string = localStorage.getItem("user_id") || "";
 
@@ -35,6 +36,7 @@ export default function MessagePosted({
     const formattedDate = formatDate(post?.postedAt);
     setDate(formattedDate);
   }, [post?.postedAt]);
+
 
   const [showDeleteMessage, setShowDeleteMessage] = useState<boolean>(false);
 
@@ -125,9 +127,9 @@ export default function MessagePosted({
           <div className="user__image">
             <Link to={`/profile/${post?.user.username}`}>
               <img
-                src={
-                  post?.user.avatar.includes("https")
-                    ? post?.user.avatar
+                src={post &&
+                  post.user.avatar.includes("https")
+                    ? post.user.avatar
                     : `http://localhost:8080/${post.user.avatar}`
                 }
                 alt=""
@@ -168,7 +170,7 @@ export default function MessagePosted({
                   </span>
                   {showOptions && (
                     <div className="options__box">
-                      {post.user.id === userId ? (
+                      {post.user.id !== userId ? (
                         <>
                           <span onClick={(event) => handleEdit(event)}>
                             Edit
