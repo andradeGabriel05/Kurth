@@ -5,6 +5,23 @@
   flex-direction: column;
   padding-bottom: 20px;
 
+
+  .repost__indicator {
+    svg {
+      color: #2f2f2f;
+      font-size: 1.3rem;
+    }
+    span {
+      margin-left: 70px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      color: #2f2f2f;
+      font-size: .9rem;
+
+    }
+  }
+
   .user-wrapper {
     display: flex;
 
@@ -64,6 +81,7 @@
         }
         .routes__profile {
           display: flex;
+          flex-direction: column;
         }
       }
     }

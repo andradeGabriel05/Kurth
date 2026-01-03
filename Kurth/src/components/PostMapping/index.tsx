@@ -17,12 +17,6 @@ export default function PostMapping(
   reply: boolean
 ) {
 
-  useEffect(() => {
-    console.log("PostMapping - post:", post);
-    console.log("PostMapping - reply:", reply);
-    console.log("PostMapping - messagePage:", messagePage);
-  }, [post, reply, messagePage]);
-
   return (
     <>
       {post.map((post: PostDTO, idx: number) => (
@@ -36,7 +30,8 @@ export default function PostMapping(
               <span className="reply-message reply-message-undefined">
                 This post has been deleted
               </span>
-            ) : post.message && post.reply?.message && !messagePage ? (
+            ) : 
+            post.message && post.reply?.message && !messagePage && (
               <Link
                 to={`/${post.user.username}/posts/${post.reply?.replyId}`}
                 className="reply-message"
@@ -48,7 +43,7 @@ export default function PostMapping(
                   onDelete={onDelete}
                 />
               </Link>
-            ) : null}
+            )}
             <Reaction message={post} />
           </Link>
         </div>

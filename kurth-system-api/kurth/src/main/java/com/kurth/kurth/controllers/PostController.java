@@ -2,6 +2,7 @@ package com.kurth.kurth.controllers;
 
 import com.kurth.kurth.dto.feed.FeedPostDTO;
 import com.kurth.kurth.dto.PostDTO;
+import com.kurth.kurth.entities.Post;
 import com.kurth.kurth.services.PostService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,6 +66,14 @@ public class PostController {
     @PostMapping
     public ResponseEntity<PostDTO> insert(@Valid  @RequestBody PostDTO postDTO) {
         postDTO = postService.newMessage(postDTO);
+
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(postDTO.getId()).toUri();
+        return ResponseEntity.created(uri).body(postDTO);
+    }
+
+    @PostMapping("/repost/{id}")
+    public ResponseEntity<PostDTO> repost(@PathVariable Long id) {
+        PostDTO postDTO = postService.repost(id);
 
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(postDTO.getId()).toUri();
         return ResponseEntity.created(uri).body(postDTO);

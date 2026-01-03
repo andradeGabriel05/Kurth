@@ -99,7 +99,3 @@ INSERT INTO tb_post (message, posted_at, image, like_count, user_id, reply_of_id
 INSERT INTO tb_post (message, posted_at, image, like_count, user_id, reply_of_id, repost_of_id) VALUES ('Tirei o dia pra estudar, mas o café acabou. Triste fim.', TIMESTAMP WITH TIME ZONE '2025-07-19T16:00:00Z', NULL, 0,'b7801ae5-debf-4243-bb03-1d0b53293bb1', NULL, NULL);
 
 INSERT INTO tb_post (message, posted_at, image, like_count, user_id, reply_of_id, repost_of_id) VALUES ('Qual foi o melhor livro que você leu esse ano?', TIMESTAMP WITH TIME ZONE '2025-07-19T17:50:00Z', NULL, 0,'d338db70-7c79-4f91-9e5a-975c945e29ec', NULL, NULL);
-
-INSERT INTO tb_post (message, posted_at, image, like_count, user_id, reply_of_id, repost_of_id) VALUES ('Eu diria que não...', TIMESTAMP WITH TIME ZONE '2025-07-20T10:00:00Z', NULL, 0,'bc7c253e-1c46-4a24-86ae-58c6a59cd860', NULL, 1);
-
-INSERT INTO tb_post (message, posted_at, image, like_count, user_id, reply_of_id, repost_of_id) VALUES ('Isso aqui é MUITO importante!', TIMESTAMP WITH TIME ZONE '2025-07-20T11:00:00Z', NULL, 0,'85195178-f5f3-4a09-9b43-7733f2ef7d46', NULL, 1);

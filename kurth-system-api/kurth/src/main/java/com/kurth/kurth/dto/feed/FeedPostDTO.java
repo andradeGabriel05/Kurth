@@ -14,7 +14,5 @@ public record FeedPostDTO(
 
         FeedUserDTO user,
 
-        FeedReplyDTO reply,
-
-        FeedRepostDTO repost
+        FeedReplyDTO reply
 ) {}

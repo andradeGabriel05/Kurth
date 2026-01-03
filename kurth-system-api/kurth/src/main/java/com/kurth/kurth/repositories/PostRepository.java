@@ -16,7 +16,12 @@ import java.util.UUID;
 
 @Repository
 public interface PostRepository extends JpaRepository<Post, Long> {
-    @Query("SELECT obj FROM Post obj WHERE obj.user.username = :username")
+    @Query("""
+    SELECT obj
+    FROM Post obj
+    LEFT JOIN Post repost ON obj.repostOfId = repost.id
+    WHERE obj.user.username = :username
+""")
     Page<Post> findAllUserMessages(String username, Pageable pageable);
 
     @Query("""
@@ -35,12 +40,6 @@ SELECT new com.kurth.kurth.dto.feed.FeedPostDTO(
         reply.image,
         reply.postedAt,
         new com.kurth.kurth.dto.feed.FeedUserDTO(replyUser.name, replyUser.username, replyUser.avatar)
-    ),
-
-    new com.kurth.kurth.dto.feed.FeedRepostDTO(
-        repost.id,
-        repost.message,
-        new com.kurth.kurth.dto.feed.FeedUserDTO(repostUser.name, repostUser.username, repostUser.avatar)
     )
 )
 FROM Post p
@@ -48,9 +47,6 @@ JOIN p.user u
 
 LEFT JOIN Post reply ON reply.id = p.replyOfId
 LEFT JOIN reply.user replyUser
-
-LEFT JOIN Post repost ON repost.id = p.repostOfId
-LEFT JOIN repost.user repostUser
 """)
     Page<FeedPostDTO> getFeed(Pageable pageable);
 

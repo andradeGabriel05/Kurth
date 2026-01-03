@@ -28,8 +28,7 @@ export function postReply(message: string, parentId: number) {
       message,
       postedAt: currentDate,
       likeCount: 0,
-      parent: { id: parentId },
-      isReply: true,
+      replyOfId: parentId,
     },
     {
       withCredentials: true,
@@ -159,4 +158,14 @@ export function deleteMessage(id: number) {
   return axios.delete(`${BASE_URL}/message/${id}`, {
     withCredentials: true,
   });
+}
+
+export function repost(messageId: number) {
+  return axios.post(
+    `${BASE_URL}/message/repost/${messageId}`,
+    {},
+    {
+      withCredentials: true,
+    }
+  );
 }

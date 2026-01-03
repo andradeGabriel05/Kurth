@@ -7,6 +7,7 @@ import { BASE_URL } from "../../utils/system";
 
 import * as messageService from "../../constants/message";
 import { PiDotsThree } from "react-icons/pi";
+import { BiRefresh } from "react-icons/bi";
 
 type Props = {
   post: PostDTO;
@@ -109,11 +110,11 @@ export default function MessagePosted({
 
   function handleMaximizeImage(event: React.MouseEvent<HTMLDivElement>) {
     event.preventDefault();
-    setShowMaximizedImage(true); 
+    setShowMaximizedImage(true);
   }
 
   useEffect(() => {
-    if(showMaximizedImage) {
+    if (showMaximizedImage) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'auto';
@@ -123,14 +124,23 @@ export default function MessagePosted({
   return (
     <>
       <div className={`${reply ? "reply " : ""}form__message__posted p18`}>
+          {post?.repostOfId !== null &&
+            <div className="repost__indicator">
+              <Link
+                to={`/profile/${post?.user.username}`}
+                className="route__element"
+              >
+                <span><BiRefresh /> You reposted</span>
+              </Link>
+            </div>}
         <div className="user-wrapper">
           <div className="user__image">
             <Link to={`/profile/${post?.user.username}`}>
               <img
                 src={post &&
                   post.user.avatar.includes("https")
-                    ? post.user.avatar
-                    : `http://localhost:8080/${post.user.avatar}`
+                  ? post.user.avatar
+                  : `http://localhost:8080/${post.user.avatar}`
                 }
                 alt=""
                 className="icon"
@@ -140,24 +150,18 @@ export default function MessagePosted({
           <div className="user__details">
             <div className="wrapper__post__details">
               <div className="routes__profile">
-                <div className="post__details">
-                  <Link
-                    to={`/profile/${post?.user.username}`}
-                    className="route__element"
-                  >
-                    <span>{post?.user.name}</span>
-                  </Link>
-                </div>
-                <div className="post__details">
-                  <Link
-                    to={`/profile/${post?.user.username}`}
-                    className="route__element"
-                  >
-                    <span className="username">@{post?.user.username}</span>
-                  </Link>
-                </div>
-                <div className="post__details">
-                  <span className="messagedate">{date}</span>
+                <div className="wrapper__post__details">
+                  <div className="post__details">
+                    <Link
+                      to={`/profile/${post?.user.username}`}
+                      className="route__element"
+                    >
+                      <span className="username">@{post?.user.username}</span>
+                    </Link>
+                  </div>
+                  <div className="post__details">
+                    <span className="messagedate">{date}</span>
+                  </div>
                 </div>
               </div>
               {!reply && (
@@ -166,7 +170,7 @@ export default function MessagePosted({
                     className="edit__button"
                     onClick={(event) => handleOpenOptions(event)}
                   >
-                    <PiDotsThree size={32} fontSizeAdjust={32}/>
+                    <PiDotsThree size={32} fontSizeAdjust={32} />
                   </span>
                   {showOptions && (
                     <div className="options__box">

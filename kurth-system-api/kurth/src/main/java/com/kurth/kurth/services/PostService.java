@@ -105,6 +105,24 @@ public class PostService {
     }
 
     @Transactional
+    public PostDTO repost(Long id) {
+        try {
+            Post post = postRepository.getReferenceById(id);
+
+            User user = userService.authenticated();
+
+            post.setRepostOfId(id);
+            post.setPostedAt(Instant.now());
+            post.setUser(user);
+
+            post = postRepository.save(post);
+            return new PostDTO(post);
+        } catch (DataIntegrityViolationException e) {
+            throw new DatabaseException("[Service] Integrity violation: User may not exist");
+        }
+    }
+
+    @Transactional
     public String saveImage(MultipartFile file) throws IOException {
         String filename = UUID.randomUUID() + "-" + file.getOriginalFilename();
         Path dir = Paths.get("uploads");

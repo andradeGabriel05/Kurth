@@ -67,6 +67,15 @@ export default function Reaction({ message }: Props) {
     console.log("Like button clicked");
   }
 
+  function handleRepost(event: React.MouseEvent<HTMLDivElement>) {
+    event?.preventDefault();
+
+    MessageService.repost(messageId).then(() => {
+      console.log("Repost successful");
+    }).catch((e) => {
+      console.error("Error during repost:", e.response.data);
+    });
+  }
   function handleReplyButton() {
     //navigate to reply page
     navigate(`/${message.user.username}/posts/${message.id}`);
@@ -77,6 +86,7 @@ export default function Reaction({ message }: Props) {
     console.error("Message not found");
     return false;
   }
+
 
   function checkMessageLike(messageId: number) {
     // Check if the user has already liked the message
@@ -106,7 +116,7 @@ export default function Reaction({ message }: Props) {
         <FaHeart className={`like__count__icon ${isLiked ? "liked" : ""}`} />
         <span className="like__count">{likeCount}</span>
       </div>
-      <div className="reaction__share reaction__icon">
+      <div className="reaction__share reaction__icon" onClick={(event) => handleRepost(event)}>
         <FaShareSquare />
       </div>
     </div>
