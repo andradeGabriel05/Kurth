@@ -20,6 +20,8 @@ export default function MessagePage() {
 
   let messageId = Number(params.messageId);
 
+  
+
   useEffect(() => {
     messageId = Number(params.messageId);
     console.log("Message ID:", messageId);

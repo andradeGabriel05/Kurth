@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import org.hibernate.type.descriptor.jdbc.TinyIntJdbcType;
 
 import java.time.Instant;
+import java.util.List;
 
 @Entity
 @Table(name = "tb_post", indexes = {
@@ -29,24 +30,23 @@ public class Post {
 
     private Long replyOfId;
 
-    private Long repostOfId;
+    @OneToMany(mappedBy = "repostOf")
+    private List<Repost> reposts;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
-
-
     public Post() {}
 
-    public Post(Long id, String message, Instant postedAt, String image, Integer likeCount, Long replyOfId, Long repostOfId, User user) {
+    public Post(Long id, String message, Instant postedAt, String image, Integer likeCount, Long replyOfId, List<Repost> reposts, User user) {
         this.id = id;
         this.message = message;
         this.postedAt = postedAt;
         this.image = image;
         this.likeCount = likeCount;
         this.replyOfId = replyOfId;
-        this.repostOfId = repostOfId;
+        this.reposts = reposts;
         this.user = user;
     }
 
@@ -102,11 +102,11 @@ public class Post {
         this.replyOfId = replyOfId;
     }
 
-    public Long getRepostOfId() {
-        return repostOfId;
+    public List<Repost> getReposts() {
+        return reposts;
     }
 
-    public void setRepostOfId(Long repostOfId) {
-        this.repostOfId = repostOfId;
+    public void setReposts(List<Repost> reposts) {
+        this.reposts = reposts;
     }
 }

@@ -26,16 +26,16 @@ export default function PostMapping(
             className="message-link"
           >
             <MessagePosted post={post} onDelete={onDelete} />
-            {post.reply && post.reply.replyId === null ? (
+            {post.reply && post.reply.id === null ? (
               <span className="reply-message reply-message-undefined">
                 This post has been deleted
               </span>
             ) : 
             post.message && post.reply?.message && !messagePage && (
               <Link
-                to={`/${post.user.username}/posts/${post.reply?.replyId}`}
+                to={`/${post.user.username}/posts/${post.reply?.id}`}
                 className="reply-message"
-                key={`parent-${post.reply?.replyId}`}
+                key={`parent-${post.reply?.id}`}
               >
                 <MessagePosted
                   post={post.reply}

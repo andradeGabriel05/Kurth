@@ -19,7 +19,6 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     @Query("""
     SELECT obj
     FROM Post obj
-    LEFT JOIN Post repost ON obj.repostOfId = repost.id
     WHERE obj.user.username = :username
 """)
     Page<Post> findAllUserMessages(String username, Pageable pageable);

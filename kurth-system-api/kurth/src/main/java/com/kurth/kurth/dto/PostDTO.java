@@ -2,10 +2,12 @@ package com.kurth.kurth.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.kurth.kurth.entities.Post;
+import com.kurth.kurth.entities.Repost;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 import java.time.Instant;
+import java.util.List;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PostDTO {
@@ -24,18 +26,18 @@ public class PostDTO {
 
     private Long replyOfId;
 
-    private Long repostOfId;
+    private List<Repost> reposts;
 
     private UserDTO user;
 
-    public PostDTO(String message, Instant postedAt, String image, Integer likeCount, Long replyOfId, Long repostOfId, UserDTO user) {
-        this.message = message;
-        this.postedAt = postedAt;
-        this.image = image;
-        this.likeCount = likeCount;
-        this.replyOfId = replyOfId;
-        this.repostOfId = repostOfId;
+    public PostDTO(UserDTO user, List<Repost> reposts, Long replyOfId, Integer likeCount, String image, Instant postedAt, String message) {
         this.user = user;
+        this.reposts = reposts;
+        this.replyOfId = replyOfId;
+        this.likeCount = likeCount;
+        this.image = image;
+        this.postedAt = postedAt;
+        this.message = message;
     }
 
     public PostDTO(Post post) {
@@ -48,10 +50,6 @@ public class PostDTO {
 
         if (post.getReplyOfId() != null) {
             this.replyOfId = post.getReplyOfId();
-        }
-
-        if (post.getRepostOfId() != null) {
-            this.repostOfId = post.getRepostOfId();
         }
     }
 
@@ -83,7 +81,7 @@ public class PostDTO {
         return replyOfId;
     }
 
-    public Long getRepostOfId() {
-        return repostOfId;
+    public List<Repost> getReposts() {
+        return reposts;
     }
 }

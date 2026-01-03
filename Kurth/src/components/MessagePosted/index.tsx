@@ -124,7 +124,7 @@ export default function MessagePosted({
   return (
     <>
       <div className={`${reply ? "reply " : ""}form__message__posted p18`}>
-          {post?.repostOfId !== null &&
+          {/* {post?.repostOfId !== null &&
             <div className="repost__indicator">
               <Link
                 to={`/profile/${post?.user.username}`}
@@ -132,7 +132,7 @@ export default function MessagePosted({
               >
                 <span><BiRefresh /> You reposted</span>
               </Link>
-            </div>}
+            </div>} */}
         <div className="user-wrapper">
           <div className="user__image">
             <Link to={`/profile/${post?.user.username}`}>

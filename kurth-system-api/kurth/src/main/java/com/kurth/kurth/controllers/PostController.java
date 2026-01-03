@@ -1,5 +1,6 @@
 package com.kurth.kurth.controllers;
 
+import com.kurth.kurth.dto.RepostDTO;
 import com.kurth.kurth.dto.feed.FeedPostDTO;
 import com.kurth.kurth.dto.PostDTO;
 import com.kurth.kurth.entities.Post;
@@ -72,11 +73,11 @@ public class PostController {
     }
 
     @PostMapping("/repost/{id}")
-    public ResponseEntity<PostDTO> repost(@PathVariable Long id) {
-        PostDTO postDTO = postService.repost(id);
+    public ResponseEntity<RepostDTO> repost(@PathVariable Long id) {
+        RepostDTO repost = postService.repost(id);
 
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(postDTO.getId()).toUri();
-        return ResponseEntity.created(uri).body(postDTO);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(repost.getId()).toUri();
+        return ResponseEntity.created(uri).body(repost);
     }
 
     @PostMapping("/upload-image")

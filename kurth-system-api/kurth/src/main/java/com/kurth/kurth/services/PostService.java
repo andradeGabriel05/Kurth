@@ -1,12 +1,15 @@
 package com.kurth.kurth.services;
 
+import com.kurth.kurth.dto.RepostDTO;
 import com.kurth.kurth.dto.feed.FeedPostDTO;
 import com.kurth.kurth.dto.PostDTO;
 import com.kurth.kurth.entities.LikeCount;
 import com.kurth.kurth.entities.Post;
+import com.kurth.kurth.entities.Repost;
 import com.kurth.kurth.entities.User;
 import com.kurth.kurth.repositories.LikeCountRepository;
 import com.kurth.kurth.repositories.PostRepository;
+import com.kurth.kurth.repositories.RepostRepository;
 import com.kurth.kurth.repositories.UserRepository;
 import com.kurth.kurth.services.exceptions.DatabaseException;
 import com.kurth.kurth.services.exceptions.ResourceNotFoundException;
@@ -40,11 +43,13 @@ public class PostService {
     private LikeCountRepository likeCountRepository;
     @Autowired
     private UserService userService;
+    @Autowired
+    private RepostRepository repostRepository;
 
     @Transactional(readOnly = true)
     public Page<PostDTO> findAllUserMessages(String username, Pageable pageable) {
         Page<Post> messages = postRepository.findAllUserMessages(username, pageable);
-        return messages.map(x -> new PostDTO(x));
+        return messages.map(PostDTO::new);
     }
 
     @Transactional(readOnly = true)
@@ -91,10 +96,6 @@ public class PostService {
                 post.setReplyOfId(postDTO.getReplyOfId());
             }
 
-            if(postDTO.getRepostOfId() != null) {
-                post.setRepostOfId(postDTO.getRepostOfId());
-            }
-
             post.setUser(user);
             post.setPostedAt(Instant.now());
             post = postRepository.save(post);
@@ -105,18 +106,20 @@ public class PostService {
     }
 
     @Transactional
-    public PostDTO repost(Long id) {
+    public RepostDTO repost(Long id) {
         try {
             Post post = postRepository.getReferenceById(id);
 
+            Repost repost = new Repost();
+            repost.setRepostOf(post);
+            repost.setRepostedAt(Instant.now());
+
             User user = userService.authenticated();
+            repost.setUser(user);
 
-            post.setRepostOfId(id);
-            post.setPostedAt(Instant.now());
-            post.setUser(user);
+            repostRepository.save(repost);
 
-            post = postRepository.save(post);
-            return new PostDTO(post);
+            return new RepostDTO(post);
         } catch (DataIntegrityViolationException e) {
             throw new DatabaseException("[Service] Integrity violation: User may not exist");
         }
